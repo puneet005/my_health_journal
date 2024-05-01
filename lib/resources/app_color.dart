@@ -8,6 +8,7 @@ class AppColors {
   static const secondaryColor = Color(0xff334A69);
   static const blackColor = Color(0xff000000);
   static const appColor = Color(0xff139491);
+   static const appColor2 = Color(0xffD8F2F1);
 
   
   static const whiteColor = Color(0xffFFFFFF);
@@ -27,6 +28,8 @@ class AppColors {
   static const greyColor2 = Color(0xff757575);
   static const greyColor3 = Color(0xffEDEDED);
   static const greyColor4 = Color(0xff9C9C9C);
+  static const greyColor5 = Color(0xff848484);
+  
   
   
   
@@ -42,12 +45,13 @@ static const orangeColor3 = Color(0xffF3A095);
 static const orangeColor4 = Color(0xffFEB3AC);
 static const lightGreenColor = Color(0xff37C9BC);
 static const blueColor = Color(0xff002C53);
-static const brownColor = Color(0xffA48278);
+static const brownColor = Color(0xff9C9E9E);
     // helpdesk
 static const helpDeskColor = Color(0xff747272);
 static const helpDeskColor2 = Color(0xff538FE1);
 static const bottomNavColor = Color(0xff131325);
-static const dotBorderColor = Color(0xffCFCFCF);
+// static const dotBorderColor = Color(0xffCFCFCF);
+static const dotBorderColor = Color(0xff131325);
   // static const whiteColor = Color(0xffFFFFFF);
 static const txtFieldBorderColor = Color(0xffBEBEBE);
   // static const lightPinkColor = Color(0xffF7EBFF);

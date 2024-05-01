@@ -97,7 +97,7 @@ Text addLightTxt(String text,
     textAlign: textAlign,
     style: TextStyle(
       fontSize: fontSize?.sp ?? 12.sp,
-      fontWeight: FontWeight.w300,
+      fontWeight: FontWeight.w200,
       color: color ?? AppColors.blackColor,
     ),
   );
@@ -202,9 +202,7 @@ RichText richText(String? text1, text2,
     text: TextSpan(
       text: text1,
       style: TextStyle(
-        fontSize: fontSize1 ?? 14.sp,
-        // color: textColor1??AppColors.blackColor,
-        // fontFamily: 'Ubuntu'
+        fontSize: fontSize1 ?? 14.sp,   
       ),
       children: [
         TextSpan(

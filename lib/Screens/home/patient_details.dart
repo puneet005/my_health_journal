@@ -89,7 +89,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        addHeight(30),
+                        addHeight(30.h),
                         // Spacer(),
                           Padding(
                           padding:  EdgeInsets.symmetric(horizontal: 10.h),
@@ -106,8 +106,15 @@ class _PatientDetailsState extends State<PatientDetails> {
                                       ),
                                       
                                     ),
-                                    Spacer(),
-                                    Row(
+                                    // Spacer(),
+                                   Container(
+                                    // color: AppColors.appColor2,
+                                    height: Get.height/ 3.5,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Spacer(flex: 3,),
+                                         Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                       addHeadingTxtMedium("Tom Johnson", fontSize: 22.sp, color: AppColors.whiteColor, fontFamily: "Montserrat-semibold")
@@ -117,7 +124,8 @@ class _PatientDetailsState extends State<PatientDetails> {
                                       children: [
                                       addHeadingTxtMedium("Myself", fontSize: 16.sp, color: AppColors.whiteColor, fontFamily: "Montserrat-light")
                                     ],),
-                                    addHeight(10),
+                                    Spacer(), 
+                                    addHeight(10),                                                                   
                                      GestureDetector(
                                       onTap: (){
                                         // Get.back();
@@ -146,6 +154,11 @@ class _PatientDetailsState extends State<PatientDetails> {
                                         ),
                                        ),
                                      ),
+                                     
+                                     Spacer(),
+                                      ],
+                                    ),
+                                   ),
 
                            addHeight(30),
                           Padding(
@@ -179,7 +192,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                             ),
                           ),
                           Container(
-                              height: Get.height/2.5,
+                              height: Get.height/2.8,
                               child: ListView(
                                 padding: EdgeInsets.zero,
                                 children: List.generate(ctrl.listofCatagory[ctrl.listofCatagoryIndex]['item'].length, (index) => Padding(
@@ -221,6 +234,9 @@ class _PatientDetailsState extends State<PatientDetails> {
                                 Get.toNamed(AppRoutes.addMedications);
                               else if(ctrl.listofCatagoryIndex == 2)
                                 Get.toNamed(AppRoutes.addProcedures);
+                              else{
+                                 Get.toNamed(AppRoutes.addTestScan);
+                              }
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

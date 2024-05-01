@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 import 'package:my_health_journal/controllers/bottom_bar_controller.dart';
+import 'package:my_health_journal/controllers/calendar_controller.dart';
 import 'package:my_health_journal/controllers/home_controller.dart';
 import 'package:my_health_journal/controllers/login_controller.dart';
+import 'package:my_health_journal/controllers/medical_summary_controller.dart';
+import 'package:my_health_journal/controllers/profile_controller.dart';
 import 'package:my_health_journal/controllers/signUp_controller.dart';
 import 'package:my_health_journal/controllers/splash_controller.dart';
 
@@ -14,9 +17,9 @@ Future<void> init() async{
   // Get.lazyPut<PayRollFlowChartController>(() => PayRollFlowChartController(), fenix: true);
   Get.lazyPut<BottomBarController>(() => BottomBarController(), fenix: true);
   Get.put(HomeController());
-  // Get.put(YourItemsController());
-  // Get.put(RecruitingController()); 
-  // Get.put(ProfileController());
+  Get.put(MedicalSummaryController());
+  Get.put(CalendarContorller()); 
+  Get.put(ProfileContorller());
   // Get.put(CartController());
   // Get.lazyPut<DiscoverController>(() => DiscoverController(), fenix: true);
   // // Get.lazyPut<CartController>(() => CartController(), fenix: true);

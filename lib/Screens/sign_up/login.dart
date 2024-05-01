@@ -42,7 +42,7 @@ class _LoginState extends State<Login> {
            width: double.infinity,
               height: deviceHeight,
                  decoration: BoxDecoration(            
-            image: DecorationImage(image: AssetImage(AppAssets.bgImg),
+            image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
             fit: BoxFit.fill
             )
           ),

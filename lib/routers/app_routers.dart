@@ -1,12 +1,21 @@
 
 import 'package:get/get.dart';
+import 'package:my_health_journal/Screens/Calendar/calender_visit.dart';
 import 'package:my_health_journal/Screens/home/add_doctors_visit.dart';
 import 'package:my_health_journal/Screens/home/add_medications.dart';
 import 'package:my_health_journal/Screens/home/add_new_member.dart';
 import 'package:my_health_journal/Screens/home/add_procedures.dart';
+import 'package:my_health_journal/Screens/home/add_provider.dart';
 import 'package:my_health_journal/Screens/home/add_symptoms.dart';
+import 'package:my_health_journal/Screens/home/add_test_scan.dart';
 import 'package:my_health_journal/Screens/home/patient_details.dart';
 import 'package:my_health_journal/Screens/home/share_screen.dart';
+import 'package:my_health_journal/Screens/other/medical_summary.dart';
+import 'package:my_health_journal/Screens/other/medications.dart';
+import 'package:my_health_journal/Screens/other/medications_details.dart';
+import 'package:my_health_journal/Screens/other/notification.dart';
+import 'package:my_health_journal/Screens/profile/premium.dart';
+import 'package:my_health_journal/Screens/profile/setting.dart';
 import 'package:my_health_journal/Screens/sign_up/login.dart';
 import 'package:my_health_journal/Screens/sign_up/sign_up.dart';
 import 'package:my_health_journal/Screens/splash_screen.dart';
@@ -28,12 +37,17 @@ class AppRoutes {
   static String addMedications = '/AddMedications';
   static String addProcedures = '/AddProcedures';
   
-  // static String paymentSuccessScreen = '/paymentSuccessScreen';
-  // static String helpDeskScreen = '/helpDeskScreen';
-  // static String detailScreen = '/DetailScreen';
-  // static String planDetailsScreen = '/PlanDetailsScreen';
-  // static String cmsPagesScreen = '/CMSPagesScreen';
-  // static String subCategoryListScreen = '/SubCategoryListScreen';
+  static String addTestScan = '/AddTestScan';
+  static String medicalSummary = '/MedicalSummary';
+  static String doctorVisit = '/DoctorVisit';
+  static String addProvider = '/AddProvider';
+  static String medications = '/Medications';
+  static String medicationDetails = '/medicationDetails';
+  static String setting = '/setting';
+  static String premium = '/Premium';
+  static String notification = '/Notification';
+  //       static String medicationDetails = '/medicationDetails';
+  //         static String medicationDetails = '/medicationDetails';
   // static String webViewScreen = '/WebViewScreen';
 
 
@@ -98,33 +112,41 @@ class AppRoutes {
       name: AppRoutes.addProcedures,
       page: () => const AddProcedures(),
     ),
-    // GetPage(
-    //   name: AppRoutes.subscriptionScreen,
-    //   page: () => const SubscriptionScreen(),
-    // ),
-    // GetPage(
-    //   name: AppRoutes.cmsPagesScreen,
-    //   page: () => const CMSPagesScreen(),
-    // ),
-    // GetPage(
-    //   name: AppRoutes.subCategoryListScreen,
-    //   page: () => const SubCategoryListScreen(),
-    // ),
-    // GetPage(
-    //   name: AppRoutes.helpDeskScreen,
-    //   page: () => const HelpDeskScreen(),
-    // ),
-    // GetPage(
-    //   name: AppRoutes.detailScreen,
-    //   page: () => const DetailScreen(),
-    // ),
-    //   GetPage(
-    //   name: AppRoutes.planDetailsScreen,
-    //   page: () => const PlanDetailsScreen(),
-    // ),
-    // GetPage(
-    //   name: AppRoutes.webViewScreen,
-    //   page: () => const WebViewScreen(),
-    // ),
+    GetPage(
+      name: AppRoutes.addTestScan,
+      page: () => const AddTestScan(),
+    ),
+    GetPage(
+      name: AppRoutes.medicalSummary,
+      page: () => const MedicalSummary(),
+    ),
+    GetPage(
+      name: AppRoutes.doctorVisit,
+      page: () => const DoctorVisit(),
+    ),
+    GetPage(
+      name: AppRoutes.addProvider,
+      page: () => const AddProvider(),
+    ),
+    GetPage(
+      name: AppRoutes.medications,
+      page: () => const Medications(),
+    ),
+      GetPage(
+      name: AppRoutes.medicationDetails,
+      page: () => const MedicationDetails(),
+    ),
+    GetPage(
+      name: AppRoutes.setting,
+      page: () => const Setting(),
+    ),
+    GetPage(
+      name: AppRoutes.premium,
+      page: () => const Premium(),
+    ),
+      GetPage(
+      name: AppRoutes.notification,
+      page: () => const NotificationScreen(),
+    ),
   ];
 }

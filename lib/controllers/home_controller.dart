@@ -67,11 +67,12 @@ class HomeController extends GetxController {
    late String symptomDocPath = "";
     late String doctorVisitDocPath = "";
     // Add Medication
-     late String medicationType = "";
+    late String medicationType = "";
     late String medicationTime = "";
     bool medicationNotify = false;
-     late String medicationDocPath = "";
-
+    late String medicationDocPath = "";
+    bool  prescriptionType = false;
+    bool  overTheCounterType = false;
 
     //  Add Procedures
 
@@ -79,6 +80,10 @@ class HomeController extends GetxController {
       TextEditingController commentText = TextEditingController();
       List commentList = [];
       
+    // Add Test Scan
+      late String testScanDocPath = "";
+      TextEditingController testScancommentText = TextEditingController();
+      List testScancommentList = [];
 
 
   Future<XFile?> getImage() async {

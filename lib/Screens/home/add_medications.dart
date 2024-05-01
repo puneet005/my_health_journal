@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,6 +25,14 @@ class AddMedications extends StatefulWidget {
 
 class _AddMedicationsState extends State<AddMedications> {
   final controller = Get.find<HomeController>();
+  final List<String> items = [
+  'Syringe',
+  'Pill',
+  'Chewable',
+  'Liquid',
+  'etc',
+];
+String? selectedValue;
   @override
   Widget build(BuildContext context) {
      return Scaffold(
@@ -59,45 +68,132 @@ class _AddMedicationsState extends State<AddMedications> {
                         labelText:  "Dosage",
                         
                       ),
-                       addHeight(20),
-                       Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          InkWell(
+                       addHeight(10),
+                       Padding(
+                            padding:  EdgeInsets.only(
+                              top: 10.h
+                            ),
                             child: Container(
-                              child: Row(children: [
-                                InkWell(
-                                  onTap: (){
-                                    log("Log");
-                                    
-                                     controller.medicationType = "Prescription";
-                                    controller.update();
-                                    log(controller.medicationType);
-                                  },
-                                  child:controller.medicationType == 'Prescription' ? SvgPicture.asset( AppAssets.circleBoxIcon):  SvgPicture.asset( AppAssets.circleBoxFilledIcon)),
-                                addWidth(10),
-                                addHeadingTxtMedium("Prescription",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
-                              ]),
+                              width: Get.width,
+                              height: 50.h,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppColors.blackColor2
+                            ),
+                          borderRadius: BorderRadius.circular(10),
+                          // color: AppColors.whiteColor
+                        ),
+                        child: DropdownButtonHideUnderline(
+                            child: DropdownButton2<String>(
+                              isExpanded: true,
+                              hint: const Text(
+                                'Dosage Form',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: AppColors.blackColor,
+                                ),
+                              ),
+                              iconStyleData: IconStyleData(
+                                icon: SvgPicture.asset(AppAssets.dropDownIcon)
+                              ),
+                              items: items
+                                  .map((String item) => DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(
+                            item,
+                            style: const TextStyle(
+                              fontSize: 14,
                             ),
                           ),
-                          addWidth(20),
-                           Container(
-                            child: Row(children: [
-                              InkWell(
-                                onTap: (){
-                                 controller.medicationType = "Over the Counter";
-                                    controller.update();
-                                     log(controller.medicationType);
-                                },
-                                child: controller.medicationType == "Over the Counter" ? SvgPicture.asset( AppAssets.circleBoxIcon):  SvgPicture.asset( AppAssets.circleBoxFilledIcon) ),
-                              addWidth(10),
-                              addHeadingTxtMedium("Over the Counter", fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
-                            ]),
+                        ))
+                                  .toList(),
+                              value: selectedValue,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  selectedValue = value;
+                                });
+                              },
+                              buttonStyleData: const ButtonStyleData(
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                               
+                                height: 40,
+                                width: 140,          
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                
+                                // overlayColor:,
+                                height: 40,
+                              ),
+                            ),
                           ),
-                        
-                      
+                      ),
+                    ),
+                       addHeight(20),
+                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                           addHeadingTxtMedium("Prescription",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                           CupertinoSwitch(value: controller.prescriptionType, 
+                           activeColor: AppColors.appColor,
+                           onChanged: (val){
+                            
+                           controller.prescriptionType = val;
+                           controller.update();
+                           })
                         ],
                        ),
+                         addHeight(10),
+                        Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                           addHeadingTxtMedium("Over the Counter",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                           CupertinoSwitch(value: controller.overTheCounterType, 
+                           activeColor: AppColors.appColor,
+                           onChanged: (val){
+                            
+                           controller.overTheCounterType = val;
+                           controller.update();
+                           })
+                        ],
+                       ),
+                      //  Row(
+                      //   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //   children: [
+                      //     InkWell(
+                      //       child: Container(
+                      //         child: Row(children: [
+                      //           InkWell(
+                      //             onTap: (){
+                      //               log("Log");
+                                    
+                                    //  controller.medicationType = "Prescription";
+                      //               controller.update();
+                      //               log(controller.medicationType);
+                      //             },
+                      //             child:controller.medicationType == 'Prescription' ? SvgPicture.asset( AppAssets.circleBoxIcon):  SvgPicture.asset( AppAssets.circleBoxFilledIcon)),
+                      //           addWidth(10),
+                      //           addHeadingTxtMedium("Prescription",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                      //         ]),
+                      //       ),
+                      //     ),
+                      //     addWidth(20),
+                      //      Container(
+                      //       child: Row(children: [
+                      //         InkWell(
+                      //           onTap: (){
+                      //            controller.medicationType = "Over the Counter";
+                      //               controller.update();
+                      //                log(controller.medicationType);
+                      //           },
+                      //           child: controller.medicationType == "Over the Counter" ? SvgPicture.asset( AppAssets.circleBoxIcon):  SvgPicture.asset( AppAssets.circleBoxFilledIcon) ),
+                      //         addWidth(10),
+                      //         addHeadingTxtMedium("Over the Counter", fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                      //       ]),
+                      //     ),
+                        
+                      
+                      //   ],
+                      //  ),
                          addHeight(20),
                           Row(
                             children: [
@@ -159,6 +255,41 @@ class _AddMedicationsState extends State<AddMedications> {
                         ],
                        ),
                          addHeight(20),
+                           Row(
+                            children: [
+                              addRegularTxt("Duration", fontSize: 12, color: AppColors.greyColor4)
+                            ],
+                          ),
+                          addHeight(20),
+                          
+                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                             
+                             Expanded(
+                               flex: 5,
+                              child: CustomTextField(
+                        labelText:  "Start Date",
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: SvgPicture.asset(AppAssets.calendarIcon),
+                        ),
+                        
+                      ),),
+                      Spacer(),
+                         Expanded(
+                          flex: 5,
+                          child: CustomTextField(
+                        labelText:  "End Date",
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: SvgPicture.asset(AppAssets.calendarIcon),
+                        ),
+                        
+                      ),)
+                            ],
+                          ),
+                          addHeight(20),
                       CustomTextField(
                         labelText:  "Custom",
                         
@@ -173,6 +304,7 @@ class _AddMedicationsState extends State<AddMedications> {
                         
                       ),
                       addHeight(20),
+
                       Row(children: [
                          InkWell(
                                 onTap: (){
@@ -194,11 +326,11 @@ class _AddMedicationsState extends State<AddMedications> {
                         padding: const EdgeInsets.only(top: 4),
                         child: Container(
                            decoration: BoxDecoration(
-                            color: AppColors.whiteColor,
+                            // color: AppColors.whiteColor,
                                         borderRadius: BorderRadius.circular(20),
                                         border: Border.all(
                                           
-                                          color: AppColors.dotBorderColor
+                                          color: AppColors.blackColor2
                                         )
                                         ),
                           child: Padding(
@@ -211,6 +343,7 @@ class _AddMedicationsState extends State<AddMedications> {
                                 const TextField(                              
                                   maxLines: 5,
                                   decoration: InputDecoration(
+                                    hintText: "Add New Comments",
                                     border: InputBorder.none
                                   ),
                                 ),
@@ -221,19 +354,19 @@ class _AddMedicationsState extends State<AddMedications> {
                           ),
                         ),
                       ),
-                       Positioned(
-                          top: -4,
-                          left: 14,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.whiteColor.withOpacity(0.8)
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 6),
-                              child: addRegularTxt("Add New Comments", color: AppColors.blackColor2, fontSize: 13.sp),
-                            ),
-                          ),
-                        )
+                      //  Positioned(
+                      //     top: -4,
+                      //     left: 14,
+                      //     child: Container(
+                      //       decoration: BoxDecoration(
+                      //         color: AppColors.whiteColor.withOpacity(0.8)
+                      //       ),
+                      //       child: Padding(
+                      //         padding: const EdgeInsets.symmetric(horizontal: 6),
+                      //         child: addRegularTxt("Add New Comments", color: AppColors.blackColor2, fontSize: 13.sp),
+                      //       ),
+                      //     ),
+                      //   )
                       
                     ],
                   ),

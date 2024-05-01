@@ -60,6 +60,16 @@ class _AddProceduresState extends State<AddProcedures> {
                         
                       ),
                        addHeight(20),
+                         
+                      CustomTextField(
+                        labelText:  "Date of Procedure",
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: SvgPicture.asset(AppAssets.calendarIcon),
+                        ),
+                        
+                      ),
+                       addHeight(20),
                       
                      
 
@@ -75,7 +85,7 @@ class _AddProceduresState extends State<AddProcedures> {
                                         borderRadius: BorderRadius.circular(20),
                                         border: Border.all(
                                           
-                                          color: AppColors.dotBorderColor
+                                          color: AppColors.blackColor2
                                         )
                                         ),
                           child: Padding(
@@ -89,6 +99,7 @@ class _AddProceduresState extends State<AddProcedures> {
                                   controller: controller.commentText,                       
                                   maxLines: 5,
                                   decoration: InputDecoration(
+                                    hintText: "Add New Comments",
                                     border: InputBorder.none
                                   ),
                                 ),
@@ -126,19 +137,19 @@ class _AddProceduresState extends State<AddProcedures> {
                           ),
                         ),
                       ),
-                       Positioned(
-                          top: -4,
-                          left: 14,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.whiteColor.withOpacity(0.8)
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 6),
-                              child: addRegularTxt("Add New Comments", color: AppColors.blackColor2, fontSize: 13.sp),
-                            ),
-                          ),
-                        )
+                      //  Positioned(
+                      //     top: -4,
+                      //     left: 14,
+                      //     child: Container(
+                      //       decoration: BoxDecoration(
+                      //         color: AppColors.whiteColor.withOpacity(0.8)
+                      //       ),
+                      //       child: Padding(
+                      //         padding: const EdgeInsets.symmetric(horizontal: 6),
+                      //         child: addRegularTxt("Add New Comments", color: AppColors.blackColor2, fontSize: 13.sp),
+                      //       ),
+                      //     ),
+                      //   )
                       
                     ],
                   ),
@@ -208,7 +219,7 @@ class _AddProceduresState extends State<AddProcedures> {
     if(controller.commentList.isEmpty)
     Row(
       children: [
-        addHeadingTxtMedium("Comments:", fontSize: 16, fontFamily: "Montserrat-medium")
+        addHeadingTxtMedium("History:", fontSize: 16, fontFamily: "Montserrat-medium")
       ],
     ),
     if(controller.commentList.isEmpty)

@@ -5,11 +5,12 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:flutter_calendar_carousel/classes/event_list.dart';
+// import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 import 'package:my_health_journal/Screens/widget/appbar.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/common-widgets/custom_textfield.dart';
@@ -18,6 +19,7 @@ import 'package:my_health_journal/resources/app_assets.dart';
 import 'package:my_health_journal/resources/app_color.dart';
 import 'package:my_health_journal/resources/text_utility.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel, WeekdayFormat;
+import 'package:table_calendar/table_calendar.dart';
 
 class AddDoctorsVisit extends StatefulWidget {
   const AddDoctorsVisit({super.key});
@@ -311,47 +313,54 @@ addHeight(20),
   }
 var _currentDate = DateTime.now();
   _Calendarpop(BuildContext context){
-    showDialog(
-      context: context,
+      showDialog(
+                    context: context,
+                    // barrierColor: Colors.transparent,
+                    builder: (BuildContext context) {
+                      return CustomDialog();
+                    },
+                  );
+    // showDialog(
+    //   context: context,
       
-      builder: (_) => AlertDialog(
-        backgroundColor: Colors.transparent,
-        // title: Text('Select a Date'),
-        content:   CustomPaint(
-                  painter:MyShape2(),
-          child: Container(
-            height: MediaQuery.of(context).size.height / 2,
-            width: Get.width / 1.1,
-            child: CalendarCarousel<Event>(
-            //  customWeekDayBuilder:(weekday, weekdayName) {
+    //   builder: (_) => AlertDialog(
+    //     backgroundColor: Colors.transparent,
+    //     // title: Text('Select a Date'),
+    //     content:   CustomPaint(
+    //               painter:MyShape2(),
+    //       child: Container(
+    //         height: MediaQuery.of(context).size.height / 2,
+    //         width: Get.width / 1.1,
+    //         child: CalendarCarousel<Event>(
+    //         //  customWeekDayBuilder:(weekday, weekdayName) {
         
-            //  },
+    //         //  },
             
-            iconColor: AppColors.orangeColor,
-            headerTextStyle: TextStyle(
-              color: AppColors.blackColor,
-              fontSize: 16,
-              fontFamily: "Montserrat-semibold",
-              fontWeight: FontWeight.bold
-            ),          
-            // weekDayPadding: EdgeInsets.all(2.h),  
-              onDayPressed: (DateTime date, List<Event> events) {              
-                setState(() {
-                  _currentDate = date;
-                });
-                Navigator.pop(context); // Close the dialog on date selection
-              },            
-              weekendTextStyle: TextStyle(
-                color: Colors.black,
-              ),
-              thisMonthDayBorderColor: Colors.grey,
-              selectedDateTime: _currentDate, // Set the initially selected date
-            ),
-          ),
-        ),
+    //         iconColor: AppColors.orangeColor,
+    //         headerTextStyle: TextStyle(
+    //           color: AppColors.blackColor,
+    //           fontSize: 16,
+    //           fontFamily: "Montserrat-semibold",
+    //           fontWeight: FontWeight.bold
+    //         ),          
+    //         // weekDayPadding: EdgeInsets.all(2.h),  
+    //           onDayPressed: (DateTime date, List<Event> events) {              
+    //             setState(() {
+    //               _currentDate = date;
+    //             });
+    //             Navigator.pop(context); // Close the dialog on date selection
+    //           },            
+    //           weekendTextStyle: TextStyle(
+    //             color: Colors.black,
+    //           ),
+    //           thisMonthDayBorderColor: Colors.grey,
+    //           selectedDateTime: _currentDate, // Set the initially selected date
+    //         ),
+    //       ),
+    //     ),
        
-      ),
-    );
+    //   ),
+    // );
    
   }
 
@@ -361,71 +370,279 @@ var _currentDate = DateTime.now();
   
 
 }
+     var _currentDate = DateTime.now();
+   DateTime? _targetDateTime = DateTime.now();
+  String _currentMonth = DateFormat.yMMMM().format(DateTime.now());
+// class CustomDialog extends StatefulWidget {
+//   @override
+//   State<CustomDialog> createState() => _CustomDialogState();
+// }
 
-class MyShape2 extends CustomPainter {
+class CustomDialog extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+ 
+    // CalendarFormat _calendarFormat = CalendarFormat.month;
+    // DateTime _focusedDay = DateTime.now();
+    // DateTime? _selectedDay;
+    // final kFirstDay = DateTime(
+    //     DateTime.now().year, DateTime.now().month - 3, DateTime.now().day);
+    // final kLastDay = DateTime(
+    //     DateTime.now().year, DateTime.now().month + 3, DateTime.now().day);
+
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return Container(
+              color: Colors.transparent,
+              child: Stack(
+                alignment: AlignmentDirectional.topCenter,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(top: 15),
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: CustomPaint(
+                      painter: MyShape(),
+                      child: Container(
+                        padding:
+                            const EdgeInsets.only(top: 14, left: 6, right: 6),
+                        // margin: const EdgeInsets.only(top: 10),
+                        alignment: AlignmentDirectional.center,
+                        height: Get.height / 2.2,
+                        
+                        decoration: BoxDecoration(
+                            // color: Colors.white,
+                            border: Border.all(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Column(              
+                   children: [
+                    Padding(
+                      padding:  EdgeInsets.symmetric(
+                        horizontal: 14.h,
+                        vertical: 10.h
+                      ),
+                      child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: (){
+                               setState(() {
+                              _targetDateTime = DateTime(
+                                  _targetDateTime!.year, _targetDateTime!.month - 1);
+                              _currentMonth =
+                                  DateFormat.yMMM().format(_targetDateTime!);
+                            });
+                            },
+                            child: SvgPicture.asset(AppAssets.leftCircleIcon, height: 25.h,)),
+                          addHeadingTxtMedium(_currentMonth, fontSize: 20, fontFamily: "Montserrat-semibold"),
+                          // Spacer(),
+                          
+                          // addWidth(10),
+                          InkWell(
+                            onTap: (){
+                               setState(() {
+                              _targetDateTime = DateTime(
+                                  _targetDateTime!.year, _targetDateTime!.month + 1);
+                              _currentMonth =
+                                  DateFormat.yMMM().format(_targetDateTime!);
+                            });
+                            },
+                            child: SvgPicture.asset(AppAssets.rightCircleIcon,  height: 25.h,)),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(
+                        horizontal: 14.h
+                        
+                      ),
+                      child: Divider(
+                        thickness: 1.2,
+                      ),
+                    ),
+                     Padding(
+                       padding: const EdgeInsets.all(8.0),
+                       child: CalendarCarousel<Event>(
+          todayBorderColor: Colors.green,
+          childAspectRatio: 1.3,
+          onDayPressed: (date, events) {     
+          }, 
+          showOnlyCurrentMonthDate: false,
+          weekendTextStyle: const TextStyle(
+            color: AppColors.blackColor,
+          ),
+          thisMonthDayBorderColor: Colors.grey,
+          weekFormat: false,      
+          height: 210.h,
+                
+
+          customGridViewPhysics: const NeverScrollableScrollPhysics(),      
+          showHeader: false,
+          todayTextStyle: const TextStyle(
+            // color: Colors.,
+          ),      
+          todayButtonColor: AppColors.appColor,
+           targetDateTime: _targetDateTime,
+          selectedDayTextStyle: const TextStyle(
+            color: Colors.yellow,
+          ),
+          minSelectedDate: _currentDate.subtract(Duration(days: 360)),
+          maxSelectedDate: _currentDate.add(Duration(days: 360)),      
+          inactiveDaysTextStyle: TextStyle(
+            color: Colors.tealAccent,
+            fontSize: 16,
+          ),
+          onCalendarChanged: (DateTime date) {
+            setState(() {
+              _targetDateTime = date;
+              _currentMonth = DateFormat.yMMM().format(date);
+            });
+          },
+          onDayLongPressed: (DateTime date) {
+            print('long pressed date $date');
+          },
+    ),                  
+  ),
+                    
+                   ],
+                 ),                   
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              ));
+        }
+      ),
+    );
+  }
+}
+
+class MyShape extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     // TODO: implement paint
     final paint = Paint();
     final path = Path();
-    // paint.style = PaintingStyle.stroke;
-    // paint.strokeWidth = 15;
-    // paint.color = Colors.blueAccent;
-    path.moveTo(0.0, size.height * 1);
+    paint.style = PaintingStyle.stroke;
+    paint.strokeWidth = 0;
+    paint.color = Colors.white;
+    path.moveTo(0.00, size.height * 0.92);
 
     path.quadraticBezierTo(
-      size.width * - 0.02,
-      size.height * -0.02,
-      size.width *  -0.02,
-      size.height * -0.02,
+      size.width * 0.00,
+      size.height * 0.006,
+      size.width * 0.006,
+      size.height * 0.06,
+    );
+    path.quadraticBezierTo(
+      size.width * 0.03,
+      size.height * 0.006,
+      size.width * 0.09,
+      size.height * 0.006,
     );
 
     path.quadraticBezierTo(
-      size.width * 0.3,
-      size.height * -0.02,
-      size.width * 0.45,
-      size.height * -0.02,
+      size.width * 0.02,
+      size.height * 0.005,
+      size.width * 0.428,
+      size.height * 0.00,
     );
     path.quadraticBezierTo(
-      size.width * 0.42,
-      size.height * 0.08,
-      size.width * 0.60,
-      size.height * 0.05
+      size.width * 0.44,
+      size.height * 0.0735,
+      size.width * 0.53,
+      size.height * 0.067,
+    );
+    path.quadraticBezierTo(
+      size.width * 0.51,
+      size.height * 0.0712,
+      size.width * 0.52,
+      size.height *0.066,
     );
     // path.quadraticBezierTo(
-    //   size.width * 0.70,
-    //   size.height * -0.02,
-    //   size.width * 0.90,
-    //   size.height * -0.02,
+    //   size.width * 0.55,
+    //   size.height * 0.054,
+    //   size.width * 0.549,
+    //   size.height * 0.052,
     // );
     path.quadraticBezierTo(
-      size.width * 0.65,
-      size.height * 0.02,
-      size.width * 0.64,
-      size.height * -0.02,
+      size.width * 0.571,
+      size.height * 0.040,
+      size.width * 0.57,
+      size.height * 0.00,
     );
-    // path.quadraticBezierTo(
-    //   size.width * 0.7,
-    //   size.height * -0.02,
-    //   size.width * 0.7,
-    //   size.height *-0.02,
-    // );
-// Right border
+
     path.quadraticBezierTo(
-      size.width * 0.85,
-      size.height *-0.02,
-      size.width * 0.8,
-      size.height *-0.02,
+      size.width * 0.852,
+      size.height * 0.001,
+      size.width * 0.9,
+      size.height * 0.001,
     );
     path.quadraticBezierTo(
-      size.width * 0.97,
-      size.height * -0.02,
-      size.width *  1,
-      size.height * -0.02,
+      size.width * 0.982,
+      size.height * 0.0,
+      size.width * 0.9999,
+      size.height * 0.065,
     );
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.lineTo(0, size.height * 0.6);
+    path.quadraticBezierTo(
+      size.width * 0.9999,
+      size.height * 0.96,
+      size.width * 0.9999,
+      size.height * 0.92,
+    );
+    path.quadraticBezierTo(
+      size.width * 0.99,
+      size.height * 0.99,
+      size.width * 0.9,
+      size.height * 1,
+    );
+    path.quadraticBezierTo(
+      size.width * 0,
+      size.height * 1,
+      size.width * 0.9,
+      size.height * 1,
+    );
+    // path.lineTo(size.width  0.06, size.height  1);
+    path.quadraticBezierTo(
+      size.width * 0.0,
+      size.height * 1,
+      size.width * 0.1,
+      size.height * 1,
+    );
+    path.quadraticBezierTo(
+      size.width * 0.03,
+      size.height * 1,
+      size.width * 0.005,
+      size.height * 0.95,
+    );
+    path.quadraticBezierTo(
+      size.width * 0.00,
+      size.height * 0.94,
+      size.width * 0.001,
+      size.height * 0.915,
+    );
+    // path.lineTo(size.width  0.0, size.height  0.95);
+    // path.lineTo(size.width, size.height);
+    // path.lineTo(0, size.height);
+    // path.lineTo(0, size.height * 0.8);
     canvas.drawPath(path, paint);
     final paint1 = Paint();
     paint1.style = PaintingStyle.fill;
@@ -435,7 +652,207 @@ class MyShape2 extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-
+    // TODO: implement shouldRepaint
     return true;
   }
 }
+
+// class MyShape extends CustomPainter {
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     // TODO: implement paint
+//     final paint = Paint();
+//     final path = Path();
+//     paint.style = PaintingStyle.stroke;
+//     paint.strokeWidth = 0;
+//     paint.color = Colors.white;
+//     path.moveTo(0.00, size.height * 0.92);
+
+//     path.quadraticBezierTo(
+//       size.width * 0.00,
+//       size.height * 0.006,
+//       size.width * 0.006,
+//       size.height * 0.06,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.03,
+//       size.height * 0.006,
+//       size.width * 0.09,
+//       size.height * 0.006,
+//     );
+
+//     path.quadraticBezierTo(
+//       size.width * 0.022,
+//       size.height * 0.005,
+//       size.width * 0.429,
+//       size.height * 0.00,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.425,
+//       size.height * 0.058,
+//       size.width * 0.5,
+//       size.height * 0.06,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.53,
+//       size.height * 0.058,
+//       size.width * 0.54,
+//       size.height * 0.055,
+//     );
+//     // path.quadraticBezierTo(
+//     //   size.width * 0.55,
+//     //   size.height * 0.054,
+//     //   size.width * 0.549,
+//     //   size.height * 0.052,
+//     // );
+//     path.quadraticBezierTo(
+//       size.width * 0.58,
+//       size.height * 0.035,
+//       size.width * 0.573,
+//       size.height * 0.00,
+//     );
+
+//     path.quadraticBezierTo(
+//       size.width * 0.852,
+//       size.height * 0.001,
+//       size.width * 0.9,
+//       size.height * 0.001,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.982,
+//       size.height * 0.0,
+//       size.width * 0.9999,
+//       size.height * 0.065,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.9999,
+//       size.height * 0.96,
+//       size.width * 0.9999,
+//       size.height * 0.92,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.99,
+//       size.height * 0.99,
+//       size.width * 0.9,
+//       size.height * 1,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0,
+//       size.height * 1,
+//       size.width * 0.9,
+//       size.height * 1,
+//     );
+//     // path.lineTo(size.width  0.06, size.height  1);
+//     path.quadraticBezierTo(
+//       size.width * 0.0,
+//       size.height * 1,
+//       size.width * 0.1,
+//       size.height * 1,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.03,
+//       size.height * 1,
+//       size.width * 0.005,
+//       size.height * 0.95,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.00,
+//       size.height * 0.94,
+//       size.width * 0.001,
+//       size.height * 0.915,
+//     );
+//     // path.lineTo(size.width  0.0, size.height  0.95);
+//     // path.lineTo(size.width, size.height);
+//     // path.lineTo(0, size.height);
+//     // path.lineTo(0, size.height * 0.8);
+//     canvas.drawPath(path, paint);
+//     final paint1 = Paint();
+//     paint1.style = PaintingStyle.fill;
+//     paint1.color = Colors.white;
+//     canvas.drawPath(path, paint1);
+//   }
+
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+//     // TODO: implement shouldRepaint
+//     return true;
+//   }
+// }
+
+// class MyShape2 extends CustomPainter {
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     // TODO: implement paint
+//     final paint = Paint();
+//     final path = Path();
+//     // paint.style = PaintingStyle.stroke;
+//     // paint.strokeWidth = 15;
+//     // paint.color = Colors.blueAccent;
+//     path.moveTo(0.0, size.height * 1);
+
+//     path.quadraticBezierTo(
+//       size.width * - 0.02,
+//       size.height * -0.02,
+//       size.width *  -0.02,
+//       size.height * -0.02,
+//     );
+
+//     path.quadraticBezierTo(
+//       size.width * 0.3,
+//       size.height * -0.02,
+//       size.width * 0.45,
+//       size.height * -0.02,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.42,
+//       size.height * 0.08,
+//       size.width * 0.60,
+//       size.height * 0.05
+//     );
+//     // path.quadraticBezierTo(
+//     //   size.width * 0.70,
+//     //   size.height * -0.02,
+//     //   size.width * 0.90,
+//     //   size.height * -0.02,
+//     // );
+//     path.quadraticBezierTo(
+//       size.width * 0.65,
+//       size.height * 0.02,
+//       size.width * 0.64,
+//       size.height * -0.02,
+//     );
+//     // path.quadraticBezierTo(
+//     //   size.width * 0.7,
+//     //   size.height * -0.02,
+//     //   size.width * 0.7,
+//     //   size.height *-0.02,
+//     // );
+// // Right border
+//     path.quadraticBezierTo(
+//       size.width * 0.85,
+//       size.height *-0.02,
+//       size.width * 0.8,
+//       size.height *-0.02,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.97,
+//       size.height * -0.02,
+//       size.width *  1,
+//       size.height * -0.02,
+//     );
+//     path.lineTo(size.width, size.height);
+//     path.lineTo(0, size.height);
+//     path.lineTo(0, size.height * 0.6);
+//     canvas.drawPath(path, paint);
+//     final paint1 = Paint();
+//     paint1.style = PaintingStyle.fill;
+//     paint1.color = Colors.white;
+//     canvas.drawPath(path, paint1);
+//   }
+
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+
+//     return true;
+//   }
+// }

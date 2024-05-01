@@ -34,7 +34,7 @@ class _AddNewMemberState extends State<AddNewMember> {
               width: double.infinity,
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(                
-                image: DecorationImage(image: AssetImage(AppAssets.bgImg),
+                image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
                 fit: BoxFit.fill
                 )
               ),
@@ -152,7 +152,7 @@ class _AddNewMemberState extends State<AddNewMember> {
                                   children: [
                                     Expanded(
                                       flex: 5,
-                                      child: addRegularTxt(ctrl.healthDocumentPath.split("/").last, maxLines: 1, overflow: TextOverflow.ellipsis)),
+                                      child: ctrl.healthDocumentPath == "" ? addRegularTxt("Health Insurance documents", maxLines: 1, overflow: TextOverflow.ellipsis) : addRegularTxt(ctrl.healthDocumentPath.split("/").last, maxLines: 1, overflow: TextOverflow.ellipsis)),
                                     Spacer(),
                                     Expanded(
                                       flex: 1,
@@ -163,16 +163,16 @@ class _AddNewMemberState extends State<AddNewMember> {
                               ),
                             ))),
                     ),
-                          Positioned(
-                            top: 0,
-                            left: 8,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.whiteColor.withOpacity(0.8)
-                              ),
-                              child: addRegularTxt("Health Insurance documents", color: AppColors.blackColor3, fontSize: 13.sp),
-                            ),
-                          )
+                          // Positioned(
+                          //   top: 0,
+                          //   left: 8,
+                          //   child: Container(
+                          //     decoration: BoxDecoration(
+                          //       color: AppColors.whiteColor.withOpacity(0.2)
+                          //     ),
+                          //     child: addRegularTxt("Health Insurance documents", color: AppColors.blackColor3, fontSize: 13.sp),
+                          //   ),
+                          // )
                   ],
                 ),
               )

@@ -2,7 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_health_journal/Screens/Calendar/calendar.dart';
+import 'package:my_health_journal/Screens/home/add_provider.dart';
 import 'package:my_health_journal/Screens/home/patient_view.dart';
+import 'package:my_health_journal/Screens/other/medical_summary.dart';
 
 class BottomBarController extends GetxController {
 //  final GlobalKey<ScaffoldState> key = GlobalKey();
@@ -11,9 +14,9 @@ class BottomBarController extends GetxController {
   List<Widget> widgetOptions = <Widget>[
     // const  Discover(),
     const PatientView(),
-    const PatientView(),
-    const PatientView(),
-    const PatientView(),
+    const MedicalSummary(),
+    const CalendarScreen(),
+    const AddProvider(),
   ];
 
   void onItemTapped(int index) {

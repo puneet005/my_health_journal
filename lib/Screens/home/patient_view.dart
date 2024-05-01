@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_health_journal/Screens/widget/patient_card.dart';
+import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/controllers/home_controller.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
 import 'package:my_health_journal/resources/app_color.dart';
@@ -58,15 +59,24 @@ class _PatientViewState extends State<PatientView> {
                       ),
                     ),
                   
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child:  SvgPicture.asset(AppAssets.settingIcon),
+                    child: InkWell(
+                      onTap: (){
+                        Get.toNamed(AppRoutes.setting);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child:  SvgPicture.asset(AppAssets.settingIcon),
+                        ),
                       ),
                     ),
                    ),
                    addWidth(10),
-                    SvgPicture.asset(AppAssets.notificationIcon),
+                    InkWell(
+                      onTap: (){
+                        Get.toNamed(AppRoutes.notification);
+                      },
+                      child: SvgPicture.asset(AppAssets.notificationIcon)),
                    addWidth(10),
                   // IconButton(onPressed: (){
                   //   Get.toNamed(AppRoutes.shareScreen);
@@ -79,7 +89,17 @@ class _PatientViewState extends State<PatientView> {
             ListView(         
               shrinkWrap: true,
               children: List.generate(controller.patientList.length, (index) => PatientCard(data:  controller.patientList[index],)),
-            )
+            ), 
+             Padding(
+   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+  child:   CustomButton(
+    height: 50,
+    width: Get.width / 2,
+    text: "Add new patient", onPressed: (){
+      Get.toNamed(AppRoutes.addNewMember);
+    }),
+),
+
           ],
         
       )

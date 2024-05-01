@@ -1,6 +1,7 @@
 class AppAssets {
   static const String bgImg = "assets/images/bg.png";  
-  static const String bgImg2 = "assets/images/bg2.png";    
+  // static const String bgImg2 = "assets/images/bg2.png";    
+  static const String bgImg2 = "assets/images/bg3.png";    
   static const String appLogo = "assets/images/app_logo.svg";
   static const String eyeOpen = "assets/images/eye_open.svg";
   static const String eyeOff = "assets/images/visibility_off.svg";
@@ -41,12 +42,34 @@ class AppAssets {
   static const String circleBoxIcon = "assets/images/circle_icon.svg";
   static const String circleBoxFilledIcon = "assets/images/circle_no_filed.svg";
    static const String calendarIcon = "assets/images/calendar.svg"; 
+   static const String medicalSummaryIcon = "assets/images/medical_record.svg"; 
+   static const String leftIcon = "assets/images/left.svg"; 
+   static const String rightIcon = "assets/images/right.svg"; 
+   static const String medicalCardBG = "assets/images/medical_card.svg"; 
+   static const String leftCircleIcon = "assets/images/left_cricle.svg"; 
+   static const String rightCircleIcon = "assets/images/right_cricle.svg"; 
+   
+   static const String pencilIcon = "assets/images/pencil.svg"; 
+   static const String lockIcon = "assets/images/padlock.svg"; 
+   static const String logoutIcon = "assets/images/logout.svg"; 
+   static const String bellIcons = "assets/images/bell.svg"; 
+   static const String cancelIcon = "assets/images/cancel.svg"; 
+   static const String acceptIcons = "assets/images/accept.svg";
+   static const String notification = "assets/images/notification.svg";  
   
   // PNG Image
   static const String patient1 = "assets/images/patient1.png";
   static const String patient2 = "assets/images/patient2.png";
   static const String patient3 = "assets/images/patient3.png";
   static const String splashImg = "assets/images/splash_img.png";
+  static const String medicalCardPngBG = "assets/images/medical_card.png"; 
+  static const String medical1 = "assets/images/medical1.png";
+  static const String medical2 = "assets/images/medical2.png";
+  static const String medical3 = "assets/images/medical3.png";
+  static const String medical4 = "assets/images/medical4.png";
+  static const String medical5 = "assets/images/medication5.png";
+  static const String profile = "assets/images/profile.png";
+
   
   
   

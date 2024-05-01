@@ -10,7 +10,7 @@ import 'package:my_health_journal/resources/text_utility.dart';
 // ignore: must_be_immutable
 class AppBar1 extends StatelessWidget {
   String title;
-   AppBar1({super.key, required this.title});
+   AppBar1({super.key, required this.title, });
 
   @override
   Widget build(BuildContext context) {

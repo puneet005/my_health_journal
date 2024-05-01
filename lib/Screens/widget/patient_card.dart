@@ -103,8 +103,8 @@ class _PatientCardState extends State<PatientCard> {
                 padding: const EdgeInsets.only(left: 16, right: 16),
               ),
             ),
-          ),
-                                // Icon(Icons.menu)           
+            ),
+                              // Icon(Icons.menu)           
               ],
             ),
       

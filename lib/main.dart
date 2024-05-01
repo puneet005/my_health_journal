@@ -53,8 +53,8 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Montserrat',
           ),
           debugShowCheckedModeBanner: false,  
-          initialRoute: AppRoutes.bottomNav,
-          // initialRoute: AppRoutes.splashScreen,
+          // initialRoute: AppRoutes.bottomNav,
+          initialRoute: AppRoutes.splashScreen,
           getPages: AppRoutes.getRoute, 
           builder: (context, child) {
             return MediaQuery(
