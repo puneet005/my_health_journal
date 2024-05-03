@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:my_health_journal/Screens/home/patient_details2.dart';
 import 'package:my_health_journal/common-widgets/base_image_network.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
 // import 'package:my_health_journal/resources/app_assets.dart';
@@ -28,7 +29,9 @@ class _PatientCardState extends State<PatientCard> {
           ),
       child: InkWell(
         onTap: (){
-          Get.toNamed(AppRoutes.patientDetails);
+          Get.to(PatientDetails2());
+          // Get.toNamed(AppRoutes.patientDetails);
+                // Get.toNamed(AppRoutes.patientDetails);
         },
         child: Card(
           

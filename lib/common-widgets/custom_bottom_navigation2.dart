@@ -63,21 +63,7 @@ class _NavBarState extends State<NavBar> {
                               controller.update();
                             },
                             child: 
-                            // controller.selectedIndex == 0
-                            //     ? IntrinsicHeight(
-                            //         child: Row(
-                            //           children: [
-                            //             SvgPicture.asset(
-                            //               AppAssets.bottomNav0, height: 28.sp,
-                                          
-                            //               width: 28.sp,
-                            //               // color: AppColors,
-                            //             ),
-                                       
-                            //           ],
-                            //         ),
-                            //       )
-                                // : 
+                          
                                 SvgPicture.asset(
                                     AppAssets.bottomNav0, height: 28.sp,
                                      color: controller.selectedIndex == 0 ? AppColors.whiteColor :   AppColors.whiteColor.withOpacity(0.6),
@@ -93,7 +79,7 @@ class _NavBarState extends State<NavBar> {
 
                             child: 
                              SvgPicture.asset(
-                                          AppAssets.bottomNav4, height: 28.sp,
+                                          AppAssets.settingIcon, height: 28.sp,
                                           color: controller.selectedIndex == 1 ? AppColors.whiteColor :   AppColors.whiteColor.withOpacity(0.6),
                                           width: 28.sp,
                                           // color: AppColors,
@@ -132,27 +118,7 @@ class _NavBarState extends State<NavBar> {
                                            color: controller.selectedIndex == 2 ? AppColors.whiteColor :   AppColors.whiteColor.withOpacity(0.6),
                                           width: 28.sp,
                                           // color: AppColors,
-                                        ),
-                            // controller.selectedIndex == 2
-                            //     ? IntrinsicHeight(
-                            //         child: Row(
-                            //           children: [
-                            //             SvgPicture.asset(
-                            //               AppAssets.bottomNav3, height: 28.sp,
-                            //                color: controller.selectedIndex == 2 ? AppColors.whiteColor :   AppColors.whiteColor.withOpacity(0.6),
-                            //               width: 28.sp,
-                            //               // color: AppColors,
-                            //             ),
-                                       
-                                        
-                            //           ],
-                            //         ),
-                            //       )
-                            //     : SvgPicture.asset(
-                            //         AppAssets.bottomNav3, height: 28.sp,
-                            //         width: 28.sp,
-                            //         // color: AppColors,
-                            //       ),
+                                        ),                         
                           ),
                           InkWell(
                             onTap: () {
@@ -161,35 +127,27 @@ class _NavBarState extends State<NavBar> {
                             },
                             child: 
                              SvgPicture.asset(
-                                          AppAssets.bottomNav2, height: 28.sp,
+                                          AppAssets.notificationWithoutBG, height: 28.sp,
                                           width: 28.sp,
                                           color: controller.selectedIndex == 3 ? AppColors.whiteColor :   AppColors.whiteColor.withOpacity(0.6),
                                           // color: AppColors,
                                         ),    
-                            // controller.selectedIndex == 3
-                            //     ? IntrinsicHeight(
-                            //         child: Row(
-                            //           children: [
-                            //             SvgPicture.asset(
-                            //               AppAssets.bottomNav2, height: 28.sp,
-                            //               width: 28.sp,
-                            //               // color: AppColors,
-                            //             ),                                
-                            //             // VerticalDivider(
-                            //             //   // indent: 2,
-                            //             //   // endIndent: 1,
-                            //             //   // thickness: 0.9,
-                            //             //   width: 5,
-                            //             //   color: AppColors.whiteColor,
-                            //             // )
-                            //           ],
-                            //         ),
-                            //       )
-                            //     : SvgPicture.asset(
-                            //         AppAssets.bottomNav2, height: 28.sp, width: 28.sp,
-                            //         // color: AppColors,
-                            //       )
-                          )
+                         
+                          ),
+                           InkWell(
+                            onTap: () {
+                              controller.selectedIndex = 4;
+                              controller.update();
+                            },
+                            child: 
+                          
+                                SvgPicture.asset(
+                                    AppAssets.bottomNav4, height: 28.sp,
+                                     color: controller.selectedIndex == 4 ? AppColors.whiteColor :   AppColors.whiteColor.withOpacity(0.6),
+                                    width: 28.sp,
+                                    // color: AppColors,
+                                  ),
+                          ),
                         ]
                       )
                     )

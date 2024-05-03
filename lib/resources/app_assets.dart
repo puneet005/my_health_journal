@@ -56,11 +56,13 @@ class AppAssets {
    static const String cancelIcon = "assets/images/cancel.svg"; 
    static const String acceptIcons = "assets/images/accept.svg";
    static const String notification = "assets/images/notification.svg";  
+
+   static const String notificationWithoutBG = "assets/images/notification-without_bg.svg";
   
   // PNG Image
   static const String patient1 = "assets/images/patient1.png";
   static const String patient2 = "assets/images/patient2.png";
-  static const String patient3 = "assets/images/patient3.png";
+  static const String patient3 = "assets/images/patient3.png";  
   static const String splashImg = "assets/images/splash_img.png";
   static const String medicalCardPngBG = "assets/images/medical_card.png"; 
   static const String medical1 = "assets/images/medical1.png";
@@ -69,6 +71,41 @@ class AppAssets {
   static const String medical4 = "assets/images/medical4.png";
   static const String medical5 = "assets/images/medication5.png";
   static const String profile = "assets/images/profile.png";
+
+
+  // Png Folder Img
+
+
+  static const String patientDetails1 = "assets/png/card1.svg";
+  static const String patientDetails2 = "assets/png/symptoms.svg";
+  static const String patientDetails3 = "assets/png/capsules.svg";
+  static const String patientDetails4 = "assets/png/slip.svg";
+  static const String patientDetails5 = "assets/png/medical_history.svg";
+  static const String patientDetails6 = "assets/png/health.svg";
+  static const String patientDetails7 = "assets/png/dna-test.svg";
+  static const String patientDetails8 = "assets/png/folder.svg";
+  static const String patientDetails9 = "assets/png/doctor_i.svg";
+  static const String patientDetails10 = "assets/png/medical.svg";
+
+
+
+
+
+
+
+
+  // static const String patientDetails1 = "assets/png/doctor-appointment.png";
+  // static const String patientDetails2 = "assets/png/symptoms.png";
+  // static const String patientDetails3 = "assets/png/capsules.png";
+  // static const String patientDetails4 = "assets/png/slip.png";
+  // static const String patientDetails5 = "assets/png/medical-history.png";
+  // static const String patientDetails6 = "assets/png/health.png";
+  // static const String patientDetails7 = "assets/png/dna-test.png";
+  // static const String patientDetails8 = "assets/png/folder.png";
+  // static const String patientDetails9 = "assets/png/doctor_i.png";
+  // static const String patientDetails10 = "assets/png/medical.png";
+  // static const String patientDetails1 = "assets/png/.png";
+  // static const String patientDetails1 = "assets/png/doctor-appointment.png";
 
   
   

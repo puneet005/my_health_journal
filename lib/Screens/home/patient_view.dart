@@ -36,7 +36,7 @@ class _PatientViewState extends State<PatientView> {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           children: [
-            addHeight(30),
+            addHeight(50),
             Padding(
               padding:  EdgeInsets.symmetric(horizontal: 8.sp,),
               child: Row(
@@ -48,36 +48,36 @@ class _PatientViewState extends State<PatientView> {
                     },
                     child: addHeadingTxtMedium("Choose Patient", fontSize: 20.sp,  color: AppColors.blackColor, fontFamily: "Montserrat-semibold" )),
                     Spacer(),
-                   Container(
-                    width: 45.h,
-                    height: 45.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                        color: AppColors.blackColor3.withOpacity(0.1)
-                      ),
-                    ),
+                  //  Container(
+                  //   width: 45.h,
+                  //   height: 45.h,
+                  //   decoration: BoxDecoration(
+                  //     color: AppColors.whiteColor,
+                  //     borderRadius: BorderRadius.circular(15),
+                  //     border: Border.all(
+                  //       color: AppColors.blackColor3.withOpacity(0.1)
+                  //     ),
+                  //   ),
                   
-                    child: InkWell(
-                      onTap: (){
-                        Get.toNamed(AppRoutes.setting);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child:  SvgPicture.asset(AppAssets.settingIcon),
-                        ),
-                      ),
-                    ),
-                   ),
-                   addWidth(10),
-                    InkWell(
-                      onTap: (){
-                        Get.toNamed(AppRoutes.notification);
-                      },
-                      child: SvgPicture.asset(AppAssets.notificationIcon)),
-                   addWidth(10),
+                  //   child: InkWell(
+                  //     onTap: (){
+                  //       Get.toNamed(AppRoutes.setting);
+                  //     },
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.all(8.0),
+                  //       child: Center(
+                  //         child:  SvgPicture.asset(AppAssets.settingIcon),
+                  //       ),
+                  //     ),
+                  //   ),
+                  //  ),
+                  //  addWidth(10),
+                  //   InkWell(
+                  //     onTap: (){
+                  //       Get.toNamed(AppRoutes.notification);
+                  //     },
+                  //     child: SvgPicture.asset(AppAssets.notificationIcon)),
+                  //  addWidth(10),
                   // IconButton(onPressed: (){
                   //   Get.toNamed(AppRoutes.shareScreen);
                   // }, icon: Icon(Icons.share)),

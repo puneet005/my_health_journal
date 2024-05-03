@@ -19,7 +19,8 @@ class HomeController extends GetxController {
   }, {
    'name':   "Labs and Scans",
     'item': ["Test", "Collection", "Dizziness", "Headache"]
-  }];
+  },
+  ];
   List<Map<String, dynamic>> patientList = [
     {
       'name'  : "Tom Johnson",
@@ -119,4 +120,57 @@ class HomeController extends GetxController {
      
     }
   }
+
+
+   List<Map<String, dynamic>> listofCatagory2 = [{
+  'img': AppAssets.patientDetails1,
+  'name':  "Appointment", 
+  'item': ["Toothache", "Fever", "Dizziness", "Headache"]
+  },
+    {
+      'img': AppAssets.patientDetails2,
+   'name':  "Symptoms",
+   'item': ["Report", "Medications", "Dizziness", "Headache"]
+  }, 
+  
+   {
+    'img': AppAssets.patientDetails3,
+   'name':  "Medications",
+   'item': ["Report", "Medications", "Dizziness", "Headache"]
+  }, {
+    'img': AppAssets.patientDetails4,
+   'name':   "Events",
+   'item': ["Procedures", "OT", "Dizziness", "Headache"]
+  },
+  {
+    'img': AppAssets.patientDetails5,
+   'name':   "Parsonal History",
+    'item': ["Test", "Collection", "Dizziness", "Headache"]
+  },
+   {
+    'img': AppAssets.patientDetails6,
+   'name':   "Procedures",
+    'item': ["Test", "Collection", "Dizziness", "Headache"]
+  },
+  {
+    'img': AppAssets.patientDetails7,
+   'name':   "Labs and Scans",
+    'item': ["Test", "Collection", "Dizziness", "Headache"]
+  },
+  {
+    'img': AppAssets.patientDetails8,
+   'name':   "Family History",
+    'item': ["Test", "Collection", "Dizziness", "Headache"]
+  },
+  {
+    'img': AppAssets.patientDetails9,
+   'name':   "Providers",
+    'item': ["Test", "Collection", "Dizziness", "Headache"]
+  },
+    {
+      'img': AppAssets.patientDetails10,
+   'name':   "Calendar",
+    'item': ["Test", "Collection", "Dizziness", "Headache"]
+  },
+  ];
 }
