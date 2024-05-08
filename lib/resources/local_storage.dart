@@ -1,5 +1,6 @@
 class LocalStorage {
    static const TOKEN = 'token';
+   static const REMERBERME = 'remerberMe';
   // static const USER_ID = "USER_ID";
   // static const USER_DATA = "USER_DATA";
   // static const USER_NAME = "USER_NAME";

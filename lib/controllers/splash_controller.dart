@@ -12,7 +12,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
+    
     // Future.delayed(Duration(seconds: 1), () async {    
     //    Get.offAllNamed(AppRoutes.loginScreen);
     // });
