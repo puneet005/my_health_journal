@@ -53,6 +53,11 @@ storeBoolValue(String key, value){
   localStorage.write(key, value);
 }
 
+removeValue(String key,){
+  GetStorage localStorage = GetStorage();
+  localStorage.remove(key);
+}
+
 bool getBoolValue(String key){
   GetStorage localStorage = GetStorage();
   var value = localStorage.read(key);

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "132634744519",
+    "project_id": "my-health-journal-d148e",
+    "storage_bucket": "my-health-journal-d148e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132634744519:android:cf375c8d601c66da7a10e2",
+        "android_client_info": {
+          "package_name": "com.app.myhealthjounral"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxlv31G44qw0XerEgYQzWUBrtQQKlzIVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

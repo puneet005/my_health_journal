@@ -1,60 +1,65 @@
-// import 'dart:convert';
-// import 'dart:io';
-// import 'package:firebase_messaging/firebase_messaging.dart';
-// // import 'package:get/get_connect/http/src/utils/utils.dart';
-
-// // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-// // FlutterLocalNotificationsPlugin();
-// final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-// void initMessaging() async {
-
-//   // var initializationSettingsAndroid =
-//   // AndroidInitializationSettings('@mipmap/launcher_icon');
-//   // var initialzationSettingIos = DarwinInitializationSettings(
-//   //   requestBadgePermission:true,
-//   //   requestSoundPermission:  true,
-//   //
-//   // );
-
-//   // var initializationSettings =
-//   // InitializationSettings(android: initializationSettingsAndroid,
-//   //     iOS:  initialzationSettingIos
-//   // );
-
-
-//   // flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
-//   /// Update the iOS foreground notification presentation options to allow
-//   /// heads up notifications.
-//   await _firebaseMessaging.setForegroundNotificationPresentationOptions(
-//     alert: true,
-//     badge: true,
-//     sound: true,
-//   );
-
-//   FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
-//     String notificationTitle = remoteMessage.notification!.title.toString();
-//     String notificationBody = remoteMessage.notification!.body.toString();
 
 
 
-//     // showNotification(notificationTitle, notificationBody);
-//   });
 
-//   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-//     // FlutterAppBadger.removeBadge();
-//     // if (spUtil?.getString(Preferences.user_token) != "") {
-//     //   apiHandler?.userProfile();
-//     // }
-//     print("A new onMessageOpenedApp event was published!");
-//     final notificationType = json.decode(message.data["notification_type"]);
-//     final data = json.decode(message.data["data"]);
-//     sleep(Duration(milliseconds: 500));
-//     // eventBus?.fire([notificationType, data]);
-//     print("onMessageOpenedApp"+data.toString());
-//   });
-//   return null;
-// }
+
+import 'dart:convert';
+import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:get/get_connect/http/src/utils/utils.dart';
+
+// final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+// FlutterLocalNotificationsPlugin();
+final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+void initMessaging() async {
+
+  // var initializationSettingsAndroid =
+  // AndroidInitializationSettings('@mipmap/launcher_icon');
+  // var initialzationSettingIos = DarwinInitializationSettings(
+  //   requestBadgePermission:true,
+  //   requestSoundPermission:  true,
+  //
+  // );
+
+  // var initializationSettings =
+  // InitializationSettings(android: initializationSettingsAndroid,
+  //     iOS:  initialzationSettingIos
+  // );
+
+
+  // flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+  /// Update the iOS foreground notification presentation options to allow
+  /// heads up notifications.
+  await _firebaseMessaging.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
+    String notificationTitle = remoteMessage.notification!.title.toString();
+    String notificationBody = remoteMessage.notification!.body.toString();
+
+
+
+    // showNotification(notificationTitle, notificationBody);
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    // FlutterAppBadger.removeBadge();
+    // if (spUtil?.getString(Preferences.user_token) != "") {
+    //   apiHandler?.userProfile();
+    // }
+    print("A new onMessageOpenedApp event was published!");
+    final notificationType = json.decode(message.data["notification_type"]);
+    final data = json.decode(message.data["data"]);
+    sleep(Duration(milliseconds: 500));
+    // eventBus?.fire([notificationType, data]);
+    print("onMessageOpenedApp"+data.toString());
+  });
+  return null;
+}
 
 // // void showNotification(String title, String body) async {
 // //   print('Lokesh ka msg');

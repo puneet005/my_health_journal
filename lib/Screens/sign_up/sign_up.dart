@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:my_health_journal/common-widgets/custom_textfield.dart';
@@ -75,7 +76,16 @@ class _SignUpState extends State<SignUp> {
                             controller: controller.fNameCtrl,
                             // obscureText: controller.obscureText,                          
                             labelText: "Name",
-                            validator: (value){},                                                
+                            
+                            validator: (value){
+                              if(value!.isEmpty){
+                                return "Name is Requried*";
+                              }
+                              else if(value.length < 2){
+                                 return "Enter valid name*";
+                              }
+                              return null;
+                            },                                                
                           ),
                           addHeight(20),
                            CustomTextField(
@@ -85,7 +95,10 @@ class _SignUpState extends State<SignUp> {
                             
                             
                   validator: (value){
-                             
+                      if(value!.isEmpty){
+                        return "Email is Requried*";
+                      }
+                        EmailValidator(errorText: 'Enter Valid Email*');
                              
                   
         
@@ -93,7 +106,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                           addHeight(20),
                        IntlPhoneField(
-                            // controller: profileController.phoneNoCtrl,                 
+                            controller: controller.phoneCtrl,                 
                             // autovalidateMode: AutovalidateMode.always,
                             disableLengthCheck: true,
                             keyboardType: TextInputType.numberWithOptions(signed: false, decimal: false),
@@ -168,7 +181,9 @@ class _SignUpState extends State<SignUp> {
                             onCountryChanged: (country) {
                               log(country.dialCode);
                               log(country.code);  
-                             
+                              // log()
+                              controller.countryCode = country.dialCode;
+                              controller.update();
                             },
                             onChanged: (phone)
                                            {
@@ -219,102 +234,102 @@ class _SignUpState extends State<SignUp> {
                     }
         
                     return "Confirm Password Not Match";
-                     // Return null if the password is valid.
-                  
-                            
+                     // Return null if the password is valid.                                              
                             },                                                
                           ),
                      addHeight(20),
                           CustomButton(text: "Sign Up", onPressed: (){
-                            Get.offAllNamed(AppRoutes.bottomNav);
+                          if(controller.signinKey.currentState!.validate()){
+                            controller.signUpApi();                        
+                          }
                           }, 
                           width: Get.width /1.1,
                           height: 60.h,),
                                                   
-                          addHeight(20),
-                              Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SvgPicture.asset(AppAssets.loginLineL, color: AppColors.greyColor,),
-                              addBoldTxt('or login with', fontSize: 14,
-                                  fontWeight: FontWeight.w500, color: AppColors.greyColor1),
+                          // addHeight(20),
+                          //     Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     SvgPicture.asset(AppAssets.loginLineL, color: AppColors.greyColor,),
+                          //     addBoldTxt('or login with', fontSize: 14,
+                          //         fontWeight: FontWeight.w500, color: AppColors.greyColor1),
         
-                              SvgPicture.asset(AppAssets.loginLineR, color: 
-                              AppColors.greyColor,)
-                            ],
-                          ).marginOnly(bottom: 30),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              GestureDetector(
-                                onTap: (){
-                                  // controller.signInWithGoogle().then((value) {
-                                  //   if(value != null){
-                                  //     log(value.toString());
-                                  //     controller.SocialLoginApi(
-                                  //       login_type: 'google', 
-                                  //       social_id: value.providerData[0].uid.toString(),
-                                  //       email: value.email);  
-                                  //   }
-                                  // });
-                                },
-                                child: Container(
-                                  height: 50.h,
-                                  width: 50.h,
-                                  padding: EdgeInsets.all(10),
-                                  decoration:  BoxDecoration(
-                                    border: Border.all(
-                                      color: AppColors.greyColor3
-                                    ),
-                                    color: AppColors.whiteColor,
-                                    shape: BoxShape.circle,
+                          //     SvgPicture.asset(AppAssets.loginLineR, color: 
+                          //     AppColors.greyColor,)
+                          //   ],
+                          // ).marginOnly(bottom: 30),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          //   children: [
+                          //     GestureDetector(
+                          //       onTap: (){
+                          //         // controller.signInWithGoogle().then((value) {
+                          //         //   if(value != null){
+                          //         //     log(value.toString());
+                          //         //     controller.SocialLoginApi(
+                          //         //       login_type: 'google', 
+                          //         //       social_id: value.providerData[0].uid.toString(),
+                          //         //       email: value.email);  
+                          //         //   }
+                          //         // });
+                          //       },
+                          //       child: Container(
+                          //         height: 50.h,
+                          //         width: 50.h,
+                          //         padding: EdgeInsets.all(10),
+                          //         decoration:  BoxDecoration(
+                          //           border: Border.all(
+                          //             color: AppColors.greyColor3
+                          //           ),
+                          //           color: AppColors.whiteColor,
+                          //           shape: BoxShape.circle,
                                     
-                                  ),
-                                  child: SvgPicture.asset(AppAssets.googleIcon,),
-                                ),
-                              ),
+                          //         ),
+                          //         child: SvgPicture.asset(AppAssets.googleIcon,),
+                          //       ),
+                          //     ),
                               
-                              GestureDetector(
-                                onTap: (){
-                                //  controller.FacebookSignInRequest();
-                                },
-                                child: Container(
-                                  height: 50.h,
-                                  width: 50.h,
-                                  padding: EdgeInsets.all(10),
-                                  decoration:  BoxDecoration(
-                                     border: Border.all(
-                                      color: AppColors.greyColor3
-                                    ),
-                                    color: AppColors.whiteColor,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: SvgPicture.asset(AppAssets.facebookIcon,),
-                                ),
-                              ),
-                              if(Platform.isIOS)
-                              InkWell(
-                                onTap: (){
-                                  log("Apple Sign in");
-                                  // controller.loginWithApple();
-                                },
-                                child: Container(
+                          //     GestureDetector(
+                          //       onTap: (){
+                          //       //  controller.FacebookSignInRequest();
+                          //       },
+                          //       child: Container(
+                          //         height: 50.h,
+                          //         width: 50.h,
+                          //         padding: EdgeInsets.all(10),
+                          //         decoration:  BoxDecoration(
+                          //            border: Border.all(
+                          //             color: AppColors.greyColor3
+                          //           ),
+                          //           color: AppColors.whiteColor,
+                          //           shape: BoxShape.circle,
+                          //         ),
+                          //         child: SvgPicture.asset(AppAssets.facebookIcon,),
+                          //       ),
+                          //     ),
+                          //     if(Platform.isIOS)
+                          //     InkWell(
+                          //       onTap: (){
+                          //         log("Apple Sign in");
+                          //         // controller.loginWithApple();
+                          //       },
+                          //       child: Container(
         
-                                  height: 50.h,
-                                  width:50.h,
-                                  padding: EdgeInsets.all(10),
-                                  decoration:  BoxDecoration(
-                                     border: Border.all(
-                                      color: AppColors.greyColor3
-                                    ),
-                                    color: AppColors.whiteColor,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: SvgPicture.asset(AppAssets.appleIcon,),
-                                ),
-                              ),
-                            ],
-                          ),
+                          //         height: 50.h,
+                          //         width:50.h,
+                          //         padding: EdgeInsets.all(10),
+                          //         decoration:  BoxDecoration(
+                          //            border: Border.all(
+                          //             color: AppColors.greyColor3
+                          //           ),
+                          //           color: AppColors.whiteColor,
+                          //           shape: BoxShape.circle,
+                          //         ),
+                          //         child: SvgPicture.asset(AppAssets.appleIcon,),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
         
                           addHeight(10),
                       

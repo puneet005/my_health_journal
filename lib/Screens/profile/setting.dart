@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 // import 'package:my_health_journal/Screens/widget/appbar.dart';
 import 'package:my_health_journal/controllers/profile_controller.dart';
+import 'package:my_health_journal/controllers/signUp_controller.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
 import 'package:my_health_journal/resources/app_color.dart';
 import 'package:my_health_journal/resources/text_utility.dart';
@@ -192,28 +193,33 @@ class _SettingState extends State<Setting> {
                       ),
                        Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: Get.width / 1.2,
-                          height: 60.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: AppColors.whiteColor
-                          ),
-                          child:  Padding(
-                            padding:  EdgeInsets.symmetric(
-                              vertical: 10.h,
-                              horizontal: 14.h
+                        child: InkWell(
+                          onTap: (){
+                            Get.find<SignUpController>().signOutApi();
+                          },
+                          child: Container(
+                            width: Get.width / 1.2,
+                            height: 60.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: AppColors.whiteColor
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                              SvgPicture.asset(AppAssets.logoutIcon),
-                              addWidth(20),
-                              addBoldTxt("Logout", fontSize: 15, ),
-
-                              Spacer(),
-                              
-                            ]),
+                            child:  Padding(
+                              padding:  EdgeInsets.symmetric(
+                                vertical: 10.h,
+                                horizontal: 14.h
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                SvgPicture.asset(AppAssets.logoutIcon),
+                                addWidth(20),
+                                addBoldTxt("Logout", fontSize: 15, ),
+                        
+                                Spacer(),
+                                
+                              ]),
+                            ),
                           ),
                         ),
                       ), 

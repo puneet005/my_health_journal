@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:my_health_journal/Screens/sign_up/forget_password.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/common-widgets/custom_textfield.dart';
 
@@ -70,7 +71,7 @@ class _LoginState extends State<Login> {
                     ),
                     addHeight(20),
                      IntlPhoneField(
-                          // controller: profileController.phoneNoCtrl,                 
+                          controller: controller.emailCtrl,                 
                           autovalidateMode: AutovalidateMode.always,
                           disableLengthCheck: true,
                           keyboardType: TextInputType.numberWithOptions(signed: false, decimal: false),
@@ -101,7 +102,7 @@ class _LoginState extends State<Login> {
                             errorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
-                                color: AppColors.orangeColor
+                                color: Colors.red
                               ),
 
                                 // gapPadding: 20
@@ -127,7 +128,7 @@ class _LoginState extends State<Login> {
                             enabledBorder:OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
-                                color: AppColors.orangeColor
+                                color: AppColors.blackColor2
                               ),                          
                             ) ,                         
                             focusedBorder: OutlineInputBorder(
@@ -166,9 +167,9 @@ class _LoginState extends State<Login> {
                              if (value!.trim() == null || value.trim().isEmpty) {
                     return 'Password is Required*';
                   }
-                  if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$').hasMatch(value)) {
-                    return 'Minimum 8 characters, at least 1 upper case, 1 lower case,1 number and 1 special character.'.tr;
-                  }
+                  // if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$').hasMatch(value)) {
+                  //   return 'Minimum 8 characters, at least 1 upper case, 1 lower case,1 number and 1 special character.'.tr;
+                  // }
                   return null; // Return null if the password is valid.
                 
                           
@@ -201,7 +202,9 @@ class _LoginState extends State<Login> {
                           ],
                         ).marginOnly(bottom: 20),
                         CustomButton(text: "Continue", onPressed: (){
-                          Get.toNamed(AppRoutes.signUpScreen);
+                         if(controller.loginKey.currentState!.validate()){
+                            controller.LoginApi();
+                         }
                         }, 
                         width: Get.width /1.1,
                         height: 60.h,),
@@ -210,7 +213,11 @@ class _LoginState extends State<Login> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                          addRegularTxt("Forgot password?", fontSize: 13, color: AppColors.blackColor3)
+                          InkWell(
+                            onTap: (){
+                              Get.to(ForgetPassword());
+                            },
+                            child: addRegularTxt("Forgot password?", fontSize: 13, color: AppColors.blackColor3))
                         ],),
 
                         addHeight(20),
@@ -230,15 +237,15 @@ class _LoginState extends State<Login> {
                           children: [
                             GestureDetector(
                               onTap: (){
-                                // controller.signInWithGoogle().then((value) {
-                                //   if(value != null){
-                                //     log(value.toString());
-                                //     controller.SocialLoginApi(
-                                //       login_type: 'google', 
-                                //       social_id: value.providerData[0].uid.toString(),
-                                //       email: value.email);  
-                                //   }
-                                // });
+                                controller.signInWithGoogle().then((value) {
+                                  if(value != null){
+                                    log(value.toString());
+                                    controller.SocialLoginApi(
+                                      login_type: 'google', 
+                                      social_id: value.providerData[0].uid.toString(),
+                                      email: value.email);  
+                                  }
+                                });
                               },
                               child: Container(
                                 height: 50.h,
@@ -278,7 +285,7 @@ class _LoginState extends State<Login> {
                             InkWell(
                               onTap: (){
                                 log("Apple Sign in");
-                                // controller.loginWithApple();
+                                controller.loginWithApple();
                               },
                               child: Container(
 
@@ -299,6 +306,29 @@ class _LoginState extends State<Login> {
                         ),
 
                         addHeight(10),
+                        addHeight(10),
+                         Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      addRegularTxt('Don’t have an account? '),
+                      GestureDetector(
+                        onTap: (){
+                           Get.toNamed(AppRoutes.signUpScreen);
+                          // Get.to(SignUpScreen());
+                        },
+                        child: addBoldTxt('Sign up'.tr, fontSize: 18,
+                            color: AppColors.orangeColor,
+                            decoration: TextDecoration.underline),
+                      ),
+                    ],
+                  ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //   addRegularTxt("Don't have an account? Sign Up", fontSize: 13, color: AppColors.blackColor3)
+                        // ],),
+
+                        addHeight(20),
                         
 
                 ],
