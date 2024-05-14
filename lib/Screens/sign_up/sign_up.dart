@@ -33,10 +33,6 @@ class _SignUpState extends State<SignUp> {
         .of(context)
         .size
         .height;
-    var deviceWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
         body:  GetBuilder<SignUpController>(builder: (ctrl)  {

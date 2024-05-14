@@ -53,7 +53,7 @@ class _PatientViewState extends State<PatientView> {
                   //   height: 45.h,
                   //   decoration: BoxDecoration(
                   //     color: AppColors.whiteColor,
-                  //     borderRadius: BorderRadius.circular(15),
+                  //     borderRadius: BorderRadius.circular( 15),
                   //     border: Border.all(
                   //       color: AppColors.blackColor3.withOpacity(0.1)
                   //     ),

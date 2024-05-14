@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -38,7 +40,7 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-		<key>CFBundleURLTypes</key>
+	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
@@ -48,14 +50,6 @@
 				<string>com.googleusercontent.apps.132634744519-v3tgfmunqi4uqv6hfs702eroiuao4qc2</string>
 			</array>
 		</dict>
-		<!-- <dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb991440981939327</string>
-			</array>
-		</dict> -->
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

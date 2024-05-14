@@ -18,6 +18,8 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
+
+  final controller = Get.find<ProfileContorller>();
   @override
   Widget build(BuildContext context) {
      return Scaffold(
@@ -38,7 +40,7 @@ class _SettingState extends State<Setting> {
                     padding: const EdgeInsets.all(8.0),
                     child: ListView(
                       children: [
-                     addHeight(30),
+                     addHeight(10),
                     Padding(
                     padding:  EdgeInsets.symmetric(horizontal: 8.sp,),
                     child: InkWell(
@@ -47,43 +49,39 @@ class _SettingState extends State<Setting> {
                         // Get.toNamed(AppRoutes.bottomNav);
                       },
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          InkWell(
-                            onTap: (){
-                              Get.back();
-                            },
-                            child: SvgPicture.asset(AppAssets.backArrowIcon)),
-                          addHeadingTxtMedium("Profile", fontSize: 15.sp,  color: AppColors.blackColor, fontFamily: "Montserrat-medium" ),
-                          Container(
-                    width: 45.h,
-                    height: 45.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                        color: AppColors.blackColor3.withOpacity(0.1)
-                      ),
-                    ),
-                  
-                    child: InkWell(
-                      onTap: (){
-                        Get.toNamed(AppRoutes.setting);
-                      },
-                      child:const  Padding(
-                        padding:  EdgeInsets.all(8.0),
-                        child: Center(
-                          child:  Icon(Icons.mode_edit_outline),
-                        ),
-                      ),
-                    ),
-                   ),
                           // InkWell(
                           //   onTap: (){
                           //     Get.back();
                           //   },
-                          //   child: SvgPicture.asset(AppAssets.notificationIcon)),
-                                     ],
+                          //   child: SvgPicture.asset(AppAssets.backArrowIcon)),
+                          addHeadingTxtMedium("Profile", fontSize: 15.sp,  color: AppColors.blackColor, fontFamily: "Montserrat-medium" ),
+                          // SizedBox(width: 45.h,)
+                  //         Container(
+                  //   width: 45.h,
+                  //   height: 45.h,
+                  //   decoration: BoxDecoration(
+                  //     color: AppColors.whiteColor,
+                  //     borderRadius: BorderRadius.circular(15),
+                  //     border: Border.all(
+                  //       color: AppColors.blackColor3.withOpacity(0.1)
+                  //     ),
+                  //   ),
+                  
+                  //   child: InkWell(
+                  //     onTap: (){
+                  //       Get.toNamed(AppRoutes.setting);
+                  //     },
+                  //     child:const  Padding(
+                  //       padding:  EdgeInsets.all(8.0),
+                  //       child: Center(
+                  //         child:  Icon(Icons.mode_edit_outline),
+                  //       ),
+                  //     ),
+                  //   ),
+                  //  ),                       
+                            ],
                                   ),
                     ),
             ),
@@ -91,31 +89,49 @@ class _SettingState extends State<Setting> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                      if(controller.profileData.data != null )
                         Container(
                           width: Get.width /2.5,
                           height: Get.height / 5,
-                          child: Stack(
-                            children: [
-
-                              Image.asset(AppAssets.profile, fit: BoxFit.contain,),
-                              Positioned(
-                                bottom: 0,
-                                right: 5,
-                                child: Container(
+                          child: InkWell(
+                            onTap: (){
+                              Get.toNamed(AppRoutes.editProfile);
+                            },
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  height: Get.height/3.2,
+                                  width: Get.width / 2.8,
                                   decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.orangeColor,
-                                    border: Border.all(
-                                      color: AppColors.whiteColor
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: AppColors.blueColor,
+                                    image: DecorationImage(image: controller.profileData.data!.profile == null ?  AssetImage(AppAssets.profileIcon) : NetworkImage(controller.profileData.data!.profile!) as ImageProvider, 
+                                    fit: BoxFit.fill
                                     )
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SvgPicture.asset(AppAssets.pencilIcon, height: 15.h,),
-                                  ),
+                                  )
                                 ),
-                              )
-                            ],
+                          
+                                // Image.asset(AppAssets.profile, fit: BoxFit.contain,),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 5,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: AppColors.orangeColor,
+                                      border: Border.all(
+                                        color: AppColors.whiteColor
+                                      )
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SvgPicture.asset(AppAssets.pencilIcon, height: 15.h,),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],),
@@ -123,7 +139,7 @@ class _SettingState extends State<Setting> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          addBoldTxt("Kathryn Murphy", fontSize: 18, )
+                          addBoldTxt("${controller.profileData.data!.name ?? ""}", fontSize: 18, )
                         ],
                       ), 
                       addHeight(10),

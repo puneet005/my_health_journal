@@ -39,14 +39,14 @@ class _LoginState extends State<Login> {
         .height;
 
     return Scaffold(      
-      body: Container(
-           width: double.infinity,
-              height: deviceHeight,
-                 decoration: BoxDecoration(            
-            image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
-            fit: BoxFit.fill
-            )
-          ),
+        body: Container(
+            width: double.infinity,
+                height: deviceHeight,
+                  decoration: BoxDecoration(            
+              image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
+              fit: BoxFit.fill
+              )
+            ),
         child: SingleChildScrollView(
           child: GetBuilder<LoginController>(builder: (loginCtrl) {
             return Form(
@@ -244,6 +244,7 @@ class _LoginState extends State<Login> {
                                       login_type: 'google', 
                                       social_id: value.providerData[0].uid.toString(),
                                       email: value.email);  
+                                      
                                   }
                                 });
                               },
@@ -355,3 +356,4 @@ class _LoginState extends State<Login> {
     );
   }
 }
+  

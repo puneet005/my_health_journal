@@ -58,6 +58,19 @@ class AppAssets {
    static const String notification = "assets/images/notification.svg";  
 
    static const String notificationWithoutBG = "assets/images/notification-without_bg.svg";
+   static const String bottomLeftCicleImg = "assets/images/bottom_left_cicle.svg";
+   static const String appointmentIcon = "assets/images/appointment.svg";
+   static const String symptomsIcon = "assets/images/symptoms.svg";
+   static const String medicationsIcon = "assets/images/medications.svg";
+   static const String eventsIcon = "assets/images/events.svg";
+   static const String parsonalHistoryIcon = "assets/images/personal_history.svg";
+   static const String proceduresIcon = "assets/images/procedures.svg";
+   static const String labsScansIcon = "assets/images/labs_scans.svg";
+   static const String familyHistoryIcon = "assets/images/family_history.svg";
+   static const String providersIcon = "assets/images/providers.svg";
+   static const String calendar2Icon = "assets/images/calendar2.svg";
+   
+
   
   // PNG Image
   static const String patient1 = "assets/images/patient1.png";
@@ -71,6 +84,7 @@ class AppAssets {
   static const String medical4 = "assets/images/medical4.png";
   static const String medical5 = "assets/images/medication5.png";
   static const String profile = "assets/images/profile.png";
+  static const String profileIcon = "assets/images/profile_icon.png";
 
 
   // Png Folder Img
@@ -86,7 +100,7 @@ class AppAssets {
   static const String patientDetails8 = "assets/png/folder.svg";
   static const String patientDetails9 = "assets/png/doctor_i.svg";
   static const String patientDetails10 = "assets/png/medical.svg";
-
+  
 
 
 

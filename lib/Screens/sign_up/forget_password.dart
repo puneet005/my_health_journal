@@ -27,10 +27,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         .of(context)
         .size
         .height;
-    var deviceWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
     return Scaffold(
       // backgroundColor: AppColors.whiteColor,
       body: Container(
@@ -69,8 +65,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         
                             addHeight(20),
                              CustomTextField(
-                              controller: controller.emailCtrl,
-                                                     
+                              controller: controller.forgetEmailCtrl,                                                     
                               labelText: "Email",
                               
                               
@@ -87,7 +82,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     
                     addHeight(90.h),
                      CustomButton(text: "Countine", onPressed: (){
-                         
+                          if(controller.forgetKey.currentState!.validate()){
+                            controller.forgetPasswordApi();
+                          }
                           }, 
                           width: Get.width /1.1,
                           height: 60.h,),

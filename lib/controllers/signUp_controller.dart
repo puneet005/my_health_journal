@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:my_health_journal/common-widgets/custom_loader.dart';
 import 'package:my_health_journal/controllers/profile_controller.dart';
 import 'package:my_health_journal/main.dart';
-import 'package:my_health_journal/models/sign_up_model.dart';
+import 'package:my_health_journal/models/auth/sign_up_model.dart';
+// import 'package:my_health_journal/models/sign_up_model.dart';
 import 'package:my_health_journal/resources/api_constant.dart';
 import 'package:my_health_journal/resources/local_storage.dart';
 import 'package:my_health_journal/resources/utils.dart';
@@ -110,7 +112,7 @@ Future<bool> signUpApi() async {
 
  void signOutApi() async {
     var result = await ApiHandler().GetApi(apiName: "${ApiUrls.logout}");     
-    // await _googleSignIn.signOut();
+    await GoogleSignIn().signOut();
     // await FacebookAuth.instance.logOut();     
     // await FirebaseAuth.instance.signOut();
     removeValue(LocalStorage.TOKEN);

@@ -9,9 +9,12 @@ class ApiUrls {
   static const String register = "${baseUrl}register";
   static const String logout = "${baseUrl}logout";  
   static const String profile = "${baseUrl}user-profile";
-  static const String forgotpassword = "${baseUrl}forgotpassword";
-  static const String changepassword = "${baseUrl}changepassword";
-  static const String profileUpdate = "${baseUrl}profileUpdate";
+  static const String forgotPassword = "${baseUrl}forgot-password";
+  static const String resetPassword = "${baseUrl}reset-password";
+  static const String profileUpdate = "${baseUrl}edit-profile";
+  static const String deleteAccount = "${baseUrl}delete-account";
+
+  
 
   //Cart
   static const String cart = "${baseUrl}cart/list";
