@@ -32,11 +32,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ListView(
+                    child: Column(
                       // shrinkWrap: true,
                       // physics: const NeverScrollableScrollPhysics(),
                       children: [
-                     addHeight(30),
+                     addHeight(50),
                     Padding(
                     padding:  EdgeInsets.symmetric(horizontal: 8.sp,),
                     child: InkWell(
@@ -45,24 +45,26 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         // Get.toNamed(AppRoutes.bottomNav);
                       },
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          InkWell(
-                            onTap: (){
-                              Get.back();
-                            },
-                            child: SvgPicture.asset(AppAssets.backArrowIcon)),
+                          // InkWell(
+                          //   onTap: (){
+                          //     Get.back();
+                          //   },
+                          //   child: SvgPicture.asset(AppAssets.backArrowIcon)),
                             addHeadingTxtMedium("Notifications", fontSize: 15.sp,  color: AppColors.blackColor, fontFamily: "Montserrat-medium" ),                                                 
-                            addWidth(40),
+                            // addWidth(40),
                             ],
                                   ),
                     ),
             ),
-                      addHeight(20),
-                      ListView(
-                        shrinkWrap: true,
-                         physics: const NeverScrollableScrollPhysics(),
-                        children: List.generate(10, (index) => NotificationCard()),
+                      // addHeight(10),
+                      Expanded(
+                        child: ListView(
+                          // shrinkWrap: true,
+                          //  physics: const NeverScrollableScrollPhysics(),
+                          children: List.generate(10, (index) => NotificationCard()),
+                        ),
                       )
                       ])));}));
   }

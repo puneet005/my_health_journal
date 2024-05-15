@@ -40,8 +40,29 @@ class _MedicalSummaryState extends State<MedicalSummary> {
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           children: [
-            addHeight(30),
-            AppBar1(title: "Medical Summary"),
+            addHeight(10),
+             Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 8.sp,),
+                    child: InkWell(
+                      onTap: (){
+                        Get.back();
+                        // Get.toNamed(AppRoutes.bottomNav);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // InkWell(
+                          //   onTap: (){
+                          //     Get.back();
+                          //   },
+                          //   child: SvgPicture.asset(AppAssets.backArrowIcon)),
+                            addHeadingTxtMedium("Medical Summary", fontSize: 15.sp,  color: AppColors.blackColor, fontFamily: "Montserrat-medium" ),                                                 
+                            // addWidth(40),
+                            ],
+                                  ),
+                    ),
+            ),
+            // AppBar1(title: ""),
             addHeight(30),
             Padding(
               padding:  EdgeInsets.symmetric(

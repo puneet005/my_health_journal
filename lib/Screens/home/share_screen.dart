@@ -31,18 +31,17 @@ class _ShareScreenState extends State<ShareScreen> {
         builder: (_) {
           return Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height,
+               height: Get.height,
               decoration: BoxDecoration(
                 
-                image: DecorationImage(image: AssetImage(AppAssets.bgImg),
+                image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
                 fit: BoxFit.fill
                 )
               ),
-              child:   ListView(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
+              child:   Column(
+              
                 children: [
-                  addHeight(30),
+                  addHeight(50),
                   Padding(
                     padding:  EdgeInsets.symmetric(horizontal: 8.sp,),
                     child: Row(
@@ -126,22 +125,21 @@ class _ShareScreenState extends State<ShareScreen> {
                               // Icon(Icons.menu)           
             ],
           ),
+          
 
         ),
       ),
     )
               // PatientCard(data:  controller.patientList[index],)
               ),
-            )
-          ],
-        
-      )
-      )  ; 
-        },
-      ),
-      bottomNavigationBar: Container(
-        color: Colors.white,
-        height: 110.h,
+            ),
+            Spacer(),
+             Container(
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(image: AssetImage(AppAssets.bgImg2),fit: BoxFit.fitHeight)
+        // ),
+        // color: AppColors.appColor.withOpacity(0.1),
+        height: 130.h,
         child: Column(
           // mainAxisAlignmen,
           children: [
@@ -166,13 +164,58 @@ class _ShareScreenState extends State<ShareScreen> {
                              ),
                ),
 
+             ).paddingOnly(
+              bottom: 30
              ),
-             addHeight(10),
+            //  addHeight(0),
           
 
           ],
         ),
       ),
+          ],
+        
+      )
+      )  ; 
+        },
+      ),
+      // bottomNavigationBar: Container(
+      //   // decoration: BoxDecoration(
+      //   //   image: DecorationImage(image: AssetImage(AppAssets.bgImg2),fit: BoxFit.fitHeight)
+      //   // ),
+      //   // color: AppColors.appColor.withOpacity(0.1),
+      //   height: 110.h,
+      //   child: Column(
+      //     // mainAxisAlignmen,
+      //     children: [
+      //       CustomButton(
+      //         width: Get.width /1.2 ,
+      //         height: Get.height /13,
+      //         text: "Share", onPressed: (){}),
+      //       addHeight(20),
+      //        Container(
+      //         child: 
+      //          InkWell(
+      //           onTap: (){
+      //             Get.toNamed(AppRoutes.addNewMember);
+      //           },
+      //            child: Row(
+      //             mainAxisAlignment: MainAxisAlignment.center,
+      //             children: [
+      //                 SvgPicture.asset(AppAssets.addPersonIcon),
+      //                 addWidth(10),
+      //                 addRegularTxt("Invite New Member", color: AppColors.orangeColor2),
+      //             ],
+      //                        ),
+      //          ),
+
+      //        ),
+      //        addHeight(10),
+          
+
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:my_health_journal/Screens/sign_up/forget_password.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/common-widgets/custom_textfield.dart';
 
@@ -32,20 +33,18 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    var deviceHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
 
-    return Scaffold(      
-      body: Container(
-           width: double.infinity,
-              height: deviceHeight,
-                 decoration: BoxDecoration(            
-            image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
-            fit: BoxFit.fill
-            )
-          ),
+    return Scaffold(  
+       resizeToAvoidBottomInset: false,    
+        body: Container(
+            width: double.infinity,
+                height: Get.height,
+                  decoration: BoxDecoration(            
+              image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
+              fit: BoxFit.fill
+              
+              )
+            ),
         child: SingleChildScrollView(
           child: GetBuilder<LoginController>(builder: (loginCtrl) {
             return Form(
@@ -70,8 +69,8 @@ class _LoginState extends State<Login> {
                     ),
                     addHeight(20),
                      IntlPhoneField(
-                          // controller: profileController.phoneNoCtrl,                 
-                          autovalidateMode: AutovalidateMode.always,
+                          controller: controller.emailCtrl,                 
+                          // autovalidateMode: AutovalidateMode.always,
                           disableLengthCheck: true,
                           keyboardType: TextInputType.numberWithOptions(signed: false, decimal: false),
                           inputFormatters: [
@@ -86,7 +85,7 @@ class _LoginState extends State<Login> {
                                     return 'Enter Valid Number*'.tr;
                                 }
                           },
-                          flagsButtonPadding: EdgeInsets.only(
+                          flagsButtonPadding: const EdgeInsets.only(
                             left: 10,
                             right: 10,
                           ),
@@ -94,14 +93,14 @@ class _LoginState extends State<Login> {
                           decoration: InputDecoration(    
                             floatingLabelAlignment: FloatingLabelAlignment.start,                        
                             label: addRegularTxt('Mobile Number', color: AppColors.greyColor1),
-                            floatingLabelStyle: TextStyle(                           
+                            floatingLabelStyle: const TextStyle(                           
                             ),
                             isDense: false,
-                            filled: true,  
+                            filled: true,                              
                             errorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
-                                color: AppColors.orangeColor
+                                color: Colors.red
                               ),
 
                                 // gapPadding: 20
@@ -127,7 +126,7 @@ class _LoginState extends State<Login> {
                             enabledBorder:OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
-                                color: AppColors.orangeColor
+                                color: AppColors.blackColor2
                               ),                          
                             ) ,                         
                             focusedBorder: OutlineInputBorder(
@@ -156,61 +155,94 @@ class _LoginState extends State<Login> {
                         CustomTextField(
                           controller: controller.passwordCtrl,
                           obscureText: controller.obscureText,                          
-                          labelText: "Password",
+                          labelText: "Password",  
+                          
                           // labelStyle: TextStyle(), 
                           suffixIcon: SvgPicture.asset(controller.obscureText ?  AppAssets.eyeOff: AppAssets.eyeOpen).marginAll(
                               14),
                           onTapSuffixIcon: controller.onPassSuffixTap,
+                          
                 validator: (value){
                              // ignore: unnecessary_null_comparison
                              if (value!.trim() == null || value.trim().isEmpty) {
                     return 'Password is Required*';
                   }
-                  if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$').hasMatch(value)) {
-                    return 'Minimum 8 characters, at least 1 upper case, 1 lower case,1 number and 1 special character.'.tr;
-                  }
+                  // if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$').hasMatch(value)) {
+                  //   return 'Minimum 8 characters, at least 1 upper case, 1 lower case,1 number and 1 special character.'.tr;
+                  // }
                   return null; // Return null if the password is valid.
                 
                           
                           },                                                
-                        ),
+                        ).paddingOnly(bottom: 10),
                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          // mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Checkbox(
-                              splashRadius: 20,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
-                                value: controller.rememberme, onChanged: (val){
-                                controller.rememberme = !controller.rememberme;
-                                controller.update();
+                            // Checkbox(
+                              
+                            //   // splashRadius: 10,
+                            //     shape: RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.circular(5)),
+                            //     value: controller.rememberme, onChanged: (val){
+                            //     
 
-                            }),
-                            // GestureDetector(
-                            //   onTap: (){
-                            //     controller.rememberme = !controller.rememberme;
-                            //     controller.update();
-                            //   },
-                            //   child: SvgPicture.asset(AppAssets.rememberMe, color: controller.rememberme ? AppColors.greenDarkColor:AppColors.greyColor2)),
+                            // }),
+                           InkWell(
+                            onTap: (){
+                              controller.rememberme = !controller.rememberme;
+                                controller.update();
+                            },
+                            child:  !controller.rememberme ? 
+                            Container(
+                            height: 20,
+                            width: 20,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: AppColors.blackColor2,
+                                width: 1.2
+                              ),
+                              borderRadius: BorderRadius.circular(4)
+                            ),
+                           ).paddingOnly(
+                            right: 8
+                           ):  Container(
+                            height: 20,
+                            width: 20,
+                            decoration: BoxDecoration(
+                             color: AppColors.appColor,
+                              borderRadius: BorderRadius.circular(4)
+                            ),child: Center(child: Icon(Icons.check, size: 18, color: AppColors.whiteColor,)),
+                           ).paddingOnly(
+                            right: 8
+                           ),
+                           ),
+                           
                             addRegularTxt(
                                 'Remember me'.tr, color:  AppColors.blackColor3, fontSize: 13.sp, )
-                                .marginOnly(bottom: 4, left: 4),
+                               
           
           
                           ],
                         ).marginOnly(bottom: 20),
                         CustomButton(text: "Continue", onPressed: (){
-                          Get.toNamed(AppRoutes.signUpScreen);
+                           Get.offAllNamed(AppRoutes.bottomNav);  
+                        //  if(controller.loginKey.currentState!.validate()){
+                        //     controller.LoginApi();
+                        //  }
                         }, 
                         width: Get.width /1.1,
                         height: 60.h,),
                         
-                        addHeight(10),
+                        addHeight(16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                          addRegularTxt("Forgot password?", fontSize: 13, color: AppColors.blackColor3)
+                          InkWell(
+                            onTap: (){
+                              Get.to(ForgetPassword());
+                            },
+                            child: addRegularTxt("Forgot password?", fontSize: 13, color: AppColors.blackColor3))
                         ],),
 
                         addHeight(20),
@@ -237,6 +269,7 @@ class _LoginState extends State<Login> {
                                 //       login_type: 'google', 
                                 //       social_id: value.providerData[0].uid.toString(),
                                 //       email: value.email);  
+                                      
                                 //   }
                                 // });
                               },
@@ -299,6 +332,29 @@ class _LoginState extends State<Login> {
                         ),
 
                         addHeight(10),
+                        addHeight(10),
+                         Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      addRegularTxt('Don’t have an account? '),
+                      GestureDetector(
+                        onTap: (){
+                           Get.toNamed(AppRoutes.signUpScreen);
+                          // Get.to(SignUpScreen());
+                        },
+                        child: addBoldTxt('Sign up'.tr, fontSize: 18,
+                            color: AppColors.orangeColor,
+                            decoration: TextDecoration.underline),
+                      ),
+                    ],
+                  ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //   addRegularTxt("Don't have an account? Sign Up", fontSize: 13, color: AppColors.blackColor3)
+                        // ],),
+
+                        addHeight(20),
                         
 
                 ],
@@ -325,3 +381,4 @@ class _LoginState extends State<Login> {
     );
   }
 }
+  

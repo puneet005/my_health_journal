@@ -2,10 +2,14 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_calendar_carousel/classes/event.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:my_health_journal/Screens/home/add_medications.dart';
 import 'package:my_health_journal/Screens/widget/appbar.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/common-widgets/custom_textfield.dart';
@@ -25,6 +29,7 @@ class _AddProviderState extends State<AddProvider> {
   @override
   Widget build(BuildContext context) {
       return Scaffold(
+        resizeToAvoidBottomInset: false,    
       body:   GetBuilder<CalendarContorller>(
         // init: MyController(),
         // initState: (_) {},
@@ -65,6 +70,11 @@ class _AddProviderState extends State<AddProvider> {
                        addHeight(20),
                       CustomTextField(
                         labelText:  "Account Number",
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                           FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                              // LengthLimitingTextInputFormatter(15),
+                        ],
                       ),
                        addHeight(20),
                       IntlPhoneField(
@@ -91,7 +101,7 @@ class _AddProviderState extends State<AddProvider> {
                             
                             decoration: InputDecoration(    
                               floatingLabelAlignment: FloatingLabelAlignment.start,                        
-                              label: addRegularTxt('Mobile Number', color: AppColors.greyColor1),
+                              label: addRegularTxt('Contact Information', color: AppColors.greyColor1),
                               floatingLabelStyle: TextStyle(                           
                               ),
                               isDense: false,
@@ -152,11 +162,18 @@ class _AddProviderState extends State<AddProvider> {
                           ), 
                        addHeight(20),
                       CustomTextField(
+                        onTap: (){
+_Calendarpop(context);
+                        },
                         labelText: "Date Of First Visit",
+                          suffixIcon: Padding(
+                      padding:  EdgeInsets.all(12.0.sp),
+                      child: SvgPicture.asset(AppAssets.bottomNav3, color: AppColors.orangeColor,height: 20,),
+                    ),
                       ), addHeight(20),
                        
              Padding(
-              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+              padding: EdgeInsets.symmetric(vertical: 6,),
               child: InkWell(
                 onTap: (){
                     _addPictureSheet(context, 2);
@@ -274,5 +291,183 @@ addHeight(10)
     );
 
     return  imgPath ?? "";
+  }
+
+
+   _Calendarpop(BuildContext context){
+      showDialog(
+                    context: context,
+                    // barrierColor: Colors.transparent,
+                    builder: (BuildContext context) {
+                      return CustomDialog();
+                    },
+                  );
+}
+}
+
+  var _currentDate = DateTime.now();
+  DateTime? _targetDateTime = DateTime.now();
+  String _currentMonth = DateFormat.yMMMM().format(DateTime.now());
+class CustomDialog extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return Container(
+              color: Colors.transparent,
+              child: Stack(
+                alignment: AlignmentDirectional.topCenter,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(top: 15),
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: ClipPath(
+                         clipper: CuponClipper(),
+    child: Container(
+
+                        padding:
+                            const EdgeInsets.only(top: 14, left: 6, right: 6),
+                        // margin: const EdgeInsets.only(top: 10),
+                        alignment: AlignmentDirectional.center,
+                        height: Get.height / 2.1,
+                        
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Column(              
+                   children: [
+                    Padding(
+                      padding:  EdgeInsets.symmetric(
+                        horizontal: 14.h,
+                        vertical: 10.h
+                      ),
+                      child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: (){
+                               setState(() {
+                              _targetDateTime = DateTime(
+                                  _targetDateTime!.year, _targetDateTime!.month - 1);
+                              _currentMonth =
+                                  DateFormat.yMMM().format(_targetDateTime!);
+                            });
+                            },
+                            child: SvgPicture.asset(AppAssets.leftCircleIcon, height: 30.h,)),
+                          addHeadingTxtMedium(_currentMonth, fontSize: 20, fontFamily: "Montserrat-semibold"),
+                          // Spacer(),
+                          
+                          // addWidth(10),
+                          InkWell(
+                            onTap: (){
+                               setState(() {
+                              _targetDateTime = DateTime(
+                                  _targetDateTime!.year, _targetDateTime!.month + 1);
+                              _currentMonth =
+                                  DateFormat.yMMM().format(_targetDateTime!);
+                            });
+                            },
+                            child: SvgPicture.asset(AppAssets.rightCircleIcon,  height: 30.h,)),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(
+                        horizontal: 14.h
+                        
+                      ),
+                      child: Divider(
+                        thickness: 1.2,
+                      ),
+                    ),
+                     Padding(
+                       padding: const EdgeInsets.all(8.0),
+                       child: CalendarCarousel<Event>(
+          // todayBorderColor: Colors.green,
+          childAspectRatio: 1.3,
+          onDayPressed: (date, events) {     
+          }, 
+          showOnlyCurrentMonthDate: false,
+          weekendTextStyle: const TextStyle(
+            color: AppColors.blackColor,
+          ),
+          thisMonthDayBorderColor: Colors.grey,
+          
+          weekFormat: false,      
+          height: 210.h,
+          weekDayPadding: EdgeInsets.only(
+            bottom: 10.h
+          ),  
+          weekdayTextStyle: TextStyle(color: AppColors.blackColor, fontFamily: "Montserrat-semibold", fontWeight: FontWeight.w200, fontSize: 10),
+          customGridViewPhysics: const NeverScrollableScrollPhysics(),      
+          showHeader: false,
+          todayTextStyle: const TextStyle(
+            // color: Colors.,
+          ),      
+          todayButtonColor: AppColors.appColor,
+           targetDateTime: _targetDateTime,
+          selectedDayTextStyle: const TextStyle(
+            color: Colors.yellow,
+          ),
+          minSelectedDate: _currentDate.subtract(Duration(days: 360)),
+          maxSelectedDate: _currentDate.add(Duration(days: 360)),      
+          inactiveDaysTextStyle: TextStyle(
+            color: Colors.tealAccent,
+            fontSize: 16,
+          ),
+          onCalendarChanged: (DateTime date) {
+            setState(() {
+              _targetDateTime = date;
+              _currentMonth = DateFormat.yMMM().format(date);
+            });
+          },
+          onDayLongPressed: (DateTime date) {
+            print('long pressed date $date');
+          },
+    ),                  
+  ),
+                    
+                   ],
+                 ),                   
+                      ),
+                    )
+  //                    CustomPaint(
+  //                     painter: MyShape(),
+  //                     child: 
+  //                     
+  //                   ),
+              
+                  ),
+                    Positioned(
+                    top: 0,
+                    left: Get.width / 2.85,
+                    // right: Get.width / 2,
+                    
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ));
+        }
+      ),
+    );
   }
 }

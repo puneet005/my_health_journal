@@ -14,6 +14,7 @@ import 'package:my_health_journal/Screens/other/medical_summary.dart';
 import 'package:my_health_journal/Screens/other/medications.dart';
 import 'package:my_health_journal/Screens/other/medications_details.dart';
 import 'package:my_health_journal/Screens/other/notification.dart';
+import 'package:my_health_journal/Screens/profile/edit_profile.dart';
 import 'package:my_health_journal/Screens/profile/premium.dart';
 import 'package:my_health_journal/Screens/profile/setting.dart';
 import 'package:my_health_journal/Screens/sign_up/login.dart';
@@ -46,8 +47,8 @@ class AppRoutes {
   static String setting = '/setting';
   static String premium = '/Premium';
   static String notification = '/Notification';
-  //       static String medicationDetails = '/medicationDetails';
-  //         static String medicationDetails = '/medicationDetails';
+  //    
+  static String editProfile = '/EditProfile';
   // static String webViewScreen = '/WebViewScreen';
 
 
@@ -147,6 +148,10 @@ class AppRoutes {
       GetPage(
       name: AppRoutes.notification,
       page: () => const NotificationScreen(),
+    ),
+     GetPage(
+      name: AppRoutes.editProfile,
+      page: () => const EditProfile(),
     ),
   ];
 }

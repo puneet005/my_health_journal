@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 // import 'package:my_health_journal/Screens/widget/appbar.dart';
 import 'package:my_health_journal/controllers/profile_controller.dart';
+import 'package:my_health_journal/controllers/signUp_controller.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
 import 'package:my_health_journal/resources/app_color.dart';
 import 'package:my_health_journal/resources/text_utility.dart';
@@ -17,6 +18,8 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
+
+  final controller = Get.find<ProfileContorller>();
   @override
   Widget build(BuildContext context) {
      return Scaffold(
@@ -37,7 +40,7 @@ class _SettingState extends State<Setting> {
                     padding: const EdgeInsets.all(8.0),
                     child: ListView(
                       children: [
-                     addHeight(30),
+                     addHeight(10),
                     Padding(
                     padding:  EdgeInsets.symmetric(horizontal: 8.sp,),
                     child: InkWell(
@@ -46,43 +49,39 @@ class _SettingState extends State<Setting> {
                         // Get.toNamed(AppRoutes.bottomNav);
                       },
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          InkWell(
-                            onTap: (){
-                              Get.back();
-                            },
-                            child: SvgPicture.asset(AppAssets.backArrowIcon)),
-                          addHeadingTxtMedium("Profile", fontSize: 15.sp,  color: AppColors.blackColor, fontFamily: "Montserrat-medium" ),
-                          Container(
-                    width: 45.h,
-                    height: 45.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.whiteColor,
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                        color: AppColors.blackColor3.withOpacity(0.1)
-                      ),
-                    ),
-                  
-                    child: InkWell(
-                      onTap: (){
-                        Get.toNamed(AppRoutes.setting);
-                      },
-                      child:const  Padding(
-                        padding:  EdgeInsets.all(8.0),
-                        child: Center(
-                          child:  Icon(Icons.mode_edit_outline),
-                        ),
-                      ),
-                    ),
-                   ),
                           // InkWell(
                           //   onTap: (){
                           //     Get.back();
                           //   },
-                          //   child: SvgPicture.asset(AppAssets.notificationIcon)),
-                                     ],
+                          //   child: SvgPicture.asset(AppAssets.backArrowIcon)),
+                          addHeadingTxtMedium("Profile", fontSize: 15.sp,  color: AppColors.blackColor, fontFamily: "Montserrat-medium" ),
+                          // SizedBox(width: 45.h,)
+                  //         Container(
+                  //   width: 45.h,
+                  //   height: 45.h,
+                  //   decoration: BoxDecoration(
+                  //     color: AppColors.whiteColor,
+                  //     borderRadius: BorderRadius.circular(15),
+                  //     border: Border.all(
+                  //       color: AppColors.blackColor3.withOpacity(0.1)
+                  //     ),
+                  //   ),
+                  
+                  //   child: InkWell(
+                  //     onTap: (){
+                  //       Get.toNamed(AppRoutes.setting);
+                  //     },
+                  //     child:const  Padding(
+                  //       padding:  EdgeInsets.all(8.0),
+                  //       child: Center(
+                  //         child:  Icon(Icons.mode_edit_outline),
+                  //       ),
+                  //     ),
+                  //   ),
+                  //  ),                       
+                            ],
                                   ),
                     ),
             ),
@@ -90,31 +89,50 @@ class _SettingState extends State<Setting> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                      // if(controller.profileData.data != null )
                         Container(
                           width: Get.width /2.5,
                           height: Get.height / 5,
-                          child: Stack(
-                            children: [
-
-                              Image.asset(AppAssets.profile, fit: BoxFit.contain,),
-                              Positioned(
-                                bottom: 0,
-                                right: 5,
-                                child: Container(
+                          child: InkWell(
+                            onTap: (){
+                              Get.toNamed(AppRoutes.editProfile);
+                            },
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                // Image.asset(AppAssets.profileIcon, fit: BoxFit.contain,),
+                                Container(
+                                  height: Get.height/3.2,
+                                  width: Get.width / 2.8,
                                   decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.orangeColor,
-                                    border: Border.all(
-                                      color: AppColors.whiteColor
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: AppColors.blueColor,
+                                    image: DecorationImage(image:  AssetImage(AppAssets.profileIcon) , 
+                                    fit: BoxFit.fill
                                     )
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SvgPicture.asset(AppAssets.pencilIcon, height: 15.h,),
-                                  ),
+                                  )
                                 ),
-                              )
-                            ],
+                          
+                                // 
+                                Positioned(
+                                  bottom: 0,
+                                  right: 5,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: AppColors.orangeColor,
+                                      border: Border.all(
+                                        color: AppColors.whiteColor
+                                      )
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SvgPicture.asset(AppAssets.pencilIcon, height: 15.h,),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],),
@@ -192,28 +210,34 @@ class _SettingState extends State<Setting> {
                       ),
                        Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: Get.width / 1.2,
-                          height: 60.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: AppColors.whiteColor
-                          ),
-                          child:  Padding(
-                            padding:  EdgeInsets.symmetric(
-                              vertical: 10.h,
-                              horizontal: 14.h
+                        child: InkWell(
+                          onTap: (){
+                            Get.offAllNamed(AppRoutes.loginScreen);
+                            // Get.find<SignUpController>().signOutApi();
+                          },
+                          child: Container(
+                            width: Get.width / 1.2,
+                            height: 60.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: AppColors.whiteColor
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                              SvgPicture.asset(AppAssets.logoutIcon),
-                              addWidth(20),
-                              addBoldTxt("Logout", fontSize: 15, ),
-
-                              Spacer(),
-                              
-                            ]),
+                            child:  Padding(
+                              padding:  EdgeInsets.symmetric(
+                                vertical: 10.h,
+                                horizontal: 14.h
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                SvgPicture.asset(AppAssets.logoutIcon),
+                                addWidth(20),
+                                addBoldTxt("Logout", fontSize: 15, ),
+                        
+                                Spacer(),
+                                
+                              ]),
+                            ),
                           ),
                         ),
                       ), 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
+import 'package:my_health_journal/routers/app_routers.dart';
 
 class HomeController extends GetxController {
   int listofCatagoryIndex = 0;
@@ -19,7 +20,8 @@ class HomeController extends GetxController {
   }, {
    'name':   "Labs and Scans",
     'item': ["Test", "Collection", "Dizziness", "Headache"]
-  }];
+  },
+  ];
   List<Map<String, dynamic>> patientList = [
     {
       'name'  : "Tom Johnson",
@@ -56,6 +58,9 @@ class HomeController extends GetxController {
   TextEditingController dateofVisit = TextEditingController();  
   TextEditingController questionsforProvider = TextEditingController();
   TextEditingController providerComments = TextEditingController();
+  TextEditingController startingDateCont = TextEditingController();
+  TextEditingController endingDateCont = TextEditingController();
+   TextEditingController dateTimeCont = TextEditingController();
   TextEditingController notes = TextEditingController();
 
   late File image;
@@ -119,4 +124,74 @@ class HomeController extends GetxController {
      
     }
   }
+
+
+   List<Map<String, dynamic>> listofCatagory2 = [{
+  'img': AppAssets.appointmentIcon,
+  'name':  "Appointment", 
+  'item': ["Toothache", "Fever", "Dizziness", "Headache"],
+  'route': AppRoutes.addDoctorsVisit
+  },
+    {
+      'img': AppAssets.symptomsIcon,
+   'name':  "Symptoms",
+   'item': ["Report", "Medications", "Dizziness", "Headache"],
+   'route': AppRoutes.addSymptoms
+  }, 
+  
+   {
+    'img': AppAssets.medicationsIcon,
+   'name':  "Medications",
+   'item': ["Report", "Medications", "Dizziness", "Headache"],
+   'route': AppRoutes.addMedications
+
+  }, {
+    'img': AppAssets.eventsIcon,
+   'name':   "Events",
+   'item': ["Procedures", "OT", "Dizziness", "Headache"],
+   'route': AppRoutes.addMedications
+   
+  },
+  {
+    'img': AppAssets.parsonalHistoryIcon,
+    'name':   "Parsonal History",
+    'item': ["Test", "Collection", "Dizziness", "Headache"],
+    'route': AppRoutes.shareScreen, 
+
+
+  },
+   {
+    'img': AppAssets.proceduresIcon,
+    'name':   "Procedures",
+    'item': ["Test", "Collection", "Dizziness", "Headache"],
+     'route': AppRoutes.addProcedures
+
+
+  },
+  {
+    'img': AppAssets.labsScansIcon,
+   'name':   "Labs and Scans",
+    'item': ["Test", "Collection", "Dizziness", "Headache"],
+    'route': AppRoutes.addTestScan,
+  },
+  {
+    'img': AppAssets.familyHistoryIcon,
+   'name':   "Family History",
+    'item': ["Test", "Collection", "Dizziness", "Headache"],
+     'route': AppRoutes.doctorVisit
+  },
+  {
+    'img': AppAssets.providersIcon,
+   'name':   "Providers",
+    'item': ["Test", "Collection", "Dizziness", "Headache"],
+    'route':  AppRoutes.addProvider,
+  },
+    {
+    'img': AppAssets.calendar2Icon,
+   'name':   "Calendar",
+    'item': ["Test", "Collection", "Dizziness", "Headache"],
+    'route':  AppRoutes.addProvider,
+
+  },
+  ];
 }

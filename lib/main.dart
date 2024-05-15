@@ -1,22 +1,36 @@
+import 'dart:io';
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:my_health_journal/resources/app_color.dart';
+import 'package:my_health_journal/resources/fire_base_msg.dart';
 import 'package:my_health_journal/routers/app_routers.dart';
 import 'Resources/dependencies.dart' as de;
 
 
-
+String fcmToken = "";
 Future<void> main() async{
   await de.init();
   await GetStorage.init();
   // await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
-  // if(Platform.isAndroid){
-  //   // InAppPurchaseException.
-  // }
+  HttpOverrides.global = MyHttpOverrides();
+ 
+  // initMessaging();
+  // HttpOverrides.global = MyHttpOverrides();
+ 
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(                
+    // // systemNavigationBarColor: Colors.black, // navigation bar color
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark
+    // statusBarBrightness: Brightness.light ,    
+    // systemNavigationBarDividerColor: Colors.black,
+    // // status bar color
+  ));
   runApp(const MyApp());
 
 }
@@ -54,7 +68,7 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,  
           // initialRoute: AppRoutes.bottomNav,
-          initialRoute: AppRoutes.splashScreen,
+          initialRoute: AppRoutes.splashScreen,  
           getPages: AppRoutes.getRoute, 
           builder: (context, child) {
             return MediaQuery(
@@ -67,6 +81,14 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }
 

@@ -121,10 +121,14 @@ class _MedicationsState extends State<Medications> {
                      Spacer(
                       flex: 2,
                     ),
-                    addRegularTxt(controller.medicationList[index]['name']),
-                    addHeight(10),
+                    addBoldTxt(controller.medicationList[index]['name'], fontSize: 15),
+                    Divider(
+                      indent: 50,
+                      endIndent: 50,
+                    ),
+                    // addHeight(10),
                     addLightTxt("Who is taking?", fontSize: 11, color: AppColors.blackColor.withOpacity(0.7)),
-                    addHeight(10),
+                    // addHeight(10),
           
                    addHeadingTxtMedium(
                     controller.medicationList[index]['take'].length < 2 ?  "${controller.medicationList[index]['take'][0]}" : "${controller.medicationList[index]['take'][0]} +${controller.medicationList[index]['take'].length-1}", 

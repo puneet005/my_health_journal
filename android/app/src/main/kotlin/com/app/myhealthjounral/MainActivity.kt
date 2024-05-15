@@ -1,4 +1,4 @@
-package com.example.my_health_journal
+package com.app.myhealthjounral
 
 import io.flutter.embedding.android.FlutterActivity
 

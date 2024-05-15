@@ -27,6 +27,7 @@ class _AddTestScanState extends State<AddTestScan> {
   @override
   Widget build(BuildContext context) {
        return Scaffold(
+        resizeToAvoidBottomInset: false,    
       body:   GetBuilder<HomeController>(
         // init: MyController(),
         // initState: (_) {},
@@ -79,7 +80,7 @@ class _AddTestScanState extends State<AddTestScan> {
                         padding: const EdgeInsets.only(top: 4),
                         child: Container(
                            decoration: BoxDecoration(
-                            color: AppColors.whiteColor,
+                            // color: AppColors.whiteColor,
                                         borderRadius: BorderRadius.circular(20),
                                         border: Border.all(
                                           
@@ -181,7 +182,7 @@ class _AddTestScanState extends State<AddTestScan> {
                       // height: 90.h,
                       child: Container(
                         decoration: BoxDecoration(
-   color: AppColors.whiteColor,
+  //  color: AppColors.whiteColor,
    borderRadius: BorderRadius.circular(20)
                         ),
                         

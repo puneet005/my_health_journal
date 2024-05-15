@@ -26,6 +26,7 @@ class _AddNewMemberState extends State<AddNewMember> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,    
       body:  GetBuilder<HomeController>(
         // init: MyController(),
         // initState: (_) {},
@@ -113,6 +114,10 @@ class _AddNewMemberState extends State<AddNewMember> {
               padding: const EdgeInsets.all(8.0),
               child: CustomTextField(
                 labelText: "DOB",
+                 suffixIcon: Padding(
+                      padding:  EdgeInsets.all(12.0.sp),
+                      child: SvgPicture.asset(AppAssets.bottomNav3, color: AppColors.orangeColor,height: 20,),
+                    ),
               ),
             ), Padding(
               padding: const EdgeInsets.all(8.0),
@@ -134,6 +139,7 @@ class _AddNewMemberState extends State<AddNewMember> {
                 },
                 child: Stack(
                   children: [
+
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: DottedBorder(
@@ -161,6 +167,7 @@ class _AddNewMemberState extends State<AddNewMember> {
                                   ],
                                 ),
                               ),
+                            
                             ))),
                     ),
                           // Positioned(
@@ -168,7 +175,7 @@ class _AddNewMemberState extends State<AddNewMember> {
                           //   left: 8,
                           //   child: Container(
                           //     decoration: BoxDecoration(
-                          //       color: AppColors.whiteColor.withOpacity(0.2)
+                          //       color: AppColors.whiteColor,
                           //     ),
                           //     child: addRegularTxt("Health Insurance documents", color: AppColors.blackColor3, fontSize: 13.sp),
                           //   ),
@@ -194,7 +201,7 @@ class _AddNewMemberState extends State<AddNewMember> {
                       // height: 90.h,
                       child: Container(
                         decoration: BoxDecoration(
-   color: AppColors.whiteColor,
+  //  color: AppColors.whiteColor,
    borderRadius: BorderRadius.circular(20)
                         ),
                         

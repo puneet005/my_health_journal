@@ -144,10 +144,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
         // events.forEach((event) => print(event.title));
       },
       // daysHaveCircularBorder: false,
+       weekdayTextStyle: TextStyle(color: AppColors.blackColor, fontFamily: "Montserrat-semibold", fontWeight: FontWeight.w200, fontSize: 12),
       showOnlyCurrentMonthDate: false,
-      weekendTextStyle: TextStyle(
-        color: AppColors.blackColor,
-      ),
+        weekendTextStyle: const TextStyle(
+            color: AppColors.blackColor,
+          ),
       thisMonthDayBorderColor: Colors.grey,
       weekFormat: false,      
       height: 240.h,

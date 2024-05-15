@@ -27,6 +27,7 @@ class _AddProceduresState extends State<AddProcedures> {
   @override
   Widget build(BuildContext context) {
      return Scaffold(
+      resizeToAvoidBottomInset: false,    
       body:   GetBuilder<HomeController>(
         // init: MyController(),
         // initState: (_) {},
@@ -81,7 +82,7 @@ class _AddProceduresState extends State<AddProcedures> {
                         padding: const EdgeInsets.only(top: 4),
                         child: Container(
                            decoration: BoxDecoration(
-                            color: AppColors.whiteColor,
+                            // color: AppColors.whiteColor,
                                         borderRadius: BorderRadius.circular(20),
                                         border: Border.all(
                                           
@@ -183,7 +184,7 @@ class _AddProceduresState extends State<AddProcedures> {
                       // height: 90.h,
                       child: Container(
                         decoration: BoxDecoration(
-   color: AppColors.whiteColor,
+  //  color: AppColors.whiteColor,
    borderRadius: BorderRadius.circular(20)
                         ),
                         
