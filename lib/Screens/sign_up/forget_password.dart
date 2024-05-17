@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
+import 'package:my_health_journal/Screens/sign_up/forget_otp_screen.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/common-widgets/custom_textfield.dart';
 import 'package:my_health_journal/controllers/login_controller.dart';
@@ -28,6 +29,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         .size
         .height;
     return Scaffold(
+      resizeToAvoidBottomInset: false,    
       // backgroundColor: AppColors.whiteColor,
       body: Container(
            width: double.infinity,

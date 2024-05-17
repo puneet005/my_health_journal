@@ -1,7 +1,7 @@
 import 'dart:io';
 
+
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,14 +20,9 @@ Future<void> main() async{
   await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
-   try {
-    fcmToken = await FirebaseMessaging.instance.getToken() ?? "FcmToken";
-    print('FireBase FCM token=>' + fcmToken.toString());
-  } catch (e) {
-    print("FireBase FCM toke exception====> " + e.toString());
-  }
+ 
   initMessaging();
-  // HttpOverrides.global = MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
  
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(                
     // // systemNavigationBarColor: Colors.black, // navigation bar color
@@ -74,7 +69,7 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,  
           // initialRoute: AppRoutes.bottomNav,
-          initialRoute: AppRoutes.splashScreen,
+          initialRoute: AppRoutes.splashScreen,  
           getPages: AppRoutes.getRoute, 
           builder: (context, child) {
             return MediaQuery(

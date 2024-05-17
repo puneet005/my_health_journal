@@ -33,18 +33,16 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    var deviceHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
 
-    return Scaffold(      
+    return Scaffold(  
+       resizeToAvoidBottomInset: false,    
         body: Container(
             width: double.infinity,
-                height: deviceHeight,
-                  decoration: BoxDecoration(            
+                height: Get.height,
+                  decoration: const BoxDecoration(            
               image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
               fit: BoxFit.fill
+              
               )
             ),
         child: SingleChildScrollView(
@@ -72,7 +70,7 @@ class _LoginState extends State<Login> {
                     addHeight(20),
                      IntlPhoneField(
                           controller: controller.emailCtrl,                 
-                          autovalidateMode: AutovalidateMode.always,
+                          // autovalidateMode: AutovalidateMode.always,
                           disableLengthCheck: true,
                           keyboardType: TextInputType.numberWithOptions(signed: false, decimal: false),
                           inputFormatters: [
@@ -87,7 +85,7 @@ class _LoginState extends State<Login> {
                                     return 'Enter Valid Number*'.tr;
                                 }
                           },
-                          flagsButtonPadding: EdgeInsets.only(
+                          flagsButtonPadding: const EdgeInsets.only(
                             left: 10,
                             right: 10,
                           ),
@@ -95,10 +93,10 @@ class _LoginState extends State<Login> {
                           decoration: InputDecoration(    
                             floatingLabelAlignment: FloatingLabelAlignment.start,                        
                             label: addRegularTxt('Mobile Number', color: AppColors.greyColor1),
-                            floatingLabelStyle: TextStyle(                           
+                            floatingLabelStyle: const TextStyle(                           
                             ),
                             isDense: false,
-                            filled: true,  
+                            filled: true,                              
                             errorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
@@ -157,11 +155,13 @@ class _LoginState extends State<Login> {
                         CustomTextField(
                           controller: controller.passwordCtrl,
                           obscureText: controller.obscureText,                          
-                          labelText: "Password",
+                          labelText: "Password",  
+                          
                           // labelStyle: TextStyle(), 
                           suffixIcon: SvgPicture.asset(controller.obscureText ?  AppAssets.eyeOff: AppAssets.eyeOpen).marginAll(
                               14),
                           onTapSuffixIcon: controller.onPassSuffixTap,
+                          
                 validator: (value){
                              // ignore: unnecessary_null_comparison
                              if (value!.trim() == null || value.trim().isEmpty) {
@@ -174,34 +174,59 @@ class _LoginState extends State<Login> {
                 
                           
                           },                                                
-                        ),
+                        ).paddingOnly(bottom: 10),
                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          // mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Checkbox(
-                              splashRadius: 20,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
-                                value: controller.rememberme, onChanged: (val){
-                                controller.rememberme = !controller.rememberme;
-                                controller.update();
+                            // Checkbox(
+                              
+                            //   // splashRadius: 10,
+                            //     shape: RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.circular(5)),
+                            //     value: controller.rememberme, onChanged: (val){
+                            //     
 
-                            }),
-                            // GestureDetector(
-                            //   onTap: (){
-                            //     controller.rememberme = !controller.rememberme;
-                            //     controller.update();
-                            //   },
-                            //   child: SvgPicture.asset(AppAssets.rememberMe, color: controller.rememberme ? AppColors.greenDarkColor:AppColors.greyColor2)),
+                            // }),
+                           InkWell(
+                            onTap: (){
+                              controller.rememberme = !controller.rememberme;
+                                controller.update();
+                            },
+                            child:  !controller.rememberme ? 
+                            Container(
+                            height: 20,
+                            width: 20,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: AppColors.blackColor2,
+                                width: 1.2
+                              ),
+                              borderRadius: BorderRadius.circular(4)
+                            ),
+                           ).paddingOnly(
+                            right: 8
+                           ):  Container(
+                            height: 20,
+                            width: 20,
+                            decoration: BoxDecoration(
+                             color: AppColors.appColor,
+                              borderRadius: BorderRadius.circular(4)
+                            ),child: Center(child: Icon(Icons.check, size: 18, color: AppColors.whiteColor,)),
+                           ).paddingOnly(
+                            right: 8
+                           ),
+                           ),
+                           
                             addRegularTxt(
                                 'Remember me'.tr, color:  AppColors.blackColor3, fontSize: 13.sp, )
-                                .marginOnly(bottom: 4, left: 4),
+                               
           
           
                           ],
                         ).marginOnly(bottom: 20),
                         CustomButton(text: "Continue", onPressed: (){
+                          //  Get.offAllNamed(AppRoutes.bottomNav);  
                          if(controller.loginKey.currentState!.validate()){
                             controller.LoginApi();
                          }
@@ -209,7 +234,7 @@ class _LoginState extends State<Login> {
                         width: Get.width /1.1,
                         height: 60.h,),
                         
-                        addHeight(10),
+                        addHeight(16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

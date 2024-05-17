@@ -121,7 +121,7 @@ Text addRegularTxt(String text,
           height: height,
           letterSpacing: letterSpacing ?? 0.0,
           fontSize: fontSize?.sp ?? 16.sp,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w500,
           color: color));
 }
 

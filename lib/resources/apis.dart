@@ -220,7 +220,8 @@ class  ApiHandler{
         }
       } on DioError catch (e) {
         if (e.response != null) {
-         print('Dio error: ${e.response!.statusCode}');              
+         print('Dio error: ${e.response!.statusCode}'); 
+         print('Dio error: ${e.response}');              
           if (e.response!.statusCode == 422) {
             log("422 case");
             log(e.response!.statusMessage.toString());

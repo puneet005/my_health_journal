@@ -39,6 +39,7 @@ String? selectedValue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,    
       body:   GetBuilder<HomeController>(
         // init: MyController(),
         initState: (_) {},
@@ -57,7 +58,7 @@ String? selectedValue;
                     child: ListView(
                       children: [
                      addHeight(30),
-                      AppBar1(title: "Doctors Visit"),
+                      AppBar1(title: "Appointment"),
                       addHeight(10),
                       Stack(
                         children: [
@@ -73,13 +74,13 @@ String? selectedValue;
                                   color: AppColors.dotBorderColor
                             ),
                           borderRadius: BorderRadius.circular(10),
-                          color: AppColors.whiteColor
+                          // color: AppColors.whiteColor
                         ),
                         child: DropdownButtonHideUnderline(
                             child: DropdownButton2<String>(
                               isExpanded: true,
                               hint: const Text(
-                                'Maria Jobs',
+                                'Select Provider',
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: AppColors.blackColor,
@@ -118,16 +119,16 @@ String? selectedValue;
                       ),
                     ),
 
-                     Positioned(
-                            top: 2,
-                            left: 15,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.whiteColor.withOpacity(0.8)
-                              ),
-                              child: addRegularTxt("Select Provider", color: AppColors.blackColor3, fontSize: 13.sp),
-                            ),
-                          )
+                    //  Positioned(
+                    //         top: 2,
+                    //         left: 15,
+                    //         child: Container(
+                    //           decoration: BoxDecoration(
+                    //             color: AppColors.whiteColor.withOpacity(0.8)
+                    //           ),
+                    //           child: addRegularTxt("Select Provider", color: AppColors.blackColor3, fontSize: 13.sp),
+                    //         ),
+                    //       )
                   ],
                 ).paddingOnly(bottom: 10), 
 addHeight(10),
@@ -196,7 +197,7 @@ addHeight(10),
                                    // height: 90.h,
                                    child: Container(
                                      decoration: BoxDecoration(
-                color: AppColors.whiteColor,
+                // color: AppColors.whiteColor,
                 borderRadius: BorderRadius.circular(20)
                                      ),
                                      
@@ -370,26 +371,12 @@ var _currentDate = DateTime.now();
   
 
 }
-     var _currentDate = DateTime.now();
-   DateTime? _targetDateTime = DateTime.now();
+  var _currentDate = DateTime.now();
+  DateTime? _targetDateTime = DateTime.now();
   String _currentMonth = DateFormat.yMMMM().format(DateTime.now());
-// class CustomDialog extends StatefulWidget {
-//   @override
-//   State<CustomDialog> createState() => _CustomDialogState();
-// }
-
 class CustomDialog extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
- 
-    // CalendarFormat _calendarFormat = CalendarFormat.month;
-    // DateTime _focusedDay = DateTime.now();
-    // DateTime? _selectedDay;
-    // final kFirstDay = DateTime(
-    //     DateTime.now().year, DateTime.now().month - 3, DateTime.now().day);
-    // final kLastDay = DateTime(
-    //     DateTime.now().year, DateTime.now().month + 3, DateTime.now().day);
-
     return Dialog(
       backgroundColor: Colors.transparent,
       child: StatefulBuilder(
@@ -404,17 +391,18 @@ class CustomDialog extends StatelessWidget{
                     decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(50)),
-                    child: CustomPaint(
-                      painter: MyShape(),
-                      child: Container(
+                    child: ClipPath(
+                         clipper: CuponClipper(),
+    child: Container(
+
                         padding:
                             const EdgeInsets.only(top: 14, left: 6, right: 6),
                         // margin: const EdgeInsets.only(top: 10),
                         alignment: AlignmentDirectional.center,
-                        height: Get.height / 2.2,
+                        height: Get.height / 2.1,
                         
                         decoration: BoxDecoration(
-                            // color: Colors.white,
+                            color: Colors.white,
                             border: Border.all(color: Colors.transparent),
                             borderRadius: BorderRadius.circular(30)),
                         child: Column(              
@@ -435,7 +423,7 @@ class CustomDialog extends StatelessWidget{
                                   DateFormat.yMMM().format(_targetDateTime!);
                             });
                             },
-                            child: SvgPicture.asset(AppAssets.leftCircleIcon, height: 25.h,)),
+                            child: SvgPicture.asset(AppAssets.leftCircleIcon, height: 30.h,)),
                           addHeadingTxtMedium(_currentMonth, fontSize: 20, fontFamily: "Montserrat-semibold"),
                           // Spacer(),
                           
@@ -449,7 +437,7 @@ class CustomDialog extends StatelessWidget{
                                   DateFormat.yMMM().format(_targetDateTime!);
                             });
                             },
-                            child: SvgPicture.asset(AppAssets.rightCircleIcon,  height: 25.h,)),
+                            child: SvgPicture.asset(AppAssets.rightCircleIcon,  height: 30.h,)),
                         ],
                       ),
                     ),
@@ -465,7 +453,7 @@ class CustomDialog extends StatelessWidget{
                      Padding(
                        padding: const EdgeInsets.all(8.0),
                        child: CalendarCarousel<Event>(
-          todayBorderColor: Colors.green,
+          // todayBorderColor: Colors.green,
           childAspectRatio: 1.3,
           onDayPressed: (date, events) {     
           }, 
@@ -474,10 +462,13 @@ class CustomDialog extends StatelessWidget{
             color: AppColors.blackColor,
           ),
           thisMonthDayBorderColor: Colors.grey,
+          
           weekFormat: false,      
           height: 210.h,
-                
-
+          weekDayPadding: EdgeInsets.only(
+            bottom: 10.h
+          ),  
+          weekdayTextStyle: TextStyle(color: AppColors.blackColor, fontFamily: "Montserrat-semibold", fontWeight: FontWeight.w200, fontSize: 10),
           customGridViewPhysics: const NeverScrollableScrollPhysics(),      
           showHeader: false,
           todayTextStyle: const TextStyle(
@@ -509,21 +500,33 @@ class CustomDialog extends StatelessWidget{
                    ],
                  ),                   
                       ),
-                    ),
+                    )
+  //                    CustomPaint(
+  //                     painter: MyShape(),
+  //                     child: 
+  //                     
+  //                   ),
+              
                   ),
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: const Icon(
-                        Icons.close,
-                        color: Colors.white,
+                  Positioned(
+                    top: 0,
+                    left: Get.width / 2.85,
+                    // right: Get.width / 2,
+                    
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   )
@@ -535,129 +538,186 @@ class CustomDialog extends StatelessWidget{
   }
 }
 
-class MyShape extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // TODO: implement paint
-    final paint = Paint();
-    final path = Path();
-    paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 0;
-    paint.color = Colors.white;
-    path.moveTo(0.00, size.height * 0.92);
 
-    path.quadraticBezierTo(
-      size.width * 0.00,
-      size.height * 0.006,
-      size.width * 0.006,
-      size.height * 0.06,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.03,
-      size.height * 0.006,
-      size.width * 0.09,
-      size.height * 0.006,
-    );
 
-    path.quadraticBezierTo(
-      size.width * 0.02,
-      size.height * 0.005,
-      size.width * 0.428,
-      size.height * 0.00,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.44,
-      size.height * 0.0735,
-      size.width * 0.53,
-      size.height * 0.067,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.51,
-      size.height * 0.0712,
-      size.width * 0.52,
-      size.height *0.066,
-    );
-    // path.quadraticBezierTo(
-    //   size.width * 0.55,
-    //   size.height * 0.054,
-    //   size.width * 0.549,
-    //   size.height * 0.052,
-    // );
-    path.quadraticBezierTo(
-      size.width * 0.571,
-      size.height * 0.040,
-      size.width * 0.57,
-      size.height * 0.00,
-    );
-
-    path.quadraticBezierTo(
-      size.width * 0.852,
-      size.height * 0.001,
-      size.width * 0.9,
-      size.height * 0.001,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.982,
-      size.height * 0.0,
-      size.width * 0.9999,
-      size.height * 0.065,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.9999,
-      size.height * 0.96,
-      size.width * 0.9999,
-      size.height * 0.92,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.99,
-      size.height * 0.99,
-      size.width * 0.9,
-      size.height * 1,
-    );
-    path.quadraticBezierTo(
-      size.width * 0,
-      size.height * 1,
-      size.width * 0.9,
-      size.height * 1,
-    );
-    // path.lineTo(size.width  0.06, size.height  1);
-    path.quadraticBezierTo(
-      size.width * 0.0,
-      size.height * 1,
-      size.width * 0.1,
-      size.height * 1,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.03,
-      size.height * 1,
-      size.width * 0.005,
-      size.height * 0.95,
-    );
-    path.quadraticBezierTo(
-      size.width * 0.00,
-      size.height * 0.94,
-      size.width * 0.001,
-      size.height * 0.915,
-    );
-    // path.lineTo(size.width  0.0, size.height  0.95);
-    // path.lineTo(size.width, size.height);
-    // path.lineTo(0, size.height);
-    // path.lineTo(0, size.height * 0.8);
-    canvas.drawPath(path, paint);
-    final paint1 = Paint();
-    paint1.style = PaintingStyle.fill;
-    paint1.color = Colors.white;
-    canvas.drawPath(path, paint1);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    return true;
-  }
-}
 
 // class MyShape extends CustomPainter {
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     // TODO: implement paint
+//     final paint = Paint();
+//     final path = Path();
+//     paint.style = PaintingStyle.stroke;
+//     paint.strokeWidth = 0;
+//     paint.color = Colors.white;
+//     path.moveTo(0.00, size.height * 0.92);
+
+//     path.quadraticBezierTo(
+//       size.width * 0.00,
+//       size.height * 0.006,
+//       size.width * 0.006,
+//       size.height * 0.06,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.03,
+//       size.height * 0.006,
+//       size.width * 0.09,
+//       size.height * 0.006,
+//     );
+
+//     path.quadraticBezierTo(
+//       size.width * 0.02,
+//       size.height * 0.005,
+//       size.width * 0.428,
+//       size.height * 0.00,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.44,
+//       size.height * 0.0735,
+//       size.width * 0.53,
+//       size.height * 0.067,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.51,
+//       size.height * 0.0712,
+//       size.width * 0.52,
+//       size.height *0.066,
+//     );
+//     // path.quadraticBezierTo(
+//     //   size.width * 0.55,
+//     //   size.height * 0.054,
+//     //   size.width * 0.549,
+//     //   size.height * 0.052,
+//     // );
+//     path.quadraticBezierTo(
+//       size.width * 0.571,
+//       size.height * 0.040,
+//       size.width * 0.57,
+//       size.height * 0.00,
+//     );
+
+//     path.quadraticBezierTo(
+//       size.width * 0.852,
+//       size.height * 0.001,
+//       size.width * 0.9,
+//       size.height * 0.001,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.982,
+//       size.height * 0.0,
+//       size.width * 0.9999,
+//       size.height * 0.065,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.9999,
+//       size.height * 0.96,
+//       size.width * 0.9999,
+//       size.height * 0.92,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.99,
+//       size.height * 0.99,
+//       size.width * 0.9,
+//       size.height * 1,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0,
+//       size.height * 1,
+//       size.width * 0.9,
+//       size.height * 1,
+//     );
+//     // path.lineTo(size.width  0.06, size.height  1);
+//     path.quadraticBezierTo(
+//       size.width * 0.0,
+//       size.height * 1,
+//       size.width * 0.1,
+//       size.height * 1,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.03,
+//       size.height * 1,
+//       size.width * 0.005,
+//       size.height * 0.95,
+//     );
+//     path.quadraticBezierTo(
+//       size.width * 0.00,
+//       size.height * 0.94,
+//       size.width * 0.001,
+//       size.height * 0.915,
+//     );
+//     // path.lineTo(size.width  0.0, size.height  0.95);
+//     // path.lineTo(size.width, size.height);
+//     // path.lineTo(0, size.height);
+//     // path.lineTo(0, size.height * 0.8);
+//     canvas.drawPath(path, paint);
+//     final paint1 = Paint();
+//     paint1.style = PaintingStyle.fill;
+//     paint1.color = Colors.white;
+//     canvas.drawPath(path, paint1);
+//   }
+
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+//     // TODO: implement shouldRepaint
+//     return true;
+//   }
+// }
+
+
+class CuponClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path
+      ..lineTo(0, size.height)
+      ..lineTo(size.width, size.height)
+      ..lineTo(size.width, 0)
+      ..lineTo(0, 0);
+
+    // final radius = size.height * .065;
+
+    Path holePath = Path();
+     holePath.addOval(
+        Rect.fromCircle(
+          center: Offset(Get.width / 2.55,  0),
+          radius: 20,
+        ),
+      );
+
+    // for (int i = 1; i <= 4; i++) {
+    //   holePath.addOval(
+    //     Rect.fromCircle(
+    //       center: Offset(0, (size.height * .2) * i),
+    //       radius: radius,
+    //     ),
+    //   );
+    // }
+    // for (int i = 1; i <= 4; i++) {
+    //   holePath.addOval(
+    //     Rect.fromCircle(
+    //       center: Offset(size.width, (size.height * .2) * i),
+    //       radius: radius,
+    //     ),
+    //   );
+    // }
+
+    return Path.combine(PathOperation.difference, path, holePath);
+  }
+  
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+//     // TODO: implement shouldRepaint
+    return true;
+  }
+  // bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+  //   // TODO: implement shouldReclip
+  //   throw UnimplementedError();
+  // }
+  
+
+  }
+// class MyShape extends CustomPainter {  
 //   @override
 //   void paint(Canvas canvas, Size size) {
 //     // TODO: implement paint

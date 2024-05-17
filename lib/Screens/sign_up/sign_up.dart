@@ -34,6 +34,7 @@ class _SignUpState extends State<SignUp> {
         .size
         .height;
     return Scaffold(
+      resizeToAvoidBottomInset: false,    
         backgroundColor: AppColors.whiteColor,
         body:  GetBuilder<SignUpController>(builder: (ctrl)  {
 

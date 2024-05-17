@@ -11,6 +11,7 @@ import 'package:my_health_journal/controllers/login_controller.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
 // import 'package:my_health_journal/resources/app_color.dart';
 import 'package:my_health_journal/resources/text_utility.dart';
+import 'package:my_health_journal/routers/app_routers.dart';
 
 class ResetPassword extends StatefulWidget {
 
@@ -26,6 +27,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   @override
   Widget build(BuildContext context) {    
     return Scaffold(
+      resizeToAvoidBottomInset: false,    
       // backgroundColor: AppColors.whiteColor,
       body: Container(
            width: double.infinity,

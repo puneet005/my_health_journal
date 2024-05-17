@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/common-widgets/custom_textfield.dart';
 import 'package:my_health_journal/controllers/profile_controller.dart';
+import 'package:my_health_journal/resources/api_constant.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
 import 'package:my_health_journal/resources/app_color.dart';
 import 'package:my_health_journal/resources/text_utility.dart';
@@ -95,14 +96,15 @@ void initState() {
                                       fit: BoxFit.fill
                                       )
                                     )
-                                  ):
+                                  ): 
                                   Container(
                                     height: Get.height,
                                     width: Get.width / 1.7,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       // color: AppColors.blueColor,
-                                      image: DecorationImage(image: controller.profileData.data!.profile == null ?  AssetImage(AppAssets.profileIcon) : NetworkImage(controller.profileData.data!.profile!) as ImageProvider, 
+                                      image: DecorationImage(image: controller.profileData.data!.profile == null ?  AssetImage(AppAssets.profileIcon) : NetworkImage("${ApiUrls.domain}${controller.profileData.data!.profile!}") as ImageProvider, 
+                                      // image: DecorationImage(image: controller.profileData.data!.profile == null ?  AssetImage(AppAssets.profileIcon) : NetworkImage(controller.profileData.data!.profile!) as ImageProvider, 
                                       fit: BoxFit.fill
                                       )
                                     )

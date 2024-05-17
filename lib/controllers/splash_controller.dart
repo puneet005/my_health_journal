@@ -1,6 +1,3 @@
-
-
-
 import 'dart:developer';
 import 'dart:io';
 
@@ -22,77 +19,22 @@ class SplashController extends GetxController {
      _requestNotificationPermission();
     }
     Future.delayed(Duration.zero,() async { 
-      // String firstTime = getValue(LocalStorage.FIRSTTIME);     
-      // String lang = getValue(LocalStorage.LANG);
-      // storeBoolValue(LocalStorage.REMERBERME, true);
       bool remMe = getBoolValue(LocalStorage.REMERBERME);
       String token = getValue(LocalStorage.TOKEN);   
         
       if(token != "" && remMe == true){
-        print(token);
-      //   if(lang != ''){
-      //   Locale locale = new Locale(lang);
-      //   Get.updateLocale(locale);
-      // }
-       debugPrint(token);
+        print(token);   
+      //  debugPrint(token);
         final profile = Get.put(ProfileContorller());
-        // profile.CheckNotificationApi();
+        
         await profile.GetProfileApi(naviagtion: true);
       }
       else{
-      log('else');
-      // Future.delayed(Duration(seconds: 3), (){
-      //   if(firstTime == "")
-      // {
-      //   Get.offAll(OnboardingScreen());
-      // }
-      // else{
-      //    Get.offAll(OnboardingScreen());
-      //   //  Get.offAllNamed(AppRoutes.bottomNavbar);
-      // }
-      // });
+      log('else');  
      }
-          
-    //   if(firstTime =="Yes")
-    //   {
-       
-    //     log("_________________________________________");
-    //   log(firstTime);
-    //   log("_________________________________________");
-        
-    //     Get.offAll(OnboardingScreen());         
-    //   }
-    
-    // else{
-    //   log(lang);
-    // if(lang != ''){
-    // Locale locale = new Locale(lang);
-    // Get.updateLocale(locale);
-    // }
-    // log('$token');          
-    // if(token == ''){      
-    // Future.delayed(Duration(seconds: 3),(){
-    //   Get.offAllNamed(AppRoutes.loginScreen);         
-    // });
-    // }
-    // else{
-    //   final profile = Get.put(ProfileController());
-    //    await profile.GetProfileApi().then((value) => {
-    //      if(value){
-    //     Get.offAllNamed(AppRoutes.bottomNavbar)
-    //   }
-    //   });
-    //   // log(res.toString());     
-    // }
-    // }
+             
     });   
-    
-
-    // Future.delayed(Duration(seconds: 1), () async {    
-    //    Get.offAllNamed(AppRoutes.loginScreen);
-    // });
-
-    
+      
   }
 
   Future<void> _requestNotificationPermission() async {

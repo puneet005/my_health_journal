@@ -23,6 +23,7 @@ class _AddSymptomsState extends State<AddSymptoms> {
   @override
   Widget build(BuildContext context) {
    return Scaffold(
+    resizeToAvoidBottomInset: false,    
       body:  GetBuilder<HomeController>(
         // init: MyController(),
         // initState: (_) {},
@@ -184,7 +185,7 @@ class _AddSymptomsState extends State<AddSymptoms> {
                       // height: 90.h,
                       child: Container(
                         decoration: BoxDecoration(
-   color: AppColors.whiteColor,
+  //  color: AppColors.whiteColor,
    borderRadius: BorderRadius.circular(20)
                         ),
                         

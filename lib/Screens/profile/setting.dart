@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 // import 'package:my_health_journal/Screens/widget/appbar.dart';
 import 'package:my_health_journal/controllers/profile_controller.dart';
 import 'package:my_health_journal/controllers/signUp_controller.dart';
+import 'package:my_health_journal/resources/api_constant.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
 import 'package:my_health_journal/resources/app_color.dart';
 import 'package:my_health_journal/resources/text_utility.dart';
@@ -105,8 +106,8 @@ class _SettingState extends State<Setting> {
                                   width: Get.width / 2.8,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    color: AppColors.blueColor,
-                                    image: DecorationImage(image: controller.profileData.data!.profile == null ?  AssetImage(AppAssets.profileIcon) : NetworkImage(controller.profileData.data!.profile!) as ImageProvider, 
+                                    color: AppColors.appColor.withOpacity(0.4),
+                                    image: DecorationImage(image: controller.profileData.data!.profile == null ?  AssetImage(AppAssets.profileIcon) : NetworkImage("${ApiUrls.domain}${controller.profileData.data!.profile!}") as ImageProvider, 
                                     fit: BoxFit.fill
                                     )
                                   )
@@ -139,7 +140,7 @@ class _SettingState extends State<Setting> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          addBoldTxt("${controller.profileData.data!.name ?? ""}", fontSize: 18, )
+                          addBoldTxt("Kathryn Murphy", fontSize: 18, )
                         ],
                       ), 
                       addHeight(10),

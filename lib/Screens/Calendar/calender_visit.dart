@@ -74,9 +74,25 @@ class _DoctorVisitState extends State<DoctorVisit> {
                         ),
                       ),
                       addHeight(10),
+                      if(controller.visitTypeIndex  == 0)
                       ListView(
                         shrinkWrap: true,
                         children: List.generate(3, (index) => VisitCard()),
+                      ),
+                        if(controller.visitTypeIndex  == 1)
+                      ListView(
+                        shrinkWrap: true,
+                        children: List.generate(2, (index) => VisitCard()),
+                      ),
+                        if(controller.visitTypeIndex  == 2)
+                      ListView(
+                        shrinkWrap: true,
+                        children: List.generate(3, (index) => VisitCard()),
+                      ),
+                        if(controller.visitTypeIndex  == 3)
+                      ListView(
+                        shrinkWrap: true,
+                        children: List.generate(2, (index) => VisitCard()),
                       )
                       ])),
                       

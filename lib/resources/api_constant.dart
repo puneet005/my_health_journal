@@ -1,5 +1,6 @@
 class ApiUrls {
   static const String domain = "https://v1.checkprojectstatus.com/health_jourlan/";
+  static const String imgBaseUrl = "https://v1.checkprojectstatus.com/health_jourlan";
 
   // static const String domain = "https://app.trvlbag.com/"; // live Url
   static const String baseUrl = "${domain}api/";

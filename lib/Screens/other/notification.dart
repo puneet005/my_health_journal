@@ -32,11 +32,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ListView(
+                    child: Column(
                       // shrinkWrap: true,
                       // physics: const NeverScrollableScrollPhysics(),
                       children: [
-                     addHeight(10),
+                     addHeight(50),
                     Padding(
                     padding:  EdgeInsets.symmetric(horizontal: 8.sp,),
                     child: InkWell(
@@ -58,11 +58,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   ),
                     ),
             ),
-                      addHeight(20),
-                      ListView(
-                        shrinkWrap: true,
-                         physics: const NeverScrollableScrollPhysics(),
-                        children: List.generate(10, (index) => NotificationCard()),
+                      // addHeight(10),
+                      Expanded(
+                        child: ListView(
+                          // shrinkWrap: true,
+                          //  physics: const NeverScrollableScrollPhysics(),
+                          children: List.generate(10, (index) => NotificationCard()),
+                        ),
                       )
                       ])));}));
   }

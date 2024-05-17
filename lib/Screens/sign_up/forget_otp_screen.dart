@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
+import 'package:my_health_journal/Screens/sign_up/reset_password.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/common-widgets/custom_textfield.dart';
 import 'package:my_health_journal/controllers/login_controller.dart';
@@ -25,6 +26,7 @@ class _ForgetOTPState extends State<ForgetOTP> {
   @override
   Widget build(BuildContext context) {    
     return Scaffold(
+      resizeToAvoidBottomInset: false,    
       // backgroundColor: AppColors.whiteColor,
       body: Container(
            width: double.infinity,
@@ -86,6 +88,7 @@ class _ForgetOTPState extends State<ForgetOTP> {
                     
                     addHeight(90.h),
                      CustomButton(text: "Verify", onPressed: (){
+                            // Get.to(const ResetPassword());
                             controller.verifyForgetPasswordApi();
                           }, 
                           width: Get.width /1.1,

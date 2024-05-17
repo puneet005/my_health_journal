@@ -102,7 +102,7 @@ Future<XFile?> getImage() async {
 
   
   Future<void> editProfileApi() async{
-     checkInternetConnectivity().then((isConnected) async {
+  checkInternetConnectivity().then((isConnected) async {
   if (isConnected) {
     showLoader(true);
     // try {                      
@@ -117,17 +117,17 @@ Future<XFile?> getImage() async {
       //   filesmap['proof_id'] = idmagePath;
       // }
       // if(profileimagePath != ""){
-      //   filesmap['profile'] = profileimagePath;
+      //   filesmap['profile'] = profileimagePath;  
       // }
       log(ApiUrls.profileUpdate);
       log(map.toString());
-      var result =  await ApiHandler().PostMultipartApi(apiName: ApiUrls.deleteAccount, data: map, files: filesmap);   
+      var result =  await ApiHandler().PostMultipartApi(apiName: ApiUrls.profileUpdate, data: map, files: filesmap);   
       if(result != null){       
         if(result['status'] ==  "200"){ 
-        log(result.toString());
-        profileData = ProfileModel.fromJson(result);
+        // log(result.toString());
         showToast(profileData.message.toString());
-        
+        profileData = ProfileModel.fromJson(result);  
+        update();          
         Get.back();
         }
        

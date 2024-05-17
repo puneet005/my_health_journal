@@ -48,8 +48,8 @@ class SplashScreen extends StatelessWidget {
 
                      Positioned(
                   
-                  bottom: 50,
-                  right: -Get.height/8,
+                  bottom: 70,
+                  right: -Get.height/8.7,
                   child:  Image.asset(AppAssets.splashImg, height: Get.height/2.4,),
                   // child: Container(
                   //    width: Get.width,
@@ -60,7 +60,7 @@ class SplashScreen extends StatelessWidget {
                   // )
                   ),
                 Positioned(
-                    bottom: Get.width/3,
+                    bottom: Get.width/2.8,
                     left: Get.width/3.9,
                    
                     child: 
@@ -73,8 +73,8 @@ class SplashScreen extends StatelessWidget {
                     ),
                   )),
                    Positioned(
-                    right: Get.width/3.1,
-                       bottom: Get.width/3.2,
+                    right: Get.width/3,
+                       bottom: Get.width/3,
                        left: Get.width/4.4,
                     // bottom: -10,
 

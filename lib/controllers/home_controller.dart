@@ -58,6 +58,9 @@ class HomeController extends GetxController {
   TextEditingController dateofVisit = TextEditingController();  
   TextEditingController questionsforProvider = TextEditingController();
   TextEditingController providerComments = TextEditingController();
+  TextEditingController startingDateCont = TextEditingController();
+  TextEditingController endingDateCont = TextEditingController();
+   TextEditingController dateTimeCont = TextEditingController();
   TextEditingController notes = TextEditingController();
 
   late File image;
@@ -153,7 +156,7 @@ class HomeController extends GetxController {
     'img': AppAssets.parsonalHistoryIcon,
     'name':   "Parsonal History",
     'item': ["Test", "Collection", "Dizziness", "Headache"],
-    'route': AppRoutes.medicalSummary
+    'route': AppRoutes.shareScreen, 
 
 
   },
@@ -161,7 +164,7 @@ class HomeController extends GetxController {
     'img': AppAssets.proceduresIcon,
     'name':   "Procedures",
     'item': ["Test", "Collection", "Dizziness", "Headache"],
-     'route': AppRoutes.addMedications
+     'route': AppRoutes.addProcedures
 
 
   },

@@ -25,6 +25,7 @@ class CustomTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final BorderRadius? borderRadius;
   final TextStyle? labelStyle;
+  final Function()? onTap;
 
     CustomTextField({Key? key,
     this.controller,
@@ -45,7 +46,8 @@ class CustomTextField extends StatefulWidget {
     this.validator,
     this.borderRadius,
     this.fillColor,
-    this.labelStyle
+    this.labelStyle, 
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -66,6 +68,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         onFieldSubmitted: widget.onFieldSubmitted, // what happens on keyboard check button
         readOnly: widget.readOnly!, //
         maxLines: widget.maxLines,
+        onTap: widget.onTap,
         autocorrect: false,
         enabled: true,
         validator: widget.validator,
@@ -76,9 +79,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
         decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.auto, // to show label text always
         labelText: widget.labelText,
-        labelStyle: widget.labelStyle??TextStyle(color: AppColors.txtFieldLabelColor),
+        labelStyle: widget.labelStyle??const TextStyle(color: AppColors.greyColor1),
         hintText: widget.hintText,
-        hintStyle: TextStyle(fontSize: 14.sp),
+        hintStyle: TextStyle(fontSize: 16.sp),
+        // contentPadding: const EdgeInsets.all(5),
+        
         // filled: true,
         fillColor: widget.fillColor??AppColors.whiteColor,
         focusedBorder: OutlineInputBorder(
