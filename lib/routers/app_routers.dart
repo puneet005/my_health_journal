@@ -1,14 +1,17 @@
 
 import 'package:get/get.dart';
 import 'package:my_health_journal/Screens/Calendar/calender_visit.dart';
-import 'package:my_health_journal/Screens/home/add_doctors_visit.dart';
-import 'package:my_health_journal/Screens/home/add_medications.dart';
+import 'package:my_health_journal/Screens/home/appointmant/add_doctors_visit.dart';
+import 'package:my_health_journal/Screens/home/family_history/add_family_history.dart';
+import 'package:my_health_journal/Screens/home/medications/add_medications.dart';
 import 'package:my_health_journal/Screens/home/add_new_member.dart';
-import 'package:my_health_journal/Screens/home/add_procedures.dart';
-import 'package:my_health_journal/Screens/home/add_provider.dart';
-import 'package:my_health_journal/Screens/home/add_symptoms.dart';
-import 'package:my_health_journal/Screens/home/add_test_scan.dart';
+import 'package:my_health_journal/Screens/home/personal_history/add_personal_history.dart';
+import 'package:my_health_journal/Screens/home/procedures/add_procedures.dart';
+import 'package:my_health_journal/Screens/home/provider/add_provider.dart';
+import 'package:my_health_journal/Screens/home/symptoms/add_symptoms.dart';
+import 'package:my_health_journal/Screens/home/labs_scans/add_test_scan.dart';
 import 'package:my_health_journal/Screens/home/patient_details.dart';
+import 'package:my_health_journal/Screens/home/provider/provider_view.dart';
 import 'package:my_health_journal/Screens/home/share_screen.dart';
 import 'package:my_health_journal/Screens/other/medical_summary.dart';
 import 'package:my_health_journal/Screens/other/medications.dart';
@@ -49,7 +52,14 @@ class AppRoutes {
   static String notification = '/Notification';
   //    
   static String editProfile = '/EditProfile';
-  // static String webViewScreen = '/WebViewScreen';
+  
+  
+  static String providerView = '/ProviderView';
+  static String addPersonalHistory = '/AddPersonalHistory';
+  static String addFamilyHistory = '/AddFamilyHistory';
+  // static String providerView = '/ProviderView';
+  // static String providerView = '/ProviderView';
+
 
 
   
@@ -153,5 +163,27 @@ class AppRoutes {
       name: AppRoutes.editProfile,
       page: () => const EditProfile(),
     ),
+
+
+     GetPage(
+      name: AppRoutes.providerView,
+      page: () => const ProviderView(),
+    ),
+     GetPage(
+      name: AppRoutes.addPersonalHistory,
+      page: () => const AddPersonalHistory(),
+    ),
+    GetPage(
+      name: AppRoutes.addFamilyHistory,
+      page: () => const AddFamilyHistory(),
+    ),
+    //  GetPage(
+    //   name: AppRoutes.editProfile,
+    //   page: () => const EditProfile(),
+    // ),
+    //  GetPage(
+    //   name: AppRoutes.editProfile,
+    //   page: () => const EditProfile(),
+    // ),
   ];
 }

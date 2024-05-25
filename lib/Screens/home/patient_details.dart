@@ -21,302 +21,302 @@ class _PatientDetailsState extends State<PatientDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<HomeController>(
-        // init: MyController(),
-        initState: (_) {},
-        builder: (ctrl) {
-          return Container(
-              height: Get.height,
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(                
-                      image: DecorationImage(image: AssetImage(AppAssets.patient3), 
-                      fit: BoxFit.fill),      
+      // body: GetBuilder<HomeController>(
+      //   // init: MyController(),
+      //   initState: (_) {},
+      //   builder: (ctrl) {
+      //     return Container(
+      //         height: Get.height,
+      //         child: Stack(
+      //           children: [
+      //             Container(
+      //               decoration: const BoxDecoration(                
+      //                 image: DecorationImage(image: AssetImage(AppAssets.patient3), 
+      //                 fit: BoxFit.fill),      
                                              
-                    ),
-                    height: Get.height /2.3,
-                    width: Get.width,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                         gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                colors: [
-                  Colors.transparent, 
-                 Colors.transparent, 
-              //  AppColors.blackColor1,
-               AppColors.blackColor1],
-              ), 
-                      ),
-                      child: Column(children: [
-                        addHeight(30),
+      //               ),
+      //               height: Get.height /2.3,
+      //               width: Get.width,
+      //               child: Container(
+      //                 decoration: const BoxDecoration(
+      //                    gradient: LinearGradient(
+      //                   begin: Alignment.topCenter,
+      //                   end: Alignment.bottomCenter,
+      //           colors: [
+      //             Colors.transparent, 
+      //            Colors.transparent, 
+      //         //  AppColors.blackColor1,
+      //          AppColors.blackColor1],
+      //         ), 
+      //                 ),
+      //                 child: Column(children: [
+      //                   addHeight(30),
                       
-                                    Spacer(),
+      //                               Spacer(),
                                     
-                                    // Spacer(),
+      //                               // Spacer(),
                                     
                                     
                                     
-                              //  Container(
-                              //         height: Get.height / 2,
-                              //         decoration: BoxDecoration(
+      //                         //  Container(
+      //                         //         height: Get.height / 2,
+      //                         //         decoration: BoxDecoration(
                        
-                              //           // color: AppColors.blackColor1.withOpacity(0.3)
-                              //         ),
-                              //         // child: ,
-                              //        ),
-                                // addHeight(30.h),
-                                    // Container(
-                                    //   height: Get.height/9,
-                                    //   decoration: BoxDecoration(
-                                    //     color: AppColors.blackColor1.withOpacity(0.5)
-                                    //   ),
-                                    // )
-                                  ]),
-                    ),
-            ),
+      //                         //           // color: AppColors.blackColor1.withOpacity(0.3)
+      //                         //         ),
+      //                         //         // child: ,
+      //                         //        ),
+      //                           // addHeight(30.h),
+      //                               // Container(
+      //                               //   height: Get.height/9,
+      //                               //   decoration: BoxDecoration(
+      //                               //     color: AppColors.blackColor1.withOpacity(0.5)
+      //                               //   ),
+      //                               // )
+      //                             ]),
+      //               ),
+      //       ),
             
-             Positioned(
-              bottom: 0,
-              child:       
-              CustomPaint(
-                  painter: MyShape(),
-                  child:  Container(
-                width: MediaQuery.of(context).size.width,
-                height: Get.height/ 1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        addHeight(30.h),
-                        // Spacer(),
-                          Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: 10.h),
-                          child: Row(
-                            children: [
+      //        Positioned(
+      //         bottom: 0,
+      //         child:       
+      //         CustomPaint(
+      //             painter: MyShape(),
+      //             child:  Container(
+      //           width: MediaQuery.of(context).size.width,
+      //           height: Get.height/ 1,
+      //               child: Column(
+      //                 mainAxisAlignment: MainAxisAlignment.center,
+      //                 crossAxisAlignment: CrossAxisAlignment.center,
+      //                 children: [
+      //                   addHeight(30.h),
+      //                   // Spacer(),
+      //                     Padding(
+      //                     padding:  EdgeInsets.symmetric(horizontal: 10.h),
+      //                     child: Row(
+      //                       children: [
                              
-                                InkWell(
-                                      onTap: (){
-                                        Get.back();
-                                      },
-                                   child: SvgPicture.asset(AppAssets.backArrowIcon)),
+      //                           InkWell(
+      //                                 onTap: (){
+      //                                   Get.back();
+      //                                 },
+      //                              child: SvgPicture.asset(AppAssets.backArrowIcon)),
                                 
-                      ],
-                                      ),
+      //                 ],
+      //                                 ),
                                       
-                                    ),
-                                    // Spacer(),
-                                   Container(
-                                    // color: AppColors.appColor2,
-                                    height: Get.height/ 3.5,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Spacer(flex: 3,),
-                                         Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                      addHeadingTxtMedium("Tom Johnson", fontSize: 22.sp, color: AppColors.whiteColor, fontFamily: "Montserrat-semibold")
-                                    ],),
-                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                      addHeadingTxtMedium("Myself", fontSize: 16.sp, color: AppColors.whiteColor, fontFamily: "Montserrat-light")
-                                    ],),
-                                    Spacer(), 
-                                    addHeight(10),                                                                   
-                                     GestureDetector(
-                                      onTap: (){
-                                        // Get.back();
-                                        Get.toNamed(AppRoutes.addDoctorsVisit);
-                                      },
-                                       child: Container(
-                                        width: Get.width / 2.6 ,
-                                        height: 35.h,
-                                        decoration: BoxDecoration(
-                                                           borderRadius: BorderRadius.circular(15),
-                                                           color:  AppColors.orangeColor,
+      //                               ),
+      //                               // Spacer(),
+      //                              Container(
+      //                               // color: AppColors.appColor2,
+      //                               height: Get.height/ 3.5,
+      //                               child: Column(
+      //                                 mainAxisAlignment: MainAxisAlignment.end,
+      //                                 children: [
+      //                                   Spacer(flex: 3,),
+      //                                    Row(
+      //                                 mainAxisAlignment: MainAxisAlignment.center,
+      //                                 children: [
+      //                                 addHeadingTxtMedium("Tom Johnson", fontSize: 22.sp, color: AppColors.whiteColor, fontFamily: "Montserrat-semibold")
+      //                               ],),
+      //                                Row(
+      //                                 mainAxisAlignment: MainAxisAlignment.center,
+      //                                 children: [
+      //                                 addHeadingTxtMedium("Myself", fontSize: 16.sp, color: AppColors.whiteColor, fontFamily: "Montserrat-light")
+      //                               ],),
+      //                               Spacer(), 
+      //                               addHeight(10),                                                                   
+      //                                GestureDetector(
+      //                                 onTap: (){
+      //                                   // Get.back();
+      //                                   Get.toNamed(AppRoutes.addDoctorsVisit);
+      //                                 },
+      //                                  child: Container(
+      //                                   width: Get.width / 2.6 ,
+      //                                   height: 35.h,
+      //                                   decoration: BoxDecoration(
+      //                                                      borderRadius: BorderRadius.circular(15),
+      //                                                      color:  AppColors.orangeColor,
                                                          
-                                        ),
-                                        child: 
-                                        Row(
-                                                           mainAxisAlignment: MainAxisAlignment.center,
-                                                           children: [
-                                                             Icon(Icons.add, color: AppColors.whiteColor), 
-                                                             addHeadingTxtMedium("Look Up Health", 
-                                                             fontSize: 13.sp,
-                                                             color: AppColors.whiteColor,
-                                                             fontWeight: FontWeight.bold,
-                                                             fontFamily: "Montserrat"
-                                                             )
-                                                           ],
-                                        ),
-                                       ),
-                                     ),
+      //                                   ),
+      //                                   child: 
+      //                                   Row(
+      //                                                      mainAxisAlignment: MainAxisAlignment.center,
+      //                                                      children: [
+      //                                                        Icon(Icons.add, color: AppColors.whiteColor), 
+      //                                                        addHeadingTxtMedium("Look Up Health", 
+      //                                                        fontSize: 13.sp,
+      //                                                        color: AppColors.whiteColor,
+      //                                                        fontWeight: FontWeight.bold,
+      //                                                        fontFamily: "Montserrat"
+      //                                                        )
+      //                                                      ],
+      //                                   ),
+      //                                  ),
+      //                                ),
                                      
-                                     Spacer(),
-                                      ],
-                                    ),
-                                   ),
+      //                                Spacer(),
+      //                                 ],
+      //                               ),
+      //                              ),
 
-                           addHeight(30),
-                          Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: 10.h, vertical: 8.h ),
-                            child: Container(
-                              height: 50.h,
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,                                
-                                children: List.generate(ctrl.listofCatagory.length, (index) => Padding(
-                                  padding:  EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                                  child: InkWell(
-                                    onTap: (){
-                                      ctrl.listofCatagoryIndex = index;
-                                      ctrl.update(); 
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(ctrl.listofCatagoryIndex == index ? 20 : 0) ,
-                                        color: ctrl.listofCatagoryIndex == index ?   AppColors.appColor : AppColors.whiteColor,
-                                      ),
-                                      width: Get.width /3,
-                                      height: 30,
-                                      child: Padding(
-                                        padding:  EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                                        child: Center(child: addRegularTxt(ctrl.listofCatagory[index]['name'], color:  ctrl.listofCatagoryIndex == index ? AppColors.whiteColor: AppColors.blackColor, fontSize: 14.sp )),
-                                      ),
-                                    ),
-                                  ),
-                                )),
-                              ),
-                            ),
-                          ),
-                          Container(
-                              height: Get.height/2.8,
-                              child: ListView(
-                                padding: EdgeInsets.zero,
-                                children: List.generate(ctrl.listofCatagory[ctrl.listofCatagoryIndex]['item'].length, (index) => Padding(
+      //                      addHeight(30),
+      //                     Padding(
+      //                       padding:  EdgeInsets.symmetric(horizontal: 10.h, vertical: 8.h ),
+      //                       child: Container(
+      //                         height: 50.h,
+      //                         child: ListView(
+      //                           scrollDirection: Axis.horizontal,                                
+      //                           children: List.generate(ctrl.listofCatagory.length, (index) => Padding(
+      //                             padding:  EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+      //                             child: InkWell(
+      //                               onTap: (){
+      //                                 ctrl.listofCatagoryIndex = index;
+      //                                 ctrl.update(); 
+      //                               },
+      //                               child: Container(
+      //                                 decoration: BoxDecoration(
+      //                                   borderRadius: BorderRadius.circular(ctrl.listofCatagoryIndex == index ? 20 : 0) ,
+      //                                   color: ctrl.listofCatagoryIndex == index ?   AppColors.appColor : AppColors.whiteColor,
+      //                                 ),
+      //                                 width: Get.width /3,
+      //                                 height: 30,
+      //                                 child: Padding(
+      //                                   padding:  EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+      //                                   child: Center(child: addRegularTxt(ctrl.listofCatagory[index]['name'], color:  ctrl.listofCatagoryIndex == index ? AppColors.whiteColor: AppColors.blackColor, fontSize: 14.sp )),
+      //                                 ),
+      //                               ),
+      //                             ),
+      //                           )),
+      //                         ),
+      //                       ),
+      //                     ),
+      //                     Container(
+      //                         height: Get.height/2.8,
+      //                         child: ListView(
+      //                           padding: EdgeInsets.zero,
+      //                           children: List.generate(ctrl.listofCatagory[ctrl.listofCatagoryIndex]['item'].length, (index) => Padding(
 
-                                    padding:  EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 12
-                                    ),
-                                  child: Container(
-                                    // height: 40.h,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: AppColors.whiteColor,
-                                       boxShadow: [
-                      const BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 1.0,
-                        spreadRadius: 0.0,
-                        offset: Offset(1.0, 1.0), // shadow direction: bottom right
-                      )
-                    ],                
-                                    ),                                
-                                    child: Padding(
-                                      padding:  EdgeInsets.symmetric(
-                                        vertical: 20, horizontal: 14
-                                      ),
-                                      child: addRegularTxt(ctrl.listofCatagory[ctrl.listofCatagoryIndex]['item'][index]),
-                                    ),
-                                  ),
-                                )),
-                              ),
-                              // color: AppColors.,
-                          ), 
-                          addHeight(10),
-                          InkWell(
-                            onTap: (){
-                              if(ctrl.listofCatagoryIndex == 0)
-                              Get.toNamed(AppRoutes.addSymptoms);
-                              else if (ctrl.listofCatagoryIndex == 1)
-                                Get.toNamed(AppRoutes.addMedications);
-                              else if(ctrl.listofCatagoryIndex == 2)
-                                Get.toNamed(AppRoutes.addProcedures);
-                              else{
-                                 Get.toNamed(AppRoutes.addTestScan);
-                              }
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(AppAssets.addIcon),
-                                addWidth(10),
-                                addRegularTxt("Add ${ctrl.listofCatagory[ctrl.listofCatagoryIndex]['name']}", color: AppColors.orangeColor, fontSize: 14)
-                              ],
-                            ),
-                          ),
-                          addHeight(20.h),
+      //                               padding:  EdgeInsets.symmetric(
+      //                                 vertical: 10, horizontal: 12
+      //                               ),
+      //                             child: Container(
+      //                               // height: 40.h,
+      //                               decoration: BoxDecoration(
+      //                                 borderRadius: BorderRadius.circular(10),
+      //                                 color: AppColors.whiteColor,
+      //                                  boxShadow: [
+      //                 const BoxShadow(
+      //                   color: Colors.grey,
+      //                   blurRadius: 1.0,
+      //                   spreadRadius: 0.0,
+      //                   offset: Offset(1.0, 1.0), // shadow direction: bottom right
+      //                 )
+      //               ],                
+      //                               ),                                
+      //                               child: Padding(
+      //                                 padding:  EdgeInsets.symmetric(
+      //                                   vertical: 20, horizontal: 14
+      //                                 ),
+      //                                 child: addRegularTxt(ctrl.listofCatagory[ctrl.listofCatagoryIndex]['item'][index]),
+      //                               ),
+      //                             ),
+      //                           )),
+      //                         ),
+      //                         // color: AppColors.,
+      //                     ), 
+      //                     addHeight(10),
+      //                     InkWell(
+      //                       onTap: (){
+      //                         if(ctrl.listofCatagoryIndex == 0)
+      //                         Get.toNamed(AppRoutes.addSymptoms);
+      //                         else if (ctrl.listofCatagoryIndex == 1)
+      //                           Get.toNamed(AppRoutes.addMedications);
+      //                         else if(ctrl.listofCatagoryIndex == 2)
+      //                           Get.toNamed(AppRoutes.addProcedures);
+      //                         else{
+      //                            Get.toNamed(AppRoutes.addTestScan);
+      //                         }
+      //                       },
+      //                       child: Row(
+      //                         mainAxisAlignment: MainAxisAlignment.center,
+      //                         children: [
+      //                           SvgPicture.asset(AppAssets.addIcon),
+      //                           addWidth(10),
+      //                           addRegularTxt("Add ${ctrl.listofCatagory[ctrl.listofCatagoryIndex]['name']}", color: AppColors.orangeColor, fontSize: 14)
+      //                         ],
+      //                       ),
+      //                     ),
+      //                     addHeight(20.h),
 
                             
-                      ],
-                    ),
-                  ),
-                // ),
-              ),
-            ),
-            // Positioned( 
-            //   top: Get.height/ 2.8,
-            //   left: 0,
-            //   right: 0,
-            //   // width:
-            //   // bottom: 0,
-            //   child: )
-            // Positioned(
-            // top: 230,
-            // left: 100,
-            // right: 100,
-            //   child: Stack(
-            //     children: [
-            //       Container(
-            //         width: 200,
-            //         height: 50,
-            //         decoration: BoxDecoration(
-            //           color: Colors.transparent,
-            //           borderRadius: BorderRadius.only(
-            //             bottomLeft: Radius.circular(20),
-            //                 bottomRight: Radius.circular(20),
+      //                 ],
+      //               ),
+      //             ),
+      //           // ),
+      //         ),
+      //       ),
+      //       // Positioned( 
+      //       //   top: Get.height/ 2.8,
+      //       //   left: 0,
+      //       //   right: 0,
+      //       //   // width:
+      //       //   // bottom: 0,
+      //       //   child: )
+      //       // Positioned(
+      //       // top: 230,
+      //       // left: 100,
+      //       // right: 100,
+      //       //   child: Stack(
+      //       //     children: [
+      //       //       Container(
+      //       //         width: 200,
+      //       //         height: 50,
+      //       //         decoration: BoxDecoration(
+      //       //           color: Colors.transparent,
+      //       //           borderRadius: BorderRadius.only(
+      //       //             bottomLeft: Radius.circular(20),
+      //       //                 bottomRight: Radius.circular(20),
                         
-            //           )
-            //         ),
+      //       //           )
+      //       //         ),
             
-            //         child: Column(
-            //           children: [
-            //               Row(
-            //                 children: List.generate(10, (index) => Text("$index", )),
-            //               )
+      //       //         child: Column(
+      //       //           children: [
+      //       //               Row(
+      //       //                 children: List.generate(10, (index) => Text("$index", )),
+      //       //               )
             
-            //           ],
-            //         ),
-            //       ),
-            //       Container(
-            //     width: 200,
-            //     height: 40,
-            //     margin: EdgeInsets.only(left: 10,right: 10,),
-            //     decoration: BoxDecoration(
-            //       color: Colors.red,
-            //       borderRadius: BorderRadius.circular(15)
-            //     ),
+      //       //           ],
+      //       //         ),
+      //       //       ),
+      //       //       Container(
+      //       //     width: 200,
+      //       //     height: 40,
+      //       //     margin: EdgeInsets.only(left: 10,right: 10,),
+      //       //     decoration: BoxDecoration(
+      //       //       color: Colors.red,
+      //       //       borderRadius: BorderRadius.circular(15)
+      //       //     ),
             
-            //     child: Column(
-            //       children: [
-            //           Row(
-            //             children: List.generate(10, (index) => Text("$index", )),
-            //           )
+      //       //     child: Column(
+      //       //       children: [
+      //       //           Row(
+      //       //             children: List.generate(10, (index) => Text("$index", )),
+      //       //           )
             
-            //       ],
-            //     ),
-            //   ),
-            //     ],
-            //   ),
-            // )
+      //       //       ],
+      //       //     ),
+      //       //   ),
+      //       //     ],
+      //       //   ),
+      //       // )
            
-          ],
-        ),
-      ) ; 
-        },
-      )  
+      //     ],
+      //   ),
+      // ) ; 
+      //   },
+      // )  
     );
   }
 }

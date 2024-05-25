@@ -14,12 +14,14 @@ import 'package:intl/intl.dart';
 import 'package:my_health_journal/Screens/widget/appbar.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/common-widgets/custom_textfield.dart';
+import 'package:my_health_journal/controllers/bottom_bar_controller.dart';
 import 'package:my_health_journal/controllers/home_controller.dart';
+import 'package:my_health_journal/models/home/provider_view_model.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
 import 'package:my_health_journal/resources/app_color.dart';
 import 'package:my_health_journal/resources/text_utility.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel, WeekdayFormat;
-import 'package:table_calendar/table_calendar.dart';
+// import 'package:table_calendar/table_calendar.dart';
 
 class AddDoctorsVisit extends StatefulWidget {
   const AddDoctorsVisit({super.key});
@@ -29,12 +31,21 @@ class AddDoctorsVisit extends StatefulWidget {
 }
 
 class _AddDoctorsVisitState extends State<AddDoctorsVisit> {
-  final List<String> items = [
-  'Tom Johnson',
-  'Maria Jobs',
-  'Meto Wilson',
-  'Anna',
-];
+  // final bottomCont = Get.find<BottomBarController>();
+  final bottomCont = Get.find<BottomBarController>();
+  @override
+  void initState() {
+    super.initState();
+    bottomCont.getProviderListApi();
+    
+  }
+//   final List<String> items = [
+//   'Tom Johnson',
+//   'Maria Jobs',
+//   'Meto Wilson',
+//   'Anna',
+// ];
+
 String? selectedValue;
   @override
   Widget build(BuildContext context) {
@@ -53,200 +64,254 @@ String? selectedValue;
                     fit: BoxFit.fill
                     )
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListView(
-                      children: [
-                     addHeight(30),
-                      AppBar1(title: "Appointment"),
-                      addHeight(10),
-                      Stack(
+                  child: Form(
+                    key: ctrl.appointmentForm,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListView(
                         children: [
-                          Padding(
-                            padding:  EdgeInsets.only(
-                              top: 10.h
+                       addHeight(30),
+                        AppBar1(title: "Appointment"),
+                        addHeight(10),
+                          GetBuilder<BottomBarController>(
+                            builder: (bottonCtrl){
+                              return     Container(
+                                                  width: Get.width,
+                                                  height: 50.h,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: ctrl.appointmentError ?  Colors.red : AppColors.dotBorderColor
+                                                ),
+                                              borderRadius: BorderRadius.circular(10),
+                                              // color: AppColors.whiteColor
+                                            ),
+                                            child:                                           
+                                              Padding(
+   padding: const EdgeInsets.symmetric(
+    horizontal: 10
+   ),
+   child: DropdownButtonFormField<ProviderViewModelData>(
+      
+      decoration: const InputDecoration(
+        errorStyle: TextStyle(height: 0),
+          border: UnderlineInputBorder(
+              borderSide: BorderSide.none
+          )),
+      value: ctrl.appointmentProvider,
+      hint: addRegularTxt("Add Provider"),
+      onChanged: (val){
+        ctrl.appointmentProvider = val;
+        ctrl.update();
+      },
+      validator: (val){
+        if(ctrl.appointmentProvider == null){
+          ctrl.appointmentError = true;
+          ctrl.update();
+          return "";
+        }
+        return null;    
+      },
+      items: bottomCont.providerListData
+                                   .where((item) => item != null) // Filter out null values
+                                   .map((item) => DropdownMenuItem(
+                                       value: item,
+                                       child: addRegularTxt(item.name.toString(), fontSize: 14),
+                                   ))
+                                   .toList(),
+      // <DropdownMenuItem<ProviderViewModelData>>[
+      //   DropdownMenuItem<int>(
+      //     value: 1,
+      //     child: Text("Owner"),
+      //   ),
+      //   DropdownMenuItem<int>(
+      //     value: 2,
+      //     child: Text("Member"),
+      //   ),
+      // ],
+    ),
+ ),
+                                            // DropdownButtonHideUnderline(
+                                            //     child: DropdownButton2<String>(
+                                            //       isExpanded: true,
+                                            //       hint: const Text(
+                                            //         'Select Provider',
+                                            //         style: TextStyle(
+                                            //           fontSize: 16,
+                                            //           color: AppColors.blackColor,
+                                            //         ),
+                                            //       ),
+                                            //       iconStyleData: IconStyleData(
+                                            //         icon: SvgPicture.asset(AppAssets.dropDownIcon)
+                                            //       ),
+                                            //       items: items
+                                            //           .map((String item) => DropdownMenuItem<String>(
+                                            //   value: item,
+                                            //   child: Text(
+                                            //     item,
+                                            //     style: const TextStyle(
+                                            //       fontSize: 14,
+                                            //     ),
+                                            //   ),
+                                            // ))
+                                            //           .toList(),
+                                            //       value: selectedValue,
+                                            //       onChanged: (String? value) {
+                                            //         setState(() {
+                                            //           selectedValue = value;
+                                            //         });
+                                            //       },
+                                            //       buttonStyleData: const ButtonStyleData(
+                                            //         padding: EdgeInsets.symmetric(horizontal: 16),
+                                            //         height: 40,
+                                            //         width: 140,          
+                                            //       ),
+                                            //       menuItemStyleData: const MenuItemStyleData(
+                                            //         height: 40,
+                                            //       ),
+                                            //     ),
+                                            //   ),
+                                      //     ),
+                                      //   ),                  
+                                      // ],
+                                    ).paddingOnly(bottom: 10);
+                            }
                             ),
-                            child: Container(
-                              width: Get.width,
-                              height: 50.h,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: AppColors.dotBorderColor
-                            ),
-                          borderRadius: BorderRadius.circular(10),
-                          // color: AppColors.whiteColor
-                        ),
-                        child: DropdownButtonHideUnderline(
-                            child: DropdownButton2<String>(
-                              isExpanded: true,
-                              hint: const Text(
-                                'Select Provider',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppColors.blackColor,
-                                ),
-                              ),
-                              iconStyleData: IconStyleData(
-                                icon: SvgPicture.asset(AppAssets.dropDownIcon)
-                              ),
-                              items: items
-                                  .map((String item) => DropdownMenuItem<String>(
-                          value: item,
-                          child: Text(
-                            item,
-                            style: const TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                        ))
-                                  .toList(),
-                              value: selectedValue,
-                              onChanged: (String? value) {
-                                setState(() {
-                                  selectedValue = value;
-                                });
-                              },
-                              buttonStyleData: const ButtonStyleData(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
-                                height: 40,
-                                width: 140,          
-                              ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                height: 40,
-                              ),
-                            ),
-                          ),
-                      ),
-                    ),
-
-                    //  Positioned(
-                    //         top: 2,
-                    //         left: 15,
-                    //         child: Container(
-                    //           decoration: BoxDecoration(
-                    //             color: AppColors.whiteColor.withOpacity(0.8)
-                    //           ),
-                    //           child: addRegularTxt("Select Provider", color: AppColors.blackColor3, fontSize: 13.sp),
-                    //         ),
-                    //       )
-                  ],
-                ).paddingOnly(bottom: 10), 
-addHeight(10),
-                InkWell(
-                  onTap: (){
-                    _Calendarpop(context);
-                  },
-                  child: CustomTextField(
-                    controller: ctrl.dateofVisit,
-                    labelText: "Date of Visit",
-                    onTapSuffixIcon: (){
-                       _Calendarpop(context);
+                    addHeight(10),
+                    InkWell(
+                    onTap: (){
+                      _Calendarpop(context);
                     },
-                    // readOnly: true,
-                    suffixIcon: Padding(
-                      padding:  EdgeInsets.all(12.0.sp),
-                      child: SvgPicture.asset(AppAssets.bottomNav3, color: AppColors.orangeColor,height: 20,),
-                    ),
-                  ).paddingOnly(bottom: 10),
-                ),
-                addHeight(10),
-                CustomTextField(
-                    controller: ctrl.questionsforProvider,
-                  labelText: "Questions for Provider",
-                ).paddingOnly(bottom: 10),
-                addHeight(10),
-                CustomTextField(
-                  
-                  fillColor: AppColors.whiteColor,
-                     controller: ctrl.providerComments,
-                  labelText: "Provider Comments",
-                ).paddingOnly(bottom: 10),
-                addHeight(10),
-                 CustomTextField(
-                     controller: ctrl.notes,
-                  labelText: "Notes",
-                ).paddingOnly(bottom: 10),
-                addHeight(10),
-
-                Padding(
-                padding:  EdgeInsets.symmetric(
-                  horizontal: 14.h,
-                  vertical: 8
-
-                ),
-                child: Row(
-                  children: [
-                    addBoldTxt("Add Photo:", fontSize: 16.sp),
-                  ],
-                ),
-              ),
-             
-        
-              addHeight(10),
-                InkWell(
-                 onTap: (){
-                     _addPictureSheet(context);
-                 },
-                  child: DottedBorder(
-                     color: AppColors.dotBorderColor,
-                     strokeWidth: 1,
-                     dashPattern: [3,5],
-                     borderType: BorderType.RRect,
-                     radius: Radius.circular(20),
-                                   // width: 120.h,
-                                   // height: 90.h,
-                                   child: Container(
-                                     decoration: BoxDecoration(
-                // color: AppColors.whiteColor,
-                borderRadius: BorderRadius.circular(20)
-                                     ),
-                                     
-                                     height: 110.h,
+                    child: CustomTextField(
+                      onTap: (){
+                          _Calendarpop(context);
+                      },
+                      controller: ctrl.appointmentDOV,
+                      labelText: "Date of Visit",
+                      readOnly: true,
+                        validator: (val){
+                             if(val!.isEmpty){
+                      return "Date of Visit is Required*";
+                    }                    
+                    return null;
+                          },
+            
+                      onTapSuffixIcon: (){
+                         _Calendarpop(context);
+                      },                     
+                      suffixIcon: Padding(
+                        padding:  EdgeInsets.all(12.0.sp),
+                        child: SvgPicture.asset(AppAssets.bottomNav3, color: AppColors.orangeColor,height: 20,),
+                      ),
+                    ).paddingOnly(bottom: 10),
+                                    ),
+                                    addHeight(10),
+                                    CustomTextField(
+                    controller: ctrl.appointmentQuestion,
+                    labelText: "Questions for Provider",
+                     validator: (val){
+                             if(val!.isEmpty){
+                      return "Questions is Required*";
+                    }                    
+                    return null;
+                          },            
+                                    ).paddingOnly(bottom: 10),
+                                    addHeight(10),
+                                    CustomTextField(                    
+                    fillColor: AppColors.whiteColor,
+                       controller: ctrl.appointmentComment,
+                    labelText: "Provider Comments",
+                                    ).paddingOnly(bottom: 10),
+                                    addHeight(10),
+                                     CustomTextField(
+                       controller: ctrl.appointmentNotes,
+                    labelText: "Notes",
+                                    ).paddingOnly(bottom: 10),
+                                    addHeight(10),
+                    
+                                    Padding(
+                                    padding:  EdgeInsets.symmetric(
+                    horizontal: 14.h,
+                    vertical: 8
+                    
+                                    ),
+                                    child: Row(
+                    children: [
+                      addBoldTxt("Add Photo:", fontSize: 16.sp),
+                    ],
+                                    ),
+                                  ),
+                                 
+                            
+                                  addHeight(10),
+                                    InkWell(
+                                     onTap: (){
+                       _addPictureSheet(context);
+                                     },
+                    child: DottedBorder(
+                       color: AppColors.dotBorderColor,
+                       strokeWidth: 1,
+                       dashPattern: [3,5],
+                       borderType: BorderType.RRect,
+                       radius: Radius.circular(20),
                                      // width: 120.h,
-                                     child: Center(
-                                       child: ctrl.symptomDocPath == "" ?  Column(
-                                         // crossAxisAlignment: CrossAxisAlignment.center,
-                                         mainAxisAlignment: MainAxisAlignment.center,
-                                         children: [
-                                            SvgPicture.asset(AppAssets.uploadIcon),
-                                            addHeight(10),
-                                            addHeadingTxtMedium("Upload Photo/Documents", fontSize: 12.sp,  color: AppColors.greyColor2, fontFamily: "Montserrat-medium" ),
-                                     
-                                         ],
-                                       ): Container(
-                                         decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(20),
-                                           image: DecorationImage(image: FileImage(File(ctrl.doctorVisitDocPath)), fit: BoxFit.fill)
+                                     // height: 90.h,
+                                     child: Container(
+                                       decoration: BoxDecoration(
+                                    // color: AppColors.whiteColor,
+                                    borderRadius: BorderRadius.circular(20)
+                                       ),
+                                       
+                                       height: 110.h,
+                                       // width: 120.h,
+                                       child: Center(
+                                         child: ctrl.appointmentPhoto == "" ?  Column(
+                                           // crossAxisAlignment: CrossAxisAlignment.center,
+                                           mainAxisAlignment: MainAxisAlignment.center,
+                                           children: [
+                                              SvgPicture.asset(AppAssets.uploadIcon),
+                                              addHeight(10),
+                                              addHeadingTxtMedium("Upload Photo/Documents", fontSize: 12.sp,  color: AppColors.greyColor2, fontFamily: "Montserrat-medium" ),
+                                       
+                                           ],
+                                         ): Container(
+                                           decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(20),
+                                             image: DecorationImage(image: FileImage(File(ctrl.appointmentPhoto)), fit: BoxFit.fill)
+                                           ),
                                          ),
                                        ),
                                      ),
                                    ),
-                                 ),
-                ),
-
-                addHeight(20),
- Padding(
-   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-  child:   CustomButton(
-    height: 50,
-    width: Get.width / 2,
-    text: "Save", onPressed: (){}),
-),
-//  addHeight(10),
- Padding(
-   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-  child:   CustomButton(
-    btnColor: AppColors.orangeColor,
-    height: 50,
-    width: Get.width / 2,
-    text: "Save and Share", onPressed: (){}),
-),
-addHeight(20),
-
-
-                ],
-              ),
-            ),
+                                    ),
+                    
+                                    addHeight(20),
+                     Padding(
+                       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      child:   CustomButton(
+                        height: 50,
+                        width: Get.width / 2,
+                        text: "Save", onPressed: (){
+                          if(ctrl.appointmentForm.currentState!.validate()){
+                            ctrl.AddAppointmentApi();
+                          }
+                        }),
+                    ),
+                    //  addHeight(10),
+                     Padding(
+                       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      child:   CustomButton(
+                        btnColor: AppColors.orangeColor,
+                        height: 50,
+                        width: Get.width / 2,
+                        text: "Save and Share", onPressed: (){}),
+                    ),
+                    addHeight(20),
+                    
+                    
+                                    ],
+                                  ),
+                                ),
+                  ),
             )  ; 
         },
       )  
@@ -280,7 +345,7 @@ addHeight(20),
               // imgPath = res.path;
                                                 // controller.memberImgPath  = res.path;
                                                  
-                                                  controller.doctorVisitDocPath = res.path;
+                                                  controller.appointmentPhoto = res.path;
                                                 
                                                 controller.update();                                                
               }             
@@ -296,7 +361,7 @@ addHeight(20),
               Navigator.of(context).pop();
                final res = await controller.getImageToCamera();
                                               if(res != null){
-                                              controller.doctorVisitDocPath = res.path;
+                                              controller.appointmentPhoto = res.path;
                                                 
                                                 controller.update();                                                  
                                               }        
@@ -312,8 +377,9 @@ addHeight(20),
 
     return  imgPath ?? "";
   }
-var _currentDate = DateTime.now();
+// var _currentDate = DateTime.now();
   _Calendarpop(BuildContext context){
+
       showDialog(
                     context: context,
                     // barrierColor: Colors.transparent,
@@ -375,6 +441,7 @@ var _currentDate = DateTime.now();
   DateTime? _targetDateTime = DateTime.now();
   String _currentMonth = DateFormat.yMMMM().format(DateTime.now());
 class CustomDialog extends StatelessWidget{
+   final ctrl = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -455,7 +522,9 @@ class CustomDialog extends StatelessWidget{
                        child: CalendarCarousel<Event>(
           // todayBorderColor: Colors.green,
           childAspectRatio: 1.3,
-          onDayPressed: (date, events) {     
+          onDayPressed: (date, events) {  
+            Navigator.pop(context);  
+              ctrl.appointmentDOV.text = DateFormat('dd/MM/yyyy').format(date);   
           }, 
           showOnlyCurrentMonthDate: false,
           weekendTextStyle: const TextStyle(

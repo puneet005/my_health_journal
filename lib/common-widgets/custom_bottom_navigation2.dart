@@ -15,10 +15,16 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-   final controller = Get.find<BottomBarController>();
+  final controller = Get.find<BottomBarController>();
 
   //  String token = getValue(LocalStorage.TOKEN);
-
+@override
+void initState() {
+  super.initState();
+  Future.delayed(Duration.zero, (){
+    controller.patientListApi();
+  });
+}
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BottomBarController>(builder: (controller) {

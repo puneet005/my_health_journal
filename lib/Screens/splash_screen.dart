@@ -25,15 +25,14 @@ class SplashScreen extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           // mainAxisAlignment:  MainAxisAlignment.end,
           children: [
-                Positioned(
-                  
+                Positioned(                  
                   bottom: 0,
                   child: Container(
-                     width: Get.width,
+                    width: Get.width,
                     height: Get.height /1.4,
                     child: SvgPicture.asset(AppAssets.splashBgImg, 
                     fit: BoxFit.fill,
-                   ),
+                  ),
                   )),
                   Positioned(
                     top: Get.height / 9,
@@ -42,12 +41,9 @@ class SplashScreen extends StatelessWidget {
                         SvgPicture.asset(AppAssets.splashlogo),
                         addHeight(20),
                         addHeadingTxtMedium("Everything you need to \nmanage your family's health \nhistory", textAlign: TextAlign.center, color: AppColors.appColor, fontSize: 20.sp, maxLines: 3, fontFamily: 'Montserrat-bold')
-
                       ],
                     ))),
-
-                     Positioned(
-                  
+                    Positioned(                  
                   bottom: 70,
                   right: -Get.height/8.7,
                   child:  Image.asset(AppAssets.splashImg, height: Get.height/2.4,),
@@ -61,8 +57,7 @@ class SplashScreen extends StatelessWidget {
                   ),
                 Positioned(
                     bottom: Get.width/2.8,
-                    left: Get.width/3.9,
-                   
+                    left: Get.width/3.9,                   
                     child: 
                   Container(
                       width: 120.h,
@@ -72,12 +67,11 @@ class SplashScreen extends StatelessWidget {
                       shape: BoxShape.circle
                     ),
                   )),
-                   Positioned(
+                  Positioned(
                     right: Get.width/3,
-                       bottom: Get.width/3,
-                       left: Get.width/4.4,
+                    bottom: Get.width/3,
+                    left: Get.width/4.4,
                     // bottom: -10,
-
                     child: 
                   InkWell(
                     onTap: (){
@@ -86,7 +80,7 @@ class SplashScreen extends StatelessWidget {
                     child: Container(
                       width: 120,
                       height: Get.height/6,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: AppColors.orangeColor,
                         shape: BoxShape.circle
                       ),

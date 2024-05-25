@@ -10,7 +10,8 @@ import 'package:my_health_journal/resources/text_utility.dart';
 // ignore: must_be_immutable
 class AppBar1 extends StatelessWidget {
   String title;
-   AppBar1({super.key, required this.title, });
+  bool notificationIcon;
+   AppBar1({super.key, required this.title, this.notificationIcon = true});
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +31,12 @@ class AppBar1 extends StatelessWidget {
                             },
                             child: SvgPicture.asset(AppAssets.backArrowIcon)),
                           addHeadingTxtMedium(title, fontSize: 15.sp,  color: AppColors.blackColor, fontFamily: "Montserrat-medium" ),
+                          notificationIcon ? 
                           InkWell(
                             onTap: (){
                               Get.back();
                             },
-                            child: SvgPicture.asset(AppAssets.notificationIcon)),
+                            child: SvgPicture.asset(AppAssets.notificationIcon)): SizedBox(width: 45.h,),
                                      ],
                                   ),
                     ),

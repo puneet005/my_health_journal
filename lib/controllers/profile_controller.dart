@@ -117,25 +117,23 @@ Future<XFile?> getImage() async {
       //   filesmap['proof_id'] = idmagePath;
       // }
       // if(profileimagePath != ""){
-      //   filesmap['profile'] = profileimagePath;  
+      //   filesmap['profile'] = profileimagePath; 
       // }
       log(ApiUrls.profileUpdate);
       log(map.toString());
       var result =  await ApiHandler().PostMultipartApi(apiName: ApiUrls.profileUpdate, data: map, files: filesmap);   
-      if(result != null){       
+      if(result != null){
         if(result['status'] ==  "200"){ 
         // log(result.toString());
         showToast(profileData.message.toString());
         profileData = ProfileModel.fromJson(result);  
-        update();          
+        update();
         Get.back();
         }
-       
-        showLoader(false);    
-        update();             
+        showLoader(false);
+        update();
       }
       showLoader(false);
-         
   // } catch (e) {
   //   log("catch");
   //   log(e.toString());

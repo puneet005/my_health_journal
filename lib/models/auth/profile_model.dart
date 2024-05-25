@@ -109,3 +109,34 @@ class ProfileModel {
     return data;
   }
 }
+
+
+
+class CommentData{
+  String? title;
+  String? time;
+  ProfileModelData? user;
+
+
+  CommentData({
+    this.title,
+    this.time,
+    this.user,
+  });
+
+  CommentData.fromJson(Map<String, dynamic> json) {
+    title = json['message']?.toString();
+    time = json['status']?.toInt();
+    user = (json['data'] != null) ? ProfileModelData.fromJson(json['data']) : null;
+  }
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['message'] = title;
+    data['status'] = time;
+    if (data != null) {
+      data['data'] = this.user!.toJson();
+    }
+    return data;
+  }
+
+}

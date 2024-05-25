@@ -123,14 +123,14 @@ class _SignUpState extends State<SignUp> {
                               left: 10,
                               right: 10,
                             ),
-                            
-                            decoration: InputDecoration(    
+
+                            decoration: InputDecoration(
                               floatingLabelAlignment: FloatingLabelAlignment.start,                        
                               label: addRegularTxt('Mobile Number', color: AppColors.greyColor1),
                               floatingLabelStyle: TextStyle(                           
                               ),
                               isDense: false,
-                              filled: true,  
+                              // filled: true,
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(

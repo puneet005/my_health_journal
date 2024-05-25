@@ -96,7 +96,7 @@ class _LoginState extends State<Login> {
                             floatingLabelStyle: const TextStyle(                           
                             ),
                             isDense: false,
-                            filled: true,                              
+                            // filled: true
                             errorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
@@ -339,12 +339,12 @@ class _LoginState extends State<Login> {
                       addRegularTxt('Don’t have an account? '),
                       GestureDetector(
                         onTap: (){
-                           Get.toNamed(AppRoutes.signUpScreen);
+                          Get.toNamed(AppRoutes.signUpScreen);
                           // Get.to(SignUpScreen());
                         },
                         child: addBoldTxt('Sign up'.tr, fontSize: 18,
                             color: AppColors.orangeColor,
-                            decoration: TextDecoration.underline),
+                            ),
                       ),
                     ],
                   ),

@@ -20,10 +20,8 @@ Future<void> main() async{
   await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
- 
   initMessaging();
   HttpOverrides.global = MyHttpOverrides();
- 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(                
     // // systemNavigationBarColor: Colors.black, // navigation bar color
     statusBarColor: Colors.transparent,

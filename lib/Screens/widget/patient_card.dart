@@ -5,14 +5,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_health_journal/Screens/home/patient_details2.dart';
 import 'package:my_health_journal/common-widgets/base_image_network.dart';
+import 'package:my_health_journal/controllers/bottom_bar_controller.dart';
+import 'package:my_health_journal/models/patient_list_model.dart';
+import 'package:my_health_journal/resources/api_constant.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
 // import 'package:my_health_journal/resources/app_assets.dart';
 import 'package:my_health_journal/resources/app_color.dart';
 import 'package:my_health_journal/resources/text_utility.dart';
-import 'package:my_health_journal/routers/app_routers.dart';
+// import 'package:my_health_journal/routers/app_routers.dart';
 
 class PatientCard extends StatefulWidget {
-  Map data;
+  PatientListMember data;
    PatientCard({super.key, required this.data});
 
   @override
@@ -20,8 +23,11 @@ class PatientCard extends StatefulWidget {
 }
 
 class _PatientCardState extends State<PatientCard> {
+   final bottomCont = Get.find<BottomBarController>();
+  
   @override
   Widget build(BuildContext context) {
+    // print("${ApiUrls.domain}${widget.data.profile}");
     return Padding(
       padding:  EdgeInsets.symmetric(
             horizontal: 12.h,
@@ -29,12 +35,10 @@ class _PatientCardState extends State<PatientCard> {
           ),
       child: InkWell(
         onTap: (){
-          Get.to(PatientDetails2());
-          // Get.toNamed(AppRoutes.patientDetails);
-                // Get.toNamed(AppRoutes.patientDetails);
+        bottomCont.selectedPatient = widget.data;      
+        Get.to(PatientDetails2());  
         },
-        child: Card(
-          
+        child: Card(          
             elevation: 2.0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.sp)
@@ -47,31 +51,29 @@ class _PatientCardState extends State<PatientCard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [           
-                BaseImageNetwork(
+              children: [
+        BaseImageNetwork(
                                   fit: BoxFit.cover,
                                   borderRadius: 10,
-                                  link: widget.data['img'],
+                                  link: "${ApiUrls.domain}${widget.data.profile}",
                                   concatBaseUrl: true,
-                                  isAssetImage: true,
+                                  isAssetImage: false,
                                   height: 60.h,
                                   width: 60.h,
                                   topMargin: 2,
                                   rightMargin: 2,
                                   leftMargin: 2,
                                   bottomMargin: 2,
-                                  errorWidget: const Icon(Icons.error, size: 70),
+                                  errorWidget: const Icon(Icons.error, size: 40),
                                 ),
                                 addWidth(10),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Spacer(),
-                                    // addHeight(10),
-                                    addHeadingTxtMedium(widget.data['name'], fontSize: 14, color: AppColors.blackColor, fontFamily: "Montserrat-semibold"),
+                                  children: [                                   
+                                    addHeadingTxtMedium(widget.data.name!, fontSize: 14, color: AppColors.blackColor, fontFamily: "Montserrat-semibold"),
                                     addHeight(5),
-                                    addRegularTxt(widget.data['about'], fontSize: 12)
+                                    addRegularTxt(widget.data.relation!, fontSize: 12)
                                   ],
                                 ),
                                 Spacer(),
@@ -85,7 +87,6 @@ class _PatientCardState extends State<PatientCard> {
                     child: MenuItems.buildItem(item),
                   ),
                 ),
-               
               ],
               onChanged: (value) {
                 MenuItems.onChanged(context, value! as MenuItem);

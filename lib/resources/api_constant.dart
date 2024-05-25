@@ -17,11 +17,22 @@ class ApiUrls {
 
   
 
-  //Cart
-  static const String cart = "${baseUrl}cart/list";
-  static const String addCart = "${baseUrl}cart";
+  //Home
+  static const String dashboard = "${baseUrl}dashboard";
+  static const String addNewMember = "${baseUrl}add-new-member";
+  static const String addProvider = "${baseUrl}add-provider";
+    static const String addAppointment = "${baseUrl}add-appointment";
+      static const String addSymptoms = "${baseUrl}add-symptoms";
+      //   static const String addNewMember = "${baseUrl}add-new-member";
+      //     static const String addNewMember = "${baseUrl}add-new-member";
+      //       static const String addNewMember = "${baseUrl}add-new-member";
+      //         static const String addNewMember = "${baseUrl}add-new-member";
   static const String removeCart = "${baseUrl}cart/remove";
 
+
+//  Get Api   
+    static const String getProvider = "${baseUrl}get-provider";
+   
 //Category
   static const String category = "${baseUrl}category";
   static const String subCategory = "${baseUrl}subCategory";
