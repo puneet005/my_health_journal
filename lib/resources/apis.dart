@@ -1,11 +1,5 @@
 import 'dart:developer';
-// import 'package:dio/dio.dart';
-
 import 'package:dio/dio.dart';
-
-// import 'package:get/get_connect/http/src/multipart/form_data.dart';
-// import 'package:get/get_connect/http.dart'; 
-
 import 'package:get/get.dart' as Get;
 import 'package:my_health_journal/resources/local_storage.dart';
 import 'package:my_health_journal/resources/utils.dart';

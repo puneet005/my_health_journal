@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_health_journal/Screens/widget/patient_card.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
@@ -26,8 +26,7 @@ class _PatientViewState extends State<PatientView> {
   final bottomCont = Get.find<BottomBarController>();
 
   @override
-  Widget build(BuildContext context) {
-    
+  Widget build(BuildContext context) {    
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: GetBuilder<BottomBarController>(
@@ -35,14 +34,14 @@ class _PatientViewState extends State<PatientView> {
         builder: (_) {
           return Column(
             children: [
-              addHeight(50),
+              addHeight(50.h),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.sp),
                 child: Row(
                   children: [
                     InkWell(
                       onTap: () {
-                        Get.toNamed(AppRoutes.addSymptoms);
+                        // Get.toNamed(AppRoutes.addSymptoms);
                       },
                       child: addHeadingTxtMedium(
                         "Choose Patient",
@@ -51,24 +50,23 @@ class _PatientViewState extends State<PatientView> {
                         fontFamily: "Montserrat-semibold",
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     // Additional buttons can be added here if needed
                   ],
                 ),
               ),
-              addHeight(20),
+              addHeight(10),
               bottomCont.patientList!.isEmpty
-                  ? Container(
+                  ? SizedBox(
                       height: Get.height / 1.8,
                       child: Center(
                         child: addBoldTxt("Currently No One Added !!"),
                       ),
                     )
-                  :  Container(
-                      height: Get.height - 250.h,
+                  :  SizedBox(
+                      height: Get.height - 270.h,
                     child: AnimationLimiter(
-                        child: ReorderableListView(
-                          
+                        child: ReorderableListView(                          
                           shrinkWrap: true,
                           proxyDecorator: proxyDecorator,
                           onReorder: (int oldIndex, int newIndex) {
@@ -76,9 +74,12 @@ class _PatientViewState extends State<PatientView> {
                               if (oldIndex < newIndex) {
                                 newIndex -= 1;
                               }
+                              bottomCont.setPetientIndex(bottomCont.patientList![oldIndex].id.toString(), newIndex.toString());
+                              // (bottomCont.patientList![oldIndex].id, newIndex);
                               PatientListMember item =
                                   bottomCont.patientList!.removeAt(oldIndex);
                               bottomCont.patientList!.insert(newIndex, item);
+                            
                             });
                           },
                           children: List.generate(
@@ -95,11 +96,7 @@ class _PatientViewState extends State<PatientView> {
                                     child: FadeInAnimation(
                                       child: PatientCard(
                                           data: bottomCont.patientList![index],
-                                        ),
-                                      // child: ListTile(
-                                      //  key: ValueKey(bottomCont.patientList![index].id),
-                                      //   title: 
-                                      // ),
+                                        ),                                    
                                     ),
                                   ),
                                 ),
@@ -109,9 +106,9 @@ class _PatientViewState extends State<PatientView> {
                         ),
                       ),
                   ),
-              Spacer(),
+              const Spacer(),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: CustomButton(
                   height: 50,
                   width: Get.width / 1.2,

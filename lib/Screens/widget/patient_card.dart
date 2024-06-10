@@ -12,6 +12,7 @@ import 'package:my_health_journal/resources/app_assets.dart';
 // import 'package:my_health_journal/resources/app_assets.dart';
 import 'package:my_health_journal/resources/app_color.dart';
 import 'package:my_health_journal/resources/text_utility.dart';
+import 'package:my_health_journal/routers/app_routers.dart';
 // import 'package:my_health_journal/routers/app_routers.dart';
 
 class PatientCard extends StatefulWidget {
@@ -26,8 +27,7 @@ class _PatientCardState extends State<PatientCard> {
    final bottomCont = Get.find<BottomBarController>();
   
   @override
-  Widget build(BuildContext context) {
-    // print("${ApiUrls.domain}${widget.data.profile}");
+  Widget build(BuildContext context) {    
     return Padding(
       padding:  EdgeInsets.symmetric(
             horizontal: 12.h,
@@ -36,10 +36,12 @@ class _PatientCardState extends State<PatientCard> {
       child: InkWell(
         onTap: (){
         bottomCont.selectedPatient = widget.data;      
-        Get.to(PatientDetails2());  
+        Get.toNamed(AppRoutes.patientDetails2);
+        // Get.to(const PatientDetails2());  
         },
         child: Card(          
-            elevation: 2.0,
+            // elevation: 2.0,
+            color: AppColors.appColor2.withOpacity(0.6),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.sp)
             ),
@@ -79,7 +81,7 @@ class _PatientCardState extends State<PatientCard> {
                                 Spacer(),
                                 DropdownButtonHideUnderline(
             child: DropdownButton2(
-              customButton: SvgPicture.asset(AppAssets.threeDotIcon),
+              customButton: SvgPicture.asset(AppAssets.threeDotIcon, color: AppColors.blackColor,),
               items: [
                 ...MenuItems.firstItems.map(
                   (item) => DropdownMenuItem<MenuItem>(
@@ -130,12 +132,12 @@ class MenuItem {
 }
 
 abstract class MenuItems {
-  static const List<MenuItem> firstItems = [remove, share, settings];
+  static const List<MenuItem> firstItems = [remove, share];
 
 
   static const remove = MenuItem(text: 'Remove', icon: Icons.delete);
   static const share = MenuItem(text: 'Share', icon: Icons.share);
-  static const settings = MenuItem(text: 'Settings', icon: Icons.settings);
+  // static const settings = MenuItem(text: 'Settings', icon: Icons.settings);
 
 
   static Widget buildItem(MenuItem item) {
@@ -162,9 +164,9 @@ abstract class MenuItems {
       case MenuItems.remove:
         //Do something
         break;
-      case MenuItems.settings:
-        //Do something
-        break;
+      // case MenuItems.settings:
+      //   //Do something
+      //   break;
       case MenuItems.share:
         //Do something
         break;

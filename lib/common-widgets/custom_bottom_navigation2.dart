@@ -34,8 +34,9 @@ void initState() {
         children: [
             Container(
               
-         width: double.infinity,
+         width: Get.width,
                 height: Get.height,
+                
                    decoration: BoxDecoration(  
                     color: AppColors.bgColor,          
               image: DecorationImage(image: AssetImage(AppAssets.bgImg2),

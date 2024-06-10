@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:my_health_journal/Screens/home/provider/provider_details_page.dart';
 import 'package:my_health_journal/Screens/widget/appbar.dart';
+import 'package:my_health_journal/common-widgets/custom_bottom_navigation3.dart';
 import 'package:my_health_journal/controllers/bottom_bar_controller.dart';
 import 'package:my_health_journal/models/home/provider_view_model.dart';
 import 'package:my_health_journal/resources/api_constant.dart';
@@ -37,188 +38,205 @@ class _ProviderViewState extends State<ProviderView> {
       // init: MyController(),
       initState: (_) {},
       builder: (_) {
-        return  Scaffold(
-          body: Container(                    
-              width: double.infinity,
-                      height: Get.height,
-                        decoration: const BoxDecoration(  
-                        color: AppColors.bgColor,          
-                    image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
-                    fit: BoxFit.fill
-                    )
-                    
-                  ),
-                  child: Padding(
-                     padding:  EdgeInsets.symmetric(
-                      horizontal: 14.h
-                    ),
-                    child: Column(
-                      children: [
-                        addHeight(30.h),
-                        AppBar1(title: "Provider", notificationIcon: false,),
-                        addHeight(16.h),
-                        Card(          
-                          elevation: 2.0,
-                          color: AppColors.whiteColor,
-                          shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.sp)
-                                ),
-                              child: Padding(
-                                padding:  EdgeInsets.symmetric(
-                                  horizontal: 12.h,
-                                  vertical: 6.h
-                                ),          
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: AppColors.appColor.withOpacity(0.1),
-                                  child: CircleAvatar(
-                                    radius: 32,
-                                    backgroundColor: AppColors.appColor.withOpacity(0.1),
-                                    child: Container(
-                                      width: 50.h,
-                                      height: 50.h,
-                                      decoration:  BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(image: bottomCont.selectedPatient.profile !=  null  ? NetworkImage("${ApiUrls.domain}${bottomCont.selectedPatient.profile}") :  AssetImage(AppAssets.patient1) as ImageProvider,
-                                        fit: BoxFit.cover
-                                         )
-                                      ),
-                                      // child: Image.asset(, height: 50.h,),
+        return  Stack(
+       
+        children: [
+            Container(              
+         width: double.infinity,
+                height: Get.height,
+                   decoration: const BoxDecoration(  
+                    color: AppColors.bgColor,          
+              image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
+              fit: BoxFit.fill
+              )
+            ),),
+            Scaffold(
+              backgroundColor: Colors.transparent,
+              body: Container(                    
+                  width: double.infinity,
+                          height: Get.height,
+                            decoration: const BoxDecoration(  
+                            color: AppColors.bgColor,          
+                        image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
+                        fit: BoxFit.fill
+                        )
+                        
+                      ),
+                      child: Padding(
+                         padding:  EdgeInsets.symmetric(
+                          horizontal: 14.h
+                        ),
+                        child: Column(
+                          children: [
+                            addHeight(50.h),
+                            AppBar1(title: "Provider", notificationIcon: false,),
+                            addHeight(16.h),
+                            Card(          
+                              elevation: 2.0,
+                              color: AppColors.whiteColor,
+                              shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.sp)
                                     ),
-                                  ),
-                                ),
-                                addWidth(20),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  child: Padding(
+                                    padding:  EdgeInsets.symmetric(
+                                      horizontal: 12.h,
+                                      vertical: 6.h
+                                    ),          
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    addBoldTxt(bottomCont.selectedPatient.name ?? "", fontSize: 16),
-                                    addBoldTxt(bottomCont.selectedPatient.relation ?? "", fontSize: 12, color: AppColors.greyColor5),
-                                  ],
-                                ),
-                                Spacer(),
-                                Container(
-                                                width: 45.h,
-                                                height: 45.h,
-                                                 decoration: BoxDecoration(
-                                                   color: AppColors.whiteColor,
-                                                   borderRadius: BorderRadius.circular(15),
-                                                   border: Border.all(
-                              color: AppColors.blackColor3.withOpacity(0.1)
-                                                   ),
-                                                 ),
-                                               
-                                                 child: InkWell(
-                                                   onTap: (){
-                                                    Get.toNamed(AppRoutes.addProvider);
-                              // Get.back(); 
-                              // Get.toNamed(AppRoutes.);
-                                                   },
-                                                   child:  Padding(
-                              padding:  const EdgeInsets.all(8.0),
-                              child: Center(
-                                child:  SvgPicture.asset(AppAssets.addIcon),
-                              ),
-                                                   ),
-                                                 ),
-                                                ),
-                                               ],
-                                             ),
-                           ),),
-                           Expanded(child: 
-                          bottomCont.getProviderListLoading ? 
-                          ListView(
-                            children: List.generate(5, (index) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                width: Get.width / 1.1,
-                                height: Get.height / 8,
-                                child: Shimmer.fromColors(
-                                  baseColor: AppColors.bgColor.withOpacity(0.3),
-                                  highlightColor: AppColors.appColor2,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: AppColors.appColor2,
-                                      borderRadius: BorderRadius.circular(20)
+                                    CircleAvatar(
+                                      radius: 40,
+                                      backgroundColor: AppColors.appColor.withOpacity(0.1),
+                                      child: CircleAvatar(
+                                        radius: 32,
+                                        backgroundColor: AppColors.appColor.withOpacity(0.1),
+                                        child: Container(
+                                          width: 50.h,
+                                          height: 50.h,
+                                          decoration:  BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(image: bottomCont.selectedPatient.profile !=  null  ? NetworkImage("${ApiUrls.domain}${bottomCont.selectedPatient.profile}") :  AssetImage(AppAssets.patient1) as ImageProvider,
+                                            fit: BoxFit.cover
+                                             )
+                                          ),
+                                          // child: Image.asset(, height: 50.h,),
+                                        ),
+                                      ),
                                     ),
-                                  )
-                                ),
-                              ),
-                            )),
-                          ) : 
-                          AnimationLimiter(
-                         child:
-                         ListView(
-                          padding: EdgeInsets.zero,
-                          children: List.generate(bottomCont.providerListData.length, (index) {
-                            return  AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 500),
-                                child: SlideAnimation(
-                                  verticalOffset: 50.0,
-                                  child: FadeInAnimation(
-                        child:  Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            onTap: (){
-                              BottonSheetView(context,bottomCont.providerListData[index] );
-                              // Get.to(ProviderDetails(data: bottomCont.providerListData[index]));
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.whiteColor, 
-                                borderRadius: BorderRadius.circular(20.h),
-                            
-                              ),
-                              width: Get.width / 1.1,
-                              height: Get.height / 8,
-                              child: Padding(
-                                padding:  EdgeInsets.symmetric(
-                                  horizontal: 10.h,                                
-                                ),
-                                child: Row(children: [
-                                  bottomCont.providerListData[index].reportInfo != null  ?
-                                  CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage:  NetworkImage("${ApiUrls.domain}${bottomCont.providerListData[index].reportInfo}"),
-                                                          //  child:   , 
-                                  ) : CircleAvatar(
-                                    radius: 30,
-                                    child:  SvgPicture.asset(AppAssets.providersIcon),
-                                  ),
-                                  addWidth(10.h),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                    addWidth(20),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        addRegularTxt(bottomCont.providerListData[index].name ?? "", fontSize: 16.h),
-                                        addHeadingTxtMedium(bottomCont.providerListData[index].specialization ?? "", fontSize: 14, fontFamily: 'Montserrat-light'),
-                                        addHeadingTxtMedium(bottomCont.providerListData[index].phone ?? "", fontSize: 14, fontFamily: 'Montserrat-light', maxLines: 1, overflow: TextOverflow.ellipsis),
-                                    
+                                        addBoldTxt(bottomCont.selectedPatient.name ?? "", fontSize: 16),
+                                        addBoldTxt(bottomCont.selectedPatient.relation ?? "", fontSize: 12, color: AppColors.greyColor5),
                                       ],
                                     ),
-                                  )
-                                ],),
+                                    Spacer(),
+                                    Container(
+                                                    width: 45.h,
+                                                    height: 45.h,
+                                                     decoration: BoxDecoration(
+                                                       color: AppColors.whiteColor,
+                                                       borderRadius: BorderRadius.circular(15),
+                                                       border: Border.all(
+                                  color: AppColors.blackColor3.withOpacity(0.1)
+                                                       ),
+                                                     ),
+                                                   
+                                                     child: InkWell(
+                                                       onTap: (){
+                                                        Get.toNamed(AppRoutes.addProvider);
+                                  // Get.back(); 
+                                  // Get.toNamed(AppRoutes.);
+                                                       },
+                                                       child:  Padding(
+                                  padding:  const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child:  SvgPicture.asset(AppAssets.addIcon),
+                                  ),
+                                                       ),
+                                                     ),
+                                                    ),
+                                                   ],
+                                                 ),
+                               ),),
+                               Expanded(child: 
+                              bottomCont.getProviderListLoading ? 
+                              ListView(
+                                children: List.generate(5, (index) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                    width: Get.width / 1.1,
+                                    height: Get.height / 8,
+                                    child: Shimmer.fromColors(
+                                      baseColor: AppColors.bgColor.withOpacity(0.3),
+                                      highlightColor: AppColors.appColor2,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: AppColors.appColor2,
+                                          borderRadius: BorderRadius.circular(20)
+                                        ),
+                                      )
+                                    ),
+                                  ),
+                                )),
+                              ) : 
+                              AnimationLimiter(
+                             child:
+                             ListView(
+                              padding: EdgeInsets.zero,
+                              children: List.generate(bottomCont.providerListData.length, (index) {
+                                return  AnimationConfiguration.staggeredList(
+                                    position: index,
+                                    duration: const Duration(milliseconds: 500),
+                                    child: SlideAnimation(
+                                      verticalOffset: 50.0,
+                                      child: FadeInAnimation(
+                            child:  Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: InkWell(
+                                onTap: (){
+                                  BottonSheetView(context,bottomCont.providerListData[index] );
+                                  // Get.to(ProviderDetails(data: bottomCont.providerListData[index]));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: AppColors.whiteColor, 
+                                    borderRadius: BorderRadius.circular(20.h),
+                                
+                                  ),
+                                  width: Get.width / 1.1,
+                                  height: Get.height / 8,
+                                  child: Padding(
+                                    padding:  EdgeInsets.symmetric(
+                                      horizontal: 10.h,                                
+                                    ),
+                                    child: Row(children: [
+                                      bottomCont.providerListData[index].reportInfo != null  ?
+                                      CircleAvatar(
+                                        radius: 30,
+                                        backgroundImage:  NetworkImage("${ApiUrls.domain}${bottomCont.providerListData[index].reportInfo}"),
+                                                              //  child:   , 
+                                      ) : CircleAvatar(
+                                        radius: 30,
+                                        child:  SvgPicture.asset(AppAssets.providersIcon),
+                                      ),
+                                      addWidth(10.h),
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            addRegularTxt(bottomCont.providerListData[index].name ?? "", fontSize: 16.h),
+                                            addHeadingTxtMedium(bottomCont.providerListData[index].specialization ?? "", fontSize: 14, fontFamily: 'Montserrat-light'),
+                                            addHeadingTxtMedium(bottomCont.providerListData[index].phone ?? "", fontSize: 14, fontFamily: 'Montserrat-light', maxLines: 1, overflow: TextOverflow.ellipsis),
+                                        
+                                          ],
+                                        ),
+                                      )
+                                    ],),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ))
-                                )
-
-                            );
-                          }),
-                         ),
-                         
-                         
-                         
-                  ),
-                  ),
-                      ])
-          )));
+                            ))
+                                    )
+            
+                                );
+                              }),
+                             ),
+                             
+                             
+                             
+                      ),
+                      ),
+                          ])
+              )),
+              bottomNavigationBar: const NavBar2(),
+              ),
+          ],
+        );
       },
     );
   }

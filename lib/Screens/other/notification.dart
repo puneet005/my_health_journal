@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:my_health_journal/controllers/bottom_bar_controller.dart';
 import 'package:my_health_journal/controllers/profile_controller.dart';
+import 'package:my_health_journal/controllers/shimmer_loading.dart';
+import 'package:my_health_journal/models/notification_model.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
 import 'package:my_health_journal/resources/app_color.dart';
 import 'package:my_health_journal/resources/text_utility.dart';
@@ -14,10 +17,19 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+  final controller = Get.find<BottomBarController>();
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, (){
+      controller.getNotificationListApi();
+    });
+    
+  }
   @override
   Widget build(BuildContext context) {
      return Scaffold(
-      body:   GetBuilder<ProfileContorller>(
+      body:   GetBuilder<BottomBarController>(
         // init: MyController(),
         initState: (_) {},
         builder: (ctrl) {
@@ -60,16 +72,27 @@ class _NotificationScreenState extends State<NotificationScreen> {
             ),
                       // addHeight(10),
                       Expanded(
-                        child: ListView(
+                        child: ctrl.getnotificationListLoading ? ShimmerLoading() : (ctrl.notificationListData == null || ctrl.notificationListData!.isEmpty ) ? Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(AppAssets.noNotification, height: Get.height / 5,
+                              width: Get.width,), 
+                              addHeight(20),
+                              addRegularTxt("No Notifications !!")
+                            ],
+                          ),
+                        ): ListView(
                           // shrinkWrap: true,
                           //  physics: const NeverScrollableScrollPhysics(),
-                          children: List.generate(10, (index) => NotificationCard()),
+                          children: List.generate(ctrl.notificationListData!.length, (index) => NotificationCard(ctrl.notificationListData![index])),
                         ),
                       )
                       ])));}));
   }
 
-  Widget NotificationCard(){
+  Widget NotificationCard(NotificationModelData? data){
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -99,9 +122,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  addRegularTxt("It is a long established fact that a reader will be distracted by the readable.", fontSize: 12,),
+                  addRegularTxt(data!.message ?? "", fontSize: 12,),
                   addHeight(5),
-                  addRegularTxt("2 hours ago", color: AppColors.greyColor5, fontSize: 10)
+                  addRegularTxt(data.createdAt ?? "", color: AppColors.greyColor5, fontSize: 10)
                 ],
               ),
             )

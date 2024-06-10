@@ -2,21 +2,30 @@
 import 'package:get/get.dart';
 import 'package:my_health_journal/Screens/Calendar/calender_visit.dart';
 import 'package:my_health_journal/Screens/home/appointmant/add_doctors_visit.dart';
+import 'package:my_health_journal/Screens/home/appointmant/appointment_list.dart';
 import 'package:my_health_journal/Screens/home/family_history/add_family_history.dart';
+import 'package:my_health_journal/Screens/home/family_history/family_history_list.dart';
+import 'package:my_health_journal/Screens/home/labs_scans/test_scan_list.dart';
 import 'package:my_health_journal/Screens/home/medications/add_medications.dart';
 import 'package:my_health_journal/Screens/home/add_new_member.dart';
+import 'package:my_health_journal/Screens/home/medications/medications_list.dart';
+import 'package:my_health_journal/Screens/home/patient_details2.dart';
 import 'package:my_health_journal/Screens/home/personal_history/add_personal_history.dart';
+import 'package:my_health_journal/Screens/home/personal_history/personal_history_list.dart';
 import 'package:my_health_journal/Screens/home/procedures/add_procedures.dart';
+import 'package:my_health_journal/Screens/home/procedures/procedures_list.dart';
 import 'package:my_health_journal/Screens/home/provider/add_provider.dart';
 import 'package:my_health_journal/Screens/home/symptoms/add_symptoms.dart';
 import 'package:my_health_journal/Screens/home/labs_scans/add_test_scan.dart';
 import 'package:my_health_journal/Screens/home/patient_details.dart';
 import 'package:my_health_journal/Screens/home/provider/provider_view.dart';
 import 'package:my_health_journal/Screens/home/share_screen.dart';
+import 'package:my_health_journal/Screens/home/symptoms/symptom_list.dart';
 import 'package:my_health_journal/Screens/other/medical_summary.dart';
 import 'package:my_health_journal/Screens/other/medications.dart';
 import 'package:my_health_journal/Screens/other/medications_details.dart';
 import 'package:my_health_journal/Screens/other/notification.dart';
+import 'package:my_health_journal/Screens/profile/change_password.dart';
 import 'package:my_health_journal/Screens/profile/edit_profile.dart';
 import 'package:my_health_journal/Screens/profile/premium.dart';
 import 'package:my_health_journal/Screens/profile/setting.dart';
@@ -36,7 +45,7 @@ class AppRoutes {
   static String shareScreen ='/ShareScreen';
   static String addNewMember ='/addNewMember';
   static String addSymptoms ='/AddSymptoms';
-  static String patientDetails = '/PatientDetails';
+  static String patientDetails2 = '/PatientDetails2';
   static String addDoctorsVisit = '/AddDoctorsVisit';
   static String addMedications = '/AddMedications';
   static String addProcedures = '/AddProcedures';
@@ -50,15 +59,22 @@ class AppRoutes {
   static String setting = '/setting';
   static String premium = '/Premium';
   static String notification = '/Notification';
-  //    
   static String editProfile = '/EditProfile';
-  
-  
   static String providerView = '/ProviderView';
   static String addPersonalHistory = '/AddPersonalHistory';
   static String addFamilyHistory = '/AddFamilyHistory';
-  // static String providerView = '/ProviderView';
-  // static String providerView = '/ProviderView';
+  static String appointmentListUi = '/AppointmentListUi';
+  static String symptomsListUi = '/SymptomsListUi';
+  static String medicationListUi = '/MedicationListUi';
+  static String proceduesListUi = '/ProceduesListUi';
+
+  static String testScansListUi = '/TestScansListUi';
+  static String personalHistoryListUi = '/PersonalHistoryListUi';
+  static String familylHistoryListUi = '/FamilylHistoryListUi';
+  static String changePassword = '/ChangePassword';
+  // static String medicationListUi = '/MedicationListUi';
+
+  
 
 
 
@@ -90,7 +106,7 @@ class AppRoutes {
 
     GetPage(
     name: AppRoutes.bottomNav, 
-    page: () => NavBar(),
+    page: () => const NavBar(),
     ),
     GetPage(
     name: AppRoutes.shareScreen, 
@@ -107,8 +123,8 @@ class AppRoutes {
 
     // // RecruitingScreen
     GetPage(
-      name: AppRoutes.patientDetails,
-      page: () => const PatientDetails(),
+      name: AppRoutes.patientDetails2,
+      page: () => const PatientDetails2(),
     ),
     // // RecruitingScreen
     GetPage(
@@ -177,13 +193,43 @@ class AppRoutes {
       name: AppRoutes.addFamilyHistory,
       page: () => const AddFamilyHistory(),
     ),
-    //  GetPage(
-    //   name: AppRoutes.editProfile,
-    //   page: () => const EditProfile(),
-    // ),
-    //  GetPage(
-    //   name: AppRoutes.editProfile,
-    //   page: () => const EditProfile(),
+     GetPage(
+      name: AppRoutes.appointmentListUi,
+      page: () => const AppointmentListUi(),
+    ),
+     GetPage(
+      name: AppRoutes.medicationListUi,
+      page: () => const MedicationListUi(),
+    ),
+
+     GetPage(
+      name: AppRoutes.symptomsListUi,
+      page: () => const SymptomsListUi(),
+    ),
+
+      GetPage(
+      name: AppRoutes.proceduesListUi,
+      page: () => const ProceduresListUi(),
+    ),
+      GetPage(
+      name: AppRoutes.testScansListUi,
+      page: () => const TestScansListUi(),
+    ),
+      GetPage(
+      name: AppRoutes.personalHistoryListUi,
+      page: () => const PersonalHistoryListUi(),
+    ),
+    GetPage(
+      name: AppRoutes.familylHistoryListUi,
+      page: () => const FamilyHistoryListUi(),
+    ),
+      GetPage(
+      name: AppRoutes.changePassword,
+      page: () => const ChangePassword(),
+    ),
+    //   GetPage(
+    //   name: AppRoutes.symptomsListUi,
+    //   page: () => const SymptomsListUi(),
     // ),
   ];
 }

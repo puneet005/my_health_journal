@@ -113,9 +113,6 @@ CustomImageNetwork(String imageUrl, {double? height, width, BoxFit? fit}){
 
 Future<bool> checkInternetConnectivity() async {
   var connectivityResult = await (Connectivity().checkConnectivity());
-  // log("######################################");
-  // print('Connectivity Result: $connectivityResult');
-  // log("######################################");
   if (connectivityResult == ConnectivityResult.none) {
     return false; // No internet connection
   }

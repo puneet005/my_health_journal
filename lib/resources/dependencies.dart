@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:my_health_journal/controllers/bottom_bar_controller.dart';
 import 'package:my_health_journal/controllers/calendar_controller.dart';
 import 'package:my_health_journal/controllers/home_controller.dart';
+import 'package:my_health_journal/controllers/in_app_purch_controller.dart';
 import 'package:my_health_journal/controllers/login_controller.dart';
 import 'package:my_health_journal/controllers/medical_summary_controller.dart';
 import 'package:my_health_journal/controllers/profile_controller.dart';
@@ -20,7 +21,8 @@ Future<void> init() async{
   Get.put(MedicalSummaryController());
   Get.put(CalendarContorller()); 
   Get.put(ProfileContorller());
-  // Get.put(CartController());
+
+  Get.put(InAppPurchaseController());
   // Get.lazyPut<DiscoverController>(() => DiscoverController(), fenix: true);
   // // Get.lazyPut<CartController>(() => CartController(), fenix: true);
   // Get.put(CategoryController());

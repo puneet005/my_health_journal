@@ -32,8 +32,9 @@ import FirebaseMessaging
             print("Token: \(deviceToken)")
             super.application(application,
                               didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
+              
         }
   //   GeneratedPluginRegistrant.register(with: self)
-  //   return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+      
   // }
 }

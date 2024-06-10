@@ -38,15 +38,10 @@ class BaseImageNetwork extends StatelessWidget {
     // log('Image Url----- > ${generateFullFileUrl(link)}  ... $link');
     if(!isNetworkImage!){
       return Container(
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.transparent,
-            // gradient: LinearGradient(
-            //     begin: Alignment.bottomLeft,
-            //     end: Alignment.bottomRight,
-            //     // colors: [AppColors.gredientBg1Color, AppColors.gredientBg2Color]
-            // )
-        ),
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.transparent,
+          ),
         padding: EdgeInsets.only(
             top: topMargin ?? 0,
             right: rightMargin ?? 0,

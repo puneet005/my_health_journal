@@ -18,7 +18,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(           
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width:  MediaQuery.of(context).size.width,
         child: Stack(
@@ -27,7 +27,7 @@ class SplashScreen extends StatelessWidget {
           children: [
                 Positioned(                  
                   bottom: 0,
-                  child: Container(
+                  child: SizedBox(
                     width: Get.width,
                     height: Get.height /1.4,
                     child: SvgPicture.asset(AppAssets.splashBgImg, 

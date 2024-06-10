@@ -3,17 +3,23 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_calendar_carousel/classes/event.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:my_health_journal/Screens/home/appointmant/add_doctors_visit.dart';
 import 'package:my_health_journal/Screens/widget/appbar.dart';
 import 'package:my_health_journal/Screens/widget/comment_ui.dart';
+import 'package:my_health_journal/common-widgets/custom_bottom_navigation3.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/common-widgets/custom_textfield.dart';
+import 'package:my_health_journal/controllers/bottom_bar_controller.dart';
 import 'package:my_health_journal/controllers/home_controller.dart';
 import 'package:my_health_journal/controllers/profile_controller.dart';
-import 'package:my_health_journal/models/auth/profile_model.dart';
+import 'package:my_health_journal/models/home/provider_view_model.dart';
+// import 'package:my_health_journal/models/auth/profile_model.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
 import 'package:my_health_journal/resources/app_color.dart';
 import 'package:my_health_journal/resources/text_utility.dart';
@@ -29,11 +35,13 @@ class _AddProceduresState extends State<AddProcedures> {
   DateTime date = DateTime.now();
   String? todayDate;
   final profile = Get.put(ProfileContorller());
+  final bottomCont = Get.find<BottomBarController>();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+     bottomCont.getProviderListApi();
    todayDate =  DateFormat('EEE, dd MMMM yyyy').format(date);
 
    setState(() {
@@ -44,258 +52,373 @@ class _AddProceduresState extends State<AddProcedures> {
  final controller = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-      resizeToAvoidBottomInset: false,    
-      body:   GetBuilder<HomeController>(
-        // init: MyController(),
-        // initState: (_) {},
-        builder: (ctrl) {
-          return Container(                    
-               width: double.infinity,
-                      height: Get.height,
-                         decoration: const BoxDecoration(  
-                          color: AppColors.bgColor,          
-                    image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
-                    fit: BoxFit.fill
-                    )
-                  ),
-                  child: Padding(
-                    padding:  EdgeInsets.symmetric(
-                      horizontal: 12.h,
-                      vertical: 8.h
-                    ),
-                    child: Form(
-                      key: ctrl.proceduresForm,
-                      child: ListView(
-                        children: [
-                       addHeight(30),
-                        AppBar1(title: "Procedures"),
-                        addHeight(20),
-                        CustomTextField(
-                          
-                          labelText:  "Procedure Type",
-                          controller: ctrl.proceduresType,
-                            validator: (val){
-                                    if(val!.isEmpty){
-                                          return "Procedure Type is Required*";
-                    }                    
-                                        return null;
-                                    },
-                      
+     return Stack(
+       
+        children: [
+            Container(
+              
+         width: double.infinity,
+                height: Get.height,
+                   decoration: const BoxDecoration(  
+                    color: AppColors.bgColor,          
+              image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
+              fit: BoxFit.fill
+              )
+            ),),
+         Scaffold(
+          backgroundColor: Colors.transparent,
+          resizeToAvoidBottomInset: false,    
+          body:   GetBuilder<HomeController>(
+            // init: MyController(),
+            // initState: (_) {},
+            builder: (ctrl) {
+              return Container(                    
+                   width: double.infinity,
+                          height: Get.height,
+                             decoration: const BoxDecoration(  
+                              color: AppColors.bgColor,          
+                        image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
+                        fit: BoxFit.fill
+                        )
+                      ),
+                      child: Padding(
+                        padding:  EdgeInsets.symmetric(
+                          horizontal: 12.h,
+                          vertical: 8.h
                         ),
-                        addHeight(20),
-                        CustomTextField(
-                          labelText:  "Provider",
-                            controller: ctrl.proceduresProvider,
-                            validator: (val){
-                                    if(val!.isEmpty){
-                                          return "Provider Type is Required*";
-                    }                    
-                                        return null;
-                                    },
+                        child: Form(
+                          key: ctrl.proceduresForm,
+                          child: ListView(
+                            children: [
+                           addHeight(30),
+                            AppBar1(title: "Procedures"),
+                            addHeight(20),
+                            CustomTextField(                              
+                              labelText:  "Procedure Type",
+                              controller: ctrl.proceduresType,
+                                validator: (val){
+                                        if(val!.isEmpty){
+                                              return "Procedure Type is Required*";
+                        }                    
+                                            return null;
+                                        },
                           
-                        ),
-                         addHeight(20),
-                           
-                        CustomTextField(
-                          labelText:  "Date of Procedure",
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: SvgPicture.asset(AppAssets.calendarIcon),
-                          ),
-                           controller: ctrl.proceduresDate,
-                            validator: (val){
-                                    if(val!.isEmpty){
-                                          return "Provider Date is Required*";
-      }                    
-                                        return null;
-                                    },
-                                      
-                                    
-                          
-                          
-                        ),
-                         addHeight(20),                                                                     
-                        Container(                 
-                                        // height: 170.h,
-                        child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Container(
-                             decoration: BoxDecoration(
-                              // color: AppColors.whiteColor,
-                                          borderRadius: BorderRadius.circular(20),
-                                          border: Border.all(
-                                            
-                                            color: AppColors.blackColor2
-                                          )
-                                          ),
-                            child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                          vertical: 8.h,
-                          horizontal: 8.h
-                                            ),
-                              child: Column(
-                                children: [
-                                   TextField( 
-                                    controller: controller.proceduresComment,                       
-                                    maxLines: 5,
-                                    decoration: const InputDecoration(
-                                      hintText: "Add New Comments",
-                                      border: InputBorder.none
-                                    ),
-                                  ),
-                                 Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Container(
-                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                                border: Border.all(
-                                                  color: AppColors.orangeColor3
-                                                )
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(4.0),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                  children: [
-                              addWidth(10),
-                              SvgPicture.asset(AppAssets.bottomNav3, color: AppColors.orangeColor3, height: 14.h,),
-                              addWidth(10),
-                              addRegularTxt("${todayDate ?? ""}", color: AppColors.orangeColor3, fontSize: 13.sp), 
-                              addWidth(10),                           
-                                                  ],
-                                                ),
-                                              ),                                      
-                                      ), 
-                                      addWidth(10),
-                                      CustomButton(text: "Save", onPressed: (){
-                                        controller.procedurescommitList.add(CommentData(
-                                            title : controller.proceduresComment.text.trim(),
-                                          time : todayDate!,
-                                          user : profile.profileData.data
-                                        ));
-                                        // controller.procedurescommitList.add({
-                                        //   'title': controller.proceduresComment.text.trim(),
-                                        //   'time': todayDate!,
-                                        //   'user' : profile.profileData.data
-                                        // });
-                                        controller.proceduresComment.clear();
-                                        controller.update();
-                                      }, height: 25, fontSize: 14.sp, width: 90.h,)
-                                    ],
-                                  )
-                      
-                                ],
-                              ),
                             ),
-                          ),
-                        ),
-                        //  Positioned(
-                        //     top: -4,
-                        //     left: 14,
-                        //     child: Container(
-                        //       decoration: BoxDecoration(
-                        //         color: AppColors.whiteColor.withOpacity(0.8)
-                        //       ),
-                        //       child: Padding(
-                        //         padding: const EdgeInsets.symmetric(horizontal: 6),
-                        //         child: addRegularTxt("Add New Comments", color: AppColors.blackColor2, fontSize: 13.sp),
-                        //       ),
+                            addHeight(20),
+                             GetBuilder<BottomBarController>(
+                                builder: (bottonCtrl){
+                                  return     Container(
+                                                      width: Get.width,
+                                                      height: 60.h,
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                          color: ctrl.procedurestError ?  Colors.red : AppColors.dotBorderColor
+                                                    ),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  // color: AppColors.whiteColor
+                                                ),
+                                                child:                                           
+                                                  Center(
+                                                    child: Padding(
+                                                               padding: const EdgeInsets.symmetric(
+                                                            horizontal: 10
+                                                               ),
+                                                               child: DropdownButtonFormField<ProviderViewModelData>(          
+                                                              decoration: const InputDecoration(
+                                                                errorStyle: TextStyle(height: 0),
+                                                                  border: UnderlineInputBorder(
+                                                                      borderSide: BorderSide.none
+                                                                  )),
+                                                              value: ctrl.proceduresProvider,
+                                                              hint: addRegularTxt("Add Provider"),
+                                                              onChanged: (val){
+                                                                ctrl.proceduresProvider = val;
+                                                                ctrl.update();
+                                                              },
+                                                              validator: (val){
+                                                                if(ctrl.proceduresProvider == null){
+                                                                  ctrl.procedurestError = true;
+                                                                  ctrl.update();
+                                                                  return "";
+                                                                }
+                                                                return null;    
+                                                              },
+                                                              items: bottomCont.providerListData
+                                                                                           .where((item) => item != null) // Filter out null values
+                                                                                           .map((item) => DropdownMenuItem(
+                                                                                               value: item,
+                                                                                               child: addRegularTxt(item.name.toString(), fontSize: 14),
+                                                                                           ))
+                                                                                           .toList(),
+                                                             
+                                                            ),
+                                                             ),
+                                                  ),
+  ).paddingOnly(bottom: 10);
+                                }
+                                ),
+                        //     CustomTextField(
+                        //       labelText:  "Provider",
+                        //         controller: ctrl.proceduresProvider,
+                        //         validator: (val){
+                        //                 if(val!.isEmpty){
+                        //                       return "Provider Type is Required*";
+                        // }                    
+                        //                     return null;
+                        //                 },
+                              
                         //     ),
-                        //   )
-                        
-                      ],
+                             addHeight(20),
+                               
+                            CustomTextField(
+                              labelText:  "Date of Procedure",
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: SvgPicture.asset(AppAssets.calendarIcon),
+                              ),
+                               controller: ctrl.proceduresDate,
+                               onTap: (){
+                                _Calendarpop(context);
+                               },
+                                validator: (val){
+                                        if(val!.isEmpty){
+                                              return "Provider Date is Required*";
+          }                    
+                                            return null;
+                                        },
+                                          
+                                        
+                              
+                              
+                            ),
+                             addHeight(20),                                                                     
+                            Container(                 
+                                            // height: 170.h,
+                            child: Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Container(
+                                 decoration: BoxDecoration(
+                                  // color: AppColors.whiteColor,
+                                              borderRadius: BorderRadius.circular(20),
+                                              border: Border.all(
+                                                
+                                                color: AppColors.blackColor2
+                                              )
+                                              ),
+                                child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                              vertical: 8.h,
+                              horizontal: 8.h
+                                                ),
+                                  child: Column(
+                                    children: [
+                                       TextField( 
+                                        controller: controller.proceduresComment,                       
+                                        maxLines: 5,
+                                        decoration: const InputDecoration(
+                                          hintText: "Add New Comments",
+                                          border: InputBorder.none
                                         ),
                                       ),
-                                      addHeight(20),
-                                       Padding(
-                                      padding:  EdgeInsets.symmetric(
-                                        horizontal: 14.h,
-                                        vertical: 8
-                      
-                                      ),
-                                      child: Row(
+                                     Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
-                      addBoldTxt("Add Photo:", fontSize: 16.sp),
+                                          Container(
+                                             decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(20),
+                                                    border: Border.all(
+                                                      color: AppColors.orangeColor3
+                                                    )
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(4.0),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                      children: [
+                                  addWidth(10),
+                                  SvgPicture.asset(AppAssets.bottomNav3, color: AppColors.orangeColor3, height: 14.h,),
+                                  addWidth(10),
+                                  addRegularTxt("${todayDate ?? ""}", color: AppColors.orangeColor3, fontSize: 13.sp), 
+                                  addWidth(10),                           
+                                                      ],
+                                                    ),
+                                                  ),                                      
+                                          ), 
+                                          addWidth(10),
+                                          CustomButton(text: "Save", onPressed: (){
+                                            // controller.procedurescommitList.add(
+                                            // //   {
+                                            // //   'title': controller.proceduresComment.text.trim(),
+                                            // //   'time': todayDate!
+                                            // // }
+                                            //   CommentData(
+                                            //     title : controller.proceduresComment.text.trim(),
+                                            //   time : todayDate!,
+                                              // user : profile.profileData.data
+                                            // )
+                                            // );
+                                            controller.proceduresMainCommitList.add( {
+                                              'title': controller.proceduresComment.text.trim(),
+                                              'time': todayDate!
+                                            });
+                                            // controller.procedurescommitList.add({
+                                            //   'title': controller.proceduresComment.text.trim(),
+                                            //   'time': todayDate!,
+                                            //   'user' : profile.profileData.data
+                                            // });
+                                            controller.proceduresComment.clear();
+                                            controller.update();
+                                          }, height: 25, fontSize: 14.sp, width: 90.h,)
                                         ],
-                                      ),
-                                    ),
-                                      Padding(
-                         padding: const EdgeInsets.all(8.0),
-                         child: InkWell(
-                          onTap: (){
-                              _addPictureSheet(context);
-                          },
-                           child: DottedBorder(
-                              color: AppColors.dotBorderColor,
-                              strokeWidth: 1,
-                              dashPattern: [3,5],
-                              borderType: BorderType.RRect,
-                              radius: Radius.circular(20),
-                        // width: 120.h,
-                        // height: 90.h,
-                        child: Container(
-                          decoration: BoxDecoration(
-                        //  color: AppColors.whiteColor,
-                         borderRadius: BorderRadius.circular(20)
-                          ),
+                                      )
                           
-                          height: 100.h,
-                          // width: 120.h,
-                          child: Center(
-                            child: ctrl.proceduresDocPath == "" ?  Column(
-                              // crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                 SvgPicture.asset(AppAssets.uploadIcon),
-                                 addHeight(10),
-                                 addHeadingTxtMedium("Upload Photo/Documents", fontSize: 12.sp,  color: AppColors.greyColor2, fontFamily: "Montserrat-medium" ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            //  Positioned(
+                            //     top: -4,
+                            //     left: 14,
+                            //     child: Container(
+                            //       decoration: BoxDecoration(
+                            //         color: AppColors.whiteColor.withOpacity(0.8)
+                            //       ),
+                            //       child: Padding(
+                            //         padding: const EdgeInsets.symmetric(horizontal: 6),
+                            //         child: addRegularTxt("Add New Comments", color: AppColors.blackColor2, fontSize: 13.sp),
+                            //       ),
+                            //     ),
+                            //   )
+                            
+                          ],
+                                            ),
+                                          ),
+                                          addHeight(20),
+                                           Padding(
+                                          padding:  EdgeInsets.symmetric(
+                                            horizontal: 14.h,
+                                            vertical: 8
                           
-                              ],
-                            ): Container(
+                                          ),
+                                          child: Row(
+                                            children: [
+                          addBoldTxt("Add Photo:", fontSize: 16.sp),
+                                            ],
+                                          ),
+                                        ),
+                                          Padding(
+                             padding: const EdgeInsets.all(8.0),
+                             child: InkWell(
+                              onTap: (){
+                                  _addPictureSheet(context);
+                              },
+                               child: DottedBorder(
+                                  color: AppColors.dotBorderColor,
+                                  strokeWidth: 1,
+                                  dashPattern: [3,5],
+                                  borderType: BorderType.RRect,
+                                  radius: Radius.circular(20),
+                            // width: 120.h,
+                            // height: 90.h,
+                            child: Container(
                               decoration: BoxDecoration(
-                                   borderRadius: BorderRadius.circular(20),
-                                image: DecorationImage(image: FileImage(File(ctrl.proceduresDocPath)), fit: BoxFit.fill)
+                            //  color: AppColors.whiteColor,
+                             borderRadius: BorderRadius.circular(20)
+                              ),
+                              
+                              height: 100.h,
+                              // width: 120.h,
+                              child: Center(
+                                child: ctrl.proceduresDocPath == "" ?  Column(
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                     SvgPicture.asset(AppAssets.uploadIcon),
+                                     addHeight(10),
+                                     addHeadingTxtMedium("Upload Photo/Documents", fontSize: 12.sp,  color: AppColors.greyColor2, fontFamily: "Montserrat-medium" ),
+                              
+                                  ],
+                                ): Container(
+                                  decoration: BoxDecoration(
+                                       borderRadius: BorderRadius.circular(20),
+                                    image: DecorationImage(image: FileImage(File(ctrl.proceduresDocPath)), fit: BoxFit.fill)
+                                  ),
+                                ),
                               ),
                             ),
                           ),
+                             ),
+                           ),
+                           addHeight(20),
+                            Padding(
+                           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          child:   CustomButton(
+                            height: 50,
+                            width: Get.width / 2,
+                            text: "Save", onPressed: (){
+                          if(controller.proceduresForm.currentState!.validate()){
+                                  controller.AddProceduresApi();
+                                }
+                            }),
                         ),
-                      ),
-                         ),
-                       ),
-                       addHeight(20),
-                       CustomButton(
-                          height: 50,
-                          width: Get.width / 2,
-                          text: "Save and Share", onPressed: (){
-                            if(controller.proceduresForm.currentState!.validate()){
-                              
-                            }
+                        //  addHeight(10),
+                         Padding(
+                           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          child:   CustomButton(
+                            btnColor: AppColors.orangeColor,
+                            height: 50,
+                            width: Get.width / 2,
+                            text: "Save and Share", onPressed: (){}),
+                        ),
+                          //  CustomButton(
+                          //     height: 50,
+                          //     width: Get.width / 2,
+                          //     text: "Save and Share", onPressed: (){
+                          //       if(controller.proceduresForm.currentState!.validate()){
+                          //         controller.AddProceduresApi();
+                          //       }
+                          //     }),
+                              addHeight(20),
+                              if(controller.proceduresMainCommitList.isNotEmpty)
+                              Row(
+                                children: [
+                                  addHeadingTxtMedium("History:", fontSize: 16, fontFamily: "Montserrat-medium")
+                                ],
+                              ),
+                              if(controller.proceduresMainCommitList.isNotEmpty)
+                              ListView(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                children: List.generate(controller.proceduresMainCommitList.length, (index) => CommentUi(comment: controller.proceduresMainCommitList[index], userData: profile.profileData.data,
+                                type: "procedures",
+                                index: index,
+                                ) ),
+                              )
+                          
+                            ]),
+                        )));
                           }),
-                          addHeight(20),
-                          if(controller.procedurescommitList.isNotEmpty)
-                          Row(
-                            children: [
-                              addHeadingTxtMedium("History:", fontSize: 16, fontFamily: "Montserrat-medium")
-                            ],
-                          ),
-                          if(controller.procedurescommitList.isNotEmpty)
-                          ListView(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            children: List.generate(controller.procedurescommitList.length, (index) => CommentUi(comment: controller.procedurescommitList[index]) ),
-                          )
-                      
-                        ]),
-                    )));
-                      })
-      
-    );
+                          bottomNavigationBar: const NavBar2(),
+          
+             ),
+       ],
+     );
   }
 
+   _Calendarpop(BuildContext context){
+
+      showDialog(
+                    context: context,
+                    // barrierColor: Colors.transparent,
+                    builder: (BuildContext context) {
+                      return CustomDialog();
+                    },
+                  );
+
+  }
   _addPictureSheet(BuildContext context ) {
   String? imgPath;
    final controller = Get.find<HomeController>();
@@ -354,5 +477,186 @@ class _AddProceduresState extends State<AddProcedures> {
     );
 
     return  imgPath ?? "";
+  }
+}
+ var _currentDate = DateTime.now();
+  DateTime? _targetDateTime = DateTime.now();
+  String _currentMonth = DateFormat.yMMMM().format(DateTime.now());
+  class CustomDialog extends StatelessWidget{
+  final ctrl = Get.find<HomeController>();
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      child: StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return Container(
+              color: Colors.transparent,
+              child: Stack(
+                alignment: AlignmentDirectional.topCenter,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(top: 15),
+                    decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: ClipPath(
+                         clipper: CuponClipper(),
+                          child: Container(
+                        padding:
+                            const EdgeInsets.only(top: 14, left: 6, right: 6),
+                        // margin: const EdgeInsets.only(top: 10),
+                        alignment: AlignmentDirectional.center,
+                        height: Get.height / 2.1,
+                        
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.transparent),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Column(              
+                   children: [
+                    Padding(
+                      padding:  EdgeInsets.symmetric(
+                        horizontal: 14.h,
+                        vertical: 10.h
+                      ),
+                      child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: (){
+                               setState(() {
+                              _targetDateTime = DateTime(
+                                  _targetDateTime!.year, _targetDateTime!.month - 1);
+                              _currentMonth =
+                                  DateFormat.yMMM().format(_targetDateTime!);
+                              
+                            });
+                            },
+                            child: SvgPicture.asset(AppAssets.leftCircleIcon, height: 30.h,)),
+                          addHeadingTxtMedium(_currentMonth, fontSize: 20, fontFamily: "Montserrat-semibold"),
+                          // Spacer(),
+                          
+                          // addWidth(10),
+                          InkWell(
+                            onTap: (){
+                               setState(() {
+                              _targetDateTime = DateTime(
+                                  _targetDateTime!.year, _targetDateTime!.month + 1);
+                              _currentMonth =
+                                  DateFormat.yMMM().format(_targetDateTime!);
+                            });
+                            },
+                            child: SvgPicture.asset(AppAssets.rightCircleIcon,  height: 30.h,)),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(
+                        horizontal: 14.h
+                        
+                      ),
+                      child: const Divider(
+                        thickness: 1.2,
+                      ),
+                    ),
+                     Padding(
+                       padding: const EdgeInsets.all(8.0),
+                       child: CalendarCarousel<Event>(
+          // todayBorderColor: Colors.green,
+          childAspectRatio: 1.3,
+          onDayPressed: (date, events) {  
+             showTimePicker(
+  initialTime: TimeOfDay.now(),
+  // barrierColor: AppColors.appColor,
+  context: context,
+).then((value) {
+Navigator.pop(context);  
+ctrl.procedursData = DateFormat('dd/MM/yyyy').format(date).toString();
+ctrl.procedursVisitTime =  "${value!.hour}:${value.minute}";
+ctrl.proceduresDate.text = DateFormat('dd/MM/yyyy').format(date).toString() + " ${value!.hour} : ${value.minute}"   ; 
+ctrl.update();
+}); 
+            // Navigator.pop(context);  
+            
+            //   ctrl.proceduresDate.text = DateFormat('dd/MM/yyyy').format(date);   
+          }, 
+          showOnlyCurrentMonthDate: false,
+          weekendTextStyle: const TextStyle(
+            color: AppColors.blackColor,
+          ),
+          thisMonthDayBorderColor: Colors.grey,
+          
+          weekFormat: false,      
+          height: 210.h,
+          weekDayPadding: EdgeInsets.only(
+            bottom: 10.h
+          ),  
+          weekdayTextStyle: TextStyle(color: AppColors.blackColor, fontFamily: "Montserrat-semibold", fontWeight: FontWeight.w200, fontSize: 10),
+          customGridViewPhysics: const NeverScrollableScrollPhysics(),      
+          showHeader: false,
+          todayTextStyle: const TextStyle(
+            // color: Colors.,
+          ),      
+          todayButtonColor: AppColors.appColor,
+           targetDateTime: _targetDateTime,
+          selectedDayTextStyle: const TextStyle(
+            color: Colors.yellow,
+          ),
+          minSelectedDate: _currentDate.subtract(Duration(days: 360)),
+          maxSelectedDate: _currentDate.add(Duration(days: 360)),      
+          inactiveDaysTextStyle: TextStyle(
+            color: Colors.tealAccent,
+            fontSize: 16,
+          ),
+          onCalendarChanged: (DateTime date) {
+            setState(() {
+              _targetDateTime = date;
+              _currentMonth = DateFormat.yMMM().format(date);
+            });
+          },
+          onDayLongPressed: (DateTime date) {
+            print('long pressed date $date');
+          },
+    ),                  
+  ),
+                    
+                   ],
+                 ),                   
+                      ),
+                    )
+  //                    CustomPaint(
+  //                     painter: MyShape(),
+  //                     child: 
+  //                     
+  //                   ),
+              
+                  ),
+                  Positioned(
+                    top: 0,
+                    left: Get.width / 2.85,
+                    // right: Get.width / 2,
+                    
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(color: Colors.white),
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ));
+        }
+      ),
+    );
   }
 }

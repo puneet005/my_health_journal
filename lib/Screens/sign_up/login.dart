@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
                           controller: controller.emailCtrl,                 
                           // autovalidateMode: AutovalidateMode.always,
                           disableLengthCheck: true,
-                          keyboardType: TextInputType.numberWithOptions(signed: false, decimal: false),
+                          keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                             LengthLimitingTextInputFormatter(15),
@@ -99,7 +99,7 @@ class _LoginState extends State<Login> {
                             // filled: true
                             errorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.red
                               ),
 
@@ -108,7 +108,7 @@ class _LoginState extends State<Login> {
                             ), 
                             focusedErrorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: AppColors.orangeColor
                               ),)
 ,
@@ -117,7 +117,7 @@ class _LoginState extends State<Login> {
                             focusColor: AppColors.orangeColor,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: AppColors.orangeColor
                               ),
                                 // gapPadding: 20
@@ -125,19 +125,19 @@ class _LoginState extends State<Login> {
                             ),   
                             enabledBorder:OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: AppColors.blackColor2
                               ),                          
                             ) ,                         
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: AppColors.orangeColor
                               ),                               
                             ),
                           ),
                           showDropdownIcon: true,
-                          dropdownIcon: Icon(Icons.keyboard_arrow_down_outlined, color: AppColors.blackColor2,), 
+                          dropdownIcon: const Icon(Icons.keyboard_arrow_down_outlined, color: AppColors.blackColor2,), 
                           dropdownIconPosition: IconPosition.trailing,                          
                           showCountryFlag: true,                          
                           initialCountryCode:'US',
@@ -360,7 +360,9 @@ class _LoginState extends State<Login> {
                 ],
               ),  
             );
-          }).marginSymmetric(horizontal: 20.sp),
+          }).marginSymmetric(horizontal: 20.sp).paddingOnly(
+                    bottom:  MediaQuery.of(context).viewInsets.bottom
+                  ),
         ),
       ),
       // bottomSheet: Container(

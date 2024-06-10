@@ -5,10 +5,12 @@ class ProfileModelData {
   String? mobile;
   String? dob;
   String? idCard;
+  String? prime;
   String? countryCode;
   String? profile;
   String? address;
   int? status;
+  String? notification;
   String? deviceToken;
   String? createdAt;
   String? updatedAt;
@@ -19,10 +21,12 @@ class ProfileModelData {
     this.email,
     this.mobile,
     this.dob,
+    this.prime,
     this.idCard,
     this.countryCode,
     this.profile,
     this.address,
+    this.notification,
     this.status,
     this.deviceToken,
     this.createdAt,
@@ -34,9 +38,11 @@ class ProfileModelData {
     email = json['email']?.toString();
     mobile = json['mobile']?.toString();
     dob = json['dob']?.toString();
+    prime = json['prime']?.toString();
     idCard = json['id_card']?.toString();
     countryCode = json['country_code']?.toString();
     profile = json['profile']?.toString();
+    notification = json['notification']?.toString();
     address = json['address']?.toString();
     status = json['status']?.toInt();
     deviceToken = json['device_token']?.toString();
@@ -50,10 +56,12 @@ class ProfileModelData {
     data['email'] = email;
     data['mobile'] = mobile;
     data['dob'] = dob;
+    data['prime'] = prime;
     data['id_card'] = idCard;
     data['country_code'] = countryCode;
     data['profile'] = profile;
     data['address'] = address;
+    data['notification'] = notification;
     data['status'] = status;
     data['device_token'] = deviceToken;
     data['created_at'] = createdAt;

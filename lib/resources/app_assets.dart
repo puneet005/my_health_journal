@@ -69,6 +69,11 @@ class AppAssets {
    static const String familyHistoryIcon = "assets/images/family_history.svg";
    static const String providersIcon = "assets/images/providers.svg";
    static const String calendar2Icon = "assets/images/calendar2.svg";
+   static const String notFound = "assets/images/not_found.png";
+   static const String noNotification = "assets/images/no_notification.png";
+   
+
+   
    
 
   

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:my_health_journal/Screens/widget/patient_card.dart';
 import 'package:my_health_journal/common-widgets/base_image_network.dart';
+import 'package:my_health_journal/common-widgets/custom_bottom_navigation3.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/controllers/home_controller.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
@@ -179,6 +180,7 @@ class _ShareScreenState extends State<ShareScreen> {
       )  ; 
         },
       ),
+      bottomNavigationBar: const NavBar2(),
       // bottomNavigationBar: Container(
       //   // decoration: BoxDecoration(
       //   //   image: DecorationImage(image: AssetImage(AppAssets.bgImg2),fit: BoxFit.fitHeight)

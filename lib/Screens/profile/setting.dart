@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:my_health_journal/Screens/profile/change_password.dart';
 // import 'package:my_health_journal/Screens/widget/appbar.dart';
 import 'package:my_health_journal/controllers/profile_controller.dart';
 import 'package:my_health_journal/controllers/signUp_controller.dart';
@@ -46,7 +47,7 @@ class _SettingState extends State<Setting> {
                     padding:  EdgeInsets.symmetric(horizontal: 8.sp,),
                     child: InkWell(
                       onTap: (){
-                        Get.back();
+                        // Get.back();
                         // Get.toNamed(AppRoutes.bottomNav);
                       },
                       child: Row(
@@ -91,7 +92,7 @@ class _SettingState extends State<Setting> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                       if(controller.profileData.data != null )
-                        Container(
+                        SizedBox(
                           width: Get.width /2.5,
                           height: Get.height / 5,
                           child: InkWell(
@@ -107,7 +108,7 @@ class _SettingState extends State<Setting> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: AppColors.appColor.withOpacity(0.4),
-                                    image: DecorationImage(image: controller.profileData.data!.profile == null ?  AssetImage(AppAssets.profileIcon) : NetworkImage("${ApiUrls.domain}${controller.profileData.data!.profile!}") as ImageProvider, 
+                                    image: DecorationImage(image: controller.profileData.data!.profile == null ?  const AssetImage(AppAssets.profileIcon) : NetworkImage("${ApiUrls.domain}${controller.profileData.data!.profile!}") as ImageProvider, 
                                     fit: BoxFit.fill
                                     )
                                   )
@@ -140,10 +141,11 @@ class _SettingState extends State<Setting> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          addBoldTxt("Kathryn Murphy", fontSize: 18, )
+                          addBoldTxt(controller.profileData.data!.name ?? "", fontSize: 18, )
                         ],
                       ), 
                       addHeight(10),
+                      if(controller.profileData.data!.prime != null)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -171,11 +173,13 @@ class _SettingState extends State<Setting> {
                               SvgPicture.asset(AppAssets.bellIcons),
                               addWidth(20),
                               addBoldTxt("Notifications", fontSize: 15, ),
-                              Spacer(),
+                              const Spacer(),
                               CupertinoSwitch(
                                 activeColor: AppColors.appColor,
-                                value: ctrl.notification, onChanged: (val){
+                                value: ctrl.notification, 
+                                onChanged: (val){
                                  ctrl.notification = val;
+                                 ctrl.SetNotificationApi(notification: val);
                                  ctrl.update();
                               })
                             ]),
@@ -184,27 +188,32 @@ class _SettingState extends State<Setting> {
                       ),
                        Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: Get.width / 1.2,
-                           height: 60.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: AppColors.whiteColor
-                          ),
-                          child:  Padding(
-                            padding:  EdgeInsets.symmetric(
-                              vertical: 10.h,
-                              horizontal: 14.h
+                        child: InkWell(
+                          onTap: (){
+                            Get.toNamed(AppRoutes.changePassword);
+                          },
+                          child: Container(
+                            width: Get.width / 1.2,
+                             height: 60.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: AppColors.whiteColor
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                              SvgPicture.asset(AppAssets.lockIcon),
-                              addWidth(20),
-                              addBoldTxt("Change Password", fontSize: 15, ),
-                              Spacer(),
-                              
-                            ]),
+                            child:  Padding(
+                              padding:  EdgeInsets.symmetric(
+                                vertical: 10.h,
+                                horizontal: 14.h
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                SvgPicture.asset(AppAssets.lockIcon),
+                                addWidth(20),
+                                addBoldTxt("Change Password", fontSize: 15, ),
+                                const Spacer(),
+                                
+                              ]),
+                            ),
                           ),
                         ),
                       ),
@@ -233,7 +242,7 @@ class _SettingState extends State<Setting> {
                                 addWidth(20),
                                 addBoldTxt("Logout", fontSize: 15, ),
                         
-                                Spacer(),
+                                const Spacer(),
                                 
                               ]),
                             ),
@@ -242,6 +251,7 @@ class _SettingState extends State<Setting> {
                       ), 
 
                       addHeight(20),
+                      if(controller.profileData.data!.prime == null)
                       Row(
                         children: [
                           addWidth(10),
@@ -249,6 +259,7 @@ class _SettingState extends State<Setting> {
                         ],
                       ),
                       addHeight(10),
+                      if(controller.profileData.data!.prime == null)
                       Container(
                         decoration: BoxDecoration(
                           color:  AppColors.whiteColor,

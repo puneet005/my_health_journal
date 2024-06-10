@@ -38,20 +38,20 @@ class _SignUpState extends State<SignUp> {
         backgroundColor: AppColors.whiteColor,
         body:  GetBuilder<SignUpController>(builder: (ctrl)  {
 
-          return Container(
-             width: double.infinity,
-                height: deviceHeight,
-                   decoration: BoxDecoration(            
-              image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
-              fit: BoxFit.fill
-              )
-            ),
-            child: SingleChildScrollView(
-              // physics: BouncingScrollPhysics(),
-                child: Form(
+          return SingleChildScrollView(
+            child: Container(
+              width: double.infinity,
+              height: deviceHeight,
+              decoration: const BoxDecoration(            
+                image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
+                fit: BoxFit.fill
+                )
+              ),
+              child: Form(
                   key: controller.signinKey,
-                  child: Column(
-                   crossAxisAlignment: CrossAxisAlignment.center,
+                  child: ListView(
+                    shrinkWrap: true,
+                  //  crossAxisAlignment: CrossAxisAlignment.center,
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                       addHeight(50),
@@ -133,7 +133,7 @@ class _SignUpState extends State<SignUp> {
                               // filled: true,
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: AppColors.orangeColor
                                 ),
         
@@ -142,7 +142,7 @@ class _SignUpState extends State<SignUp> {
                               ), 
                               focusedErrorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: AppColors.orangeColor
                                 ),)
         ,
@@ -151,7 +151,7 @@ class _SignUpState extends State<SignUp> {
                               focusColor: AppColors.orangeColor,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: AppColors.orangeColor
                                 ),
                                   // gapPadding: 20
@@ -159,19 +159,19 @@ class _SignUpState extends State<SignUp> {
                               ),   
                               enabledBorder:OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: AppColors.orangeColor
                                 ),                          
                               ) ,                         
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: AppColors.orangeColor
                                 ),                               
                               ),
                             ),
                             showDropdownIcon: true,
-                            dropdownIcon: Icon(Icons.keyboard_arrow_down_outlined, color: AppColors.blackColor2,), 
+                            dropdownIcon: const Icon(Icons.keyboard_arrow_down_outlined, color: AppColors.blackColor2,), 
                             dropdownIconPosition: IconPosition.trailing,                          
                             showCountryFlag: true,                          
                             initialCountryCode:'US',
@@ -328,12 +328,15 @@ class _SignUpState extends State<SignUp> {
                           //   ],
                           // ),
         
-                          addHeight(10),
+                          // addHeight(500.h),
                       
                     ],
                 
-                  ).marginSymmetric(horizontal: 20.sp),
-                )),
+                  ).marginSymmetric(horizontal: 20.sp).paddingOnly(
+                    bottom:  MediaQuery.of(context).viewInsets.bottom
+                  ),
+                ),
+            ),
           );}
         ));
     // bottomSheet: Container(

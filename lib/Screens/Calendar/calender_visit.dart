@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:my_health_journal/Screens/widget/appbar.dart';
 import 'package:my_health_journal/common-widgets/base_image_network.dart';
+import 'package:my_health_journal/common-widgets/custom_bottom_navigation3.dart';
 import 'package:my_health_journal/controllers/calendar_controller.dart';
 import 'package:my_health_journal/resources/app_assets.dart';
 import 'package:my_health_journal/resources/app_color.dart';
@@ -97,7 +98,8 @@ class _DoctorVisitState extends State<DoctorVisit> {
                       ])),
                       
                       
-    );}));
+    );}),
+    bottomNavigationBar: NavBar2(),);
   }
   Widget VisitCard(){
     return Card(          

@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
@@ -12,6 +12,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:my_health_journal/Screens/widget/appbar.dart';
+import 'package:my_health_journal/common-widgets/custom_bottom_navigation3.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/common-widgets/custom_textfield.dart';
 import 'package:my_health_journal/controllers/home_controller.dart';
@@ -33,504 +34,602 @@ class _AddMedicationsState extends State<AddMedications> {
   'Pill',
   'Chewable',
   'Liquid',
-  'etc',
+  'Custom',
 ];
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-      resizeToAvoidBottomInset: false,    
-      body:   GetBuilder<HomeController>(        
-        builder: (ctrl) {
-          return Container(                    
-               width: double.infinity,
-                      height: Get.height,
-                         decoration: const BoxDecoration(  
-                          color: AppColors.bgColor,          
-                    image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
-                    fit: BoxFit.fill
-                    )
-                  ),
-                  child: Padding(
-                    padding:  EdgeInsets.symmetric(
-                      horizontal: 12.h,
-                      vertical: 8.h
-                    ),
-                    child: Form(
-                      key: controller.medicationForm,
-                      child: ListView(
-                        children: [
-                       addHeight(30),
-                        AppBar1(title: "Add New Medication"),
-                        addHeight(20),
-                        CustomTextField(                         
-                          labelText:  "Name",
-                          controller: ctrl.medicationName,
-                          validator: (val){
-                          if(val!.isEmpty){
-                              return "Name is requried*";                      
-                            }
-                            return null;
-                          },
-                      
+     return Stack(
+       
+        children: [
+            Container(
+              
+         width: double.infinity,
+                height: Get.height,
+                   decoration: const BoxDecoration(  
+                    color: AppColors.bgColor,          
+              image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
+              fit: BoxFit.fill
+              )
+            ),),
+         Scaffold(
+          backgroundColor: Colors.transparent,
+          resizeToAvoidBottomInset: false,    
+          body:   GetBuilder<HomeController>(        
+            builder: (ctrl) {
+              return Container(                    
+                   width: double.infinity,
+                          height: Get.height,
+                             decoration: const BoxDecoration(  
+                              color: AppColors.bgColor,          
+                        image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
+                        fit: BoxFit.fill
+                        )
+                      ),
+                      child: Padding(
+                        padding:  EdgeInsets.symmetric(
+                          horizontal: 12.h,
+                          vertical: 8.h
                         ),
-                        addHeight(20),
-                        CustomTextField(
-                          labelText:  "Dosage",
-                          controller: ctrl.medicationDosage,
-                          validator: (val){
-                            if(val!.isEmpty){
-                              return "Dosage is requried*";                      
-                            }
-                            return null;
-                          },
-                          
-                        ),
-                         addHeight(10),
-                         Padding(
-                              padding:  EdgeInsets.only(
-                                top: 10.h
+                        child: SingleChildScrollView(
+                          child: Form(
+                            key: controller.medicationForm,
+                            child: Column(
+                              children: [
+                             addHeight(30),
+                              AppBar1(title: "Add New Medication"),
+                              addHeight(20),
+                              CustomTextField(                         
+                                labelText:  "Name",
+                                controller: ctrl.medicationName,
+                                validator: (val){
+                                if(val!.isEmpty){
+                                    return "Name is requried*";                      
+                                  }
+                                  return null;
+                                },
+                            
                               ),
-                              child: Container(
-                                width: Get.width,
-                                height: 50.h,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: AppColors.blackColor2
+                              addHeight(20),
+                              CustomTextField(
+                                labelText:  "Dosage",
+                                controller: ctrl.medicationDosage,
+                                validator: (val){
+                                  if(val!.isEmpty){
+                                    return "Dosage is requried*";                      
+                                  }
+                                  return null;
+                                },
+                                
                               ),
-                            borderRadius: BorderRadius.circular(10),
-                            // color: AppColors.whiteColor
-                          ),
-                          
-                              child: DropdownButtonFormField2<String>(
-                                isExpanded: true,
-                                hint: const Text(
-                                  'Dosage Form',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.blackColor,
+                               addHeight(20),
+                               Container(
+                                                        width: Get.width,
+                                                        height: 55.h,
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                            color: ctrl.medicationError ?  Colors.red : AppColors.dotBorderColor
+                                                      ),
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    // color: AppColors.whiteColor
+                                                  ),
+                                                  child:                                           
+                                                    Padding(
+                             padding: const EdgeInsets.symmetric(
+                              horizontal: 10
+                             ),
+                             child: Center(
+                               child: DropdownButtonFormField<String>(
+                                  
+                                  decoration: const InputDecoration(
+                                    errorStyle: TextStyle(height: 0),
+                                      border: UnderlineInputBorder(
+                                          borderSide: BorderSide.none
+                                      )),
+                                  value: ctrl.medicationDosageFormValue, 
+                                  hint: addRegularTxt("Dosage Form"),
+                                  onChanged: (val){
+                                    ctrl.medicationDosageFormValue  = val;
+                                    ctrl.update();
+                                  },
+                                  validator: (val){
+                                    if(ctrl.medicationDosageFormValue == null || ctrl.medicationDosageFormValue == ""){
+                                      ctrl.medicationError = true;
+                                      ctrl.update();
+                                      return "";
+                                    }
+                                    return null;    
+                                  },
+                                  items:items// Filter out null values
+                                           .map((item) => DropdownMenuItem(
+                                               value: item,
+                                               child: addRegularTxt(item.toString(), fontSize: 14),
+                                           ))
+                                           .toList(),
+                                  // <DropdownMenuItem<ProviderViewModelData>>[
+                                  //   DropdownMenuItem<int>(
+                                  //     value: 1,
+                                  //     child: Text("Owner"),
+                                  //   ),
+                                  //   DropdownMenuItem<int>(
+                                  //     value: 2,
+                                  //     child: Text("Member"),
+                                  //   ),
+                                  // ],
+                                ),
+                             ),
+                           ),),
+                           addHeight(20),
+                           if(ctrl.medicationDosageFormValue == "Custom")
+                           CustomTextField(
+                                labelText:  "Dosage Form",
+                                controller: ctrl.medicationDosageFormCustomValue,
+                                validator: (val){
+                                  if(val!.isEmpty){
+                                    return "Dosage Form is requried*";                      
+                                  }
+                                  return null;
+                                },
+                                
+                              ),
+                          //  medicationDosageFormCustomValue
+                             
+                              //  addHeight(20),
+                              //  Row(
+                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //   children: [
+                              //      addHeadingTxtMedium("Prescription",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                              //      CupertinoSwitch(value: controller.prescriptionType, 
+                              //      activeColor: AppColors.appColor,
+                              //      onChanged: (val){
+                                    
+                              //      controller.prescriptionType = val;
+                              //      controller.update();
+                              //      })
+                              //   ],
+                              //  ),
+                              //    addHeight(10),
+                              //   Row(
+                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //   children: [
+                              //      addHeadingTxtMedium("Over the Counter",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                              //      CupertinoSwitch(value: controller.overTheCounterType, 
+                              //      activeColor: AppColors.appColor,
+                              //      onChanged: (val){
+                                    
+                              //      controller.overTheCounterType = val;
+                              //      controller.update();
+                              //      })
+                              //   ],
+                              //  ),
+                             
+                              //    addHeight(20),
+                              //     Row(
+                              //       children: [
+                              //         addRegularTxt("Administration Options:", fontSize: 12, color: AppColors.greyColor4)
+                              //       ],
+                              //     ),
+                              //     addHeight(20),
+                              //      Row(
+                              //   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              //   children: [
+                              //     InkWell(
+                              //       child: Container(
+                              //         child: Row(children: [
+                              //           InkWell(
+                              //             onTap: (){
+                              //               log("Log");
+                                            
+                              //                controller.medicationTime = "AM";
+                              //               controller.update();
+                                          
+                              //             },
+                              //             child:controller.medicationTime == 'AM' ?  SvgPicture.asset( AppAssets.checkboxFilledIcon):  SvgPicture.asset( AppAssets.checkboxIcon)),
+                              //           addWidth(10),
+                              //           addHeadingTxtMedium("AM",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                              //         ]),
+                              //       ),
+                              //     ),
+                              //     addWidth(20),
+                              //      Container(
+                              //       child: Row(children: [
+                              //         InkWell(
+                              //           onTap: (){
+                              //            controller.medicationTime = "PM";
+                              //               controller.update();
+                              //               //  log(controller.medicationType);
+                              //           },
+                              //           child: controller.medicationTime == "PM" ? SvgPicture.asset( AppAssets.checkboxFilledIcon):  SvgPicture.asset( AppAssets.checkboxIcon) ),
+                              //         addWidth(10),
+                              //         addHeadingTxtMedium("PM", fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                              //       ]),
+                              //     ),
+                              //     addWidth(20),
+                              //      Container(
+                              //       child: Row(children: [
+                              //         InkWell(
+                              //           onTap: (){
+                              //            controller.medicationTime = "As Needed";
+                              //               controller.update();
+                              //               //  log(controller.medicationType);
+                              //           },
+                              //           child: controller.medicationTime == "As Needed" ? SvgPicture.asset( AppAssets.checkboxFilledIcon):  SvgPicture.asset( AppAssets.checkboxIcon) ),
+                              //         addWidth(10),
+                              //         addHeadingTxtMedium("As Needed", fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                              //       ]),
+                              //     ),
+                                  
+                                
+                              
+                              //   ],
+                              //  ),
+                                 addHeight(20),
+                                   Row(
+                                    children: [
+                                      addRegularTxt("Duration", fontSize: 12, color: AppColors.greyColor4)
+                                    ],
+                                  ),
+                                  addHeight(20),
+                                  
+                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                     
+                                     Expanded(
+                                       flex: 5,
+                                      child: CustomTextField(
+                                        readOnly:  true,
+                                        onTap: (){
+                                          //  _Calendarpop(BuildContext context){
+                                  showDialog(
+                            context: context,
+                            // barrierColor: Colors.transparent,
+                            builder: (BuildContext context) {
+                              return CustomDialog2();
+                            },
+                                              );                               
+                                        },
+                                                              controller: controller.medicationstartingDateCont,
+                                                              // controller: ctrl.Dosage,
+                                validator: (val){
+                                  if(val!.isEmpty){
+                                    return "Requried Field*";
+                            
+                                  }
+                                  return null;
+                                },
+                                                              
+                                                            labelText:  "Start Date",
+                                                            suffixIcon: Padding(
+                                                              padding: const EdgeInsets.all(12.0),
+                                                              child: SvgPicture.asset(AppAssets.calendarIcon),
+                                                            ),
+                                                            
+                                                          ),),
+                              Spacer(),
+                                 Expanded(
+                                  flex: 5,
+                                  child: CustomTextField(
+                                    controller:  ctrl.medicationEndingDateCont,
+                                                              // controller: ctrl.Dosage,
+                                validator: (val){
+                                  if(val!.isEmpty){
+                                    return "Requried Field*";
+                            
+                                  }
+                                  return null;
+                                },
+                                    onTap: (){
+                                          //  _Calendarpop(BuildContext context){
+                                  showDialog(
+                            context: context,
+                            // barrierColor: Colors.transparent,
+                            builder: (BuildContext context) {
+                              return CustomDialog2(endDataBool: true,);
+                            },
+                                              );
+                                          //  CustomDialog2(endDate: false,);
+                                          //  log("inside");
+                                        },
+                                labelText:  "End Date",
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: SvgPicture.asset(AppAssets.calendarIcon),
+                                ),
+                                
+                              ),)
+                                    ],
+                                  ),
+                                  addHeight(20),
+                              CustomTextField(
+                                labelText:  "Reason",
+                                
+                              ),
+                                 addHeight(20),
+                              CustomTextField(
+                                onTap: (){
+                                   showDialog(
+                            context: context,
+                            // barrierColor: Colors.transparent,
+                            builder: (BuildContext context) {
+                              return CustomDialog2(dataTime: true,);
+                            },
+                            );        
+                                },
+                                labelText:  "Date and Time",
+                                controller: controller.medicationDateTimeCont,
+                                suffixIcon: Padding(
+                                  
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: SvgPicture.asset(AppAssets.calendarIcon),
+                                ),
+                                
+                              ),
+                              addHeight(20),
+                            
+                              Row(children: [
+                                 InkWell(
+                                        onTap: (){
+                                         controller.medicationNotify = !controller.medicationNotify;
+                                            controller.update();
+                                            //  log(controller.medicationType);
+                                        },
+                                        child: controller.medicationNotify ? SvgPicture.asset( AppAssets.checkboxFilledIcon):  SvgPicture.asset( AppAssets.checkboxIcon) ),
+                                        addWidth(10),
+                                addHeadingTxtMedium("Notify for this Medication", fontFamily: "Montserrat", color: AppColors.blackColor, fontSize: 13, fontWeight: FontWeight.bold)
+                              ],),
+                              addHeight(20),
+                              Container(                 
+                                              // height: 170.h,
+                                              child: Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4),
+                                child: Container(
+                                   decoration: BoxDecoration(
+                                    // color: AppColors.whiteColor,
+                                                borderRadius: BorderRadius.circular(20),
+                                                border: Border.all(
+                                                  
+                                                  color: AppColors.blackColor2
+                                                )
+                                                ),
+                                  child: Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                vertical: 8.h,
+                                horizontal: 8.h
+                                                  ),
+                                    child:  Column(
+                                      children: [
+                                       TextFormField(    
+                                          maxLines: 5,
+                                          decoration: const InputDecoration(
+                                            hintText: "Add New Comments",
+                                            border: InputBorder.none
+                                          ),
+                                           controller: ctrl.medicationComment,
+                                                              // controller: ctrl.Dosage,
+                                validator: (val){
+                                  if(val!.isEmpty){
+                                    return "Requried Field*";
+                            
+                                  }
+                                  return null;
+                                },
+                                        ),                                                                           
+                                      ],
+                                    ),
                                   ),
                                 ),
-                                iconStyleData: IconStyleData(
-                                  icon: SvgPicture.asset(AppAssets.dropDownIcon)
-                                ),
-                                items: items
-                                    .map((String item) => DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(
-                              item,
-                              style: const TextStyle(
-                                fontSize: 14,
                               ),
-                            ),
-                          ))
-                                    .toList(),
-                                value: ctrl.selectedValue, 
-                                onChanged: (String? value) {
-                                  // setState(() {
-                                     ctrl.selectedValue = value;
-                                     ctrl.update();
-                                  // });
-                                },
-                                buttonStyleData: const ButtonStyleData(
-                                  padding: EdgeInsets.symmetric(horizontal: 16),
-                                 
-                                  height: 40,
-                                  width: 140,          
-                                ),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  
-                                  // overlayColor:,
-                                  height: 40,
-                                ),
-                                 validator: (val){
-                            if(val!.isEmpty){
-                              return "Dosage is requried*";                      
-                            }
-                            return null;
-                          },
-                                decoration: InputDecoration(
-                                  
-                                ),
-                              ),
+                          
+                          
+                              //  Positioned(
+                              //     top: -4,
+                              //     left: 14,
+                              //     child: Container(
+                              //       decoration: BoxDecoration(
+                              //         color: AppColors.whiteColor.withOpacity(0.8)
+                              //       ),
+                              //       child: Padding(
+                              //         padding: const EdgeInsets.symmetric(horizontal: 6),
+                              //         child: addRegularTxt("Add New Comments", color: AppColors.blackColor2, fontSize: 13.sp),
+                              //       ),
+                              //     ),
+                              //   )
                               
-                            ),
-                        ),
-                      // ),
-                         addHeight(20),
-                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                             addHeadingTxtMedium("Prescription",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
-                             CupertinoSwitch(value: controller.prescriptionType, 
-                             activeColor: AppColors.appColor,
-                             onChanged: (val){
-                              
-                             controller.prescriptionType = val;
-                             controller.update();
-                             })
-                          ],
-                         ),
-                           addHeight(10),
-                          Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                             addHeadingTxtMedium("Over the Counter",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
-                             CupertinoSwitch(value: controller.overTheCounterType, 
-                             activeColor: AppColors.appColor,
-                             onChanged: (val){
-                              
-                             controller.overTheCounterType = val;
-                             controller.update();
-                             })
-                          ],
-                         ),
-                        //  Row(
-                        //   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //   children: [
-                        //     InkWell(
-                        //       child: Container(
-                        //         child: Row(children: [
-                        //           InkWell(
-                        //             onTap: (){
-                        //               log("Log");
-                                      
-                                      //  controller.medicationType = "Prescription";
-                        //               controller.update();
-                        //               log(controller.medicationType);
-                        //             },
-                        //             child:controller.medicationType == 'Prescription' ? SvgPicture.asset( AppAssets.circleBoxIcon):  SvgPicture.asset( AppAssets.circleBoxFilledIcon)),
-                        //           addWidth(10),
-                        //           addHeadingTxtMedium("Prescription",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
-                        //         ]),
-                        //       ),
-                        //     ),
-                        //     addWidth(20),
-                        //      Container(
-                        //       child: Row(children: [
-                        //         InkWell(
-                        //           onTap: (){
-                        //            controller.medicationType = "Over the Counter";
-                        //               controller.update();
-                        //                log(controller.medicationType);
-                        //           },
-                        //           child: controller.medicationType == "Over the Counter" ? SvgPicture.asset( AppAssets.circleBoxIcon):  SvgPicture.asset( AppAssets.circleBoxFilledIcon) ),
-                        //         addWidth(10),
-                        //         addHeadingTxtMedium("Over the Counter", fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
-                        //       ]),
-                        //     ),
-                          
-                        
-                        //   ],
-                        //  ),
-                           addHeight(20),
-                            Row(
-                              children: [
-                                addRegularTxt("Administration Options:", fontSize: 12, color: AppColors.greyColor4)
-                              ],
-                            ),
-                            addHeight(20),
-                             Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                              child: Container(
-                                child: Row(children: [
-                                  InkWell(
-                                    onTap: (){
-                                      log("Log");
-                                      
-                                       controller.medicationTime = "AM";
-                                      controller.update();
-                                    
-                                    },
-                                    child:controller.medicationTime == 'AM' ?  SvgPicture.asset( AppAssets.checkboxFilledIcon):  SvgPicture.asset( AppAssets.checkboxIcon)),
-                                  addWidth(10),
-                                  addHeadingTxtMedium("AM",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
-                                ]),
-                              ),
-                            ),
-                            addWidth(20),
-                             Container(
-                              child: Row(children: [
-                                InkWell(
-                                  onTap: (){
-                                   controller.medicationTime = "PM";
-                                      controller.update();
-                                      //  log(controller.medicationType);
-                                  },
-                                  child: controller.medicationTime == "PM" ? SvgPicture.asset( AppAssets.checkboxFilledIcon):  SvgPicture.asset( AppAssets.checkboxIcon) ),
-                                addWidth(10),
-                                addHeadingTxtMedium("PM", fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
-                              ]),
-                            ),
-                            addWidth(20),
-                             Container(
-                              child: Row(children: [
-                                InkWell(
-                                  onTap: (){
-                                   controller.medicationTime = "As Needed";
-                                      controller.update();
-                                      //  log(controller.medicationType);
-                                  },
-                                  child: controller.medicationTime == "As Needed" ? SvgPicture.asset( AppAssets.checkboxFilledIcon):  SvgPicture.asset( AppAssets.checkboxIcon) ),
-                                addWidth(10),
-                                addHeadingTxtMedium("As Needed", fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
-                              ]),
-                            ),
-                            
-                          
-                        
-                          ],
-                         ),
-                           addHeight(20),
-                             Row(
-                              children: [
-                                addRegularTxt("Duration", fontSize: 12, color: AppColors.greyColor4)
-                              ],
-                            ),
-                            addHeight(20),
-                            
-                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                               
-                               Expanded(
-                                 flex: 5,
-                                child: CustomTextField(
-                                  readOnly:  true,
-                                  onTap: (){
-                                    //  _Calendarpop(BuildContext context){
-                            showDialog(
-                      context: context,
-                      // barrierColor: Colors.transparent,
-                      builder: (BuildContext context) {
-                        return CustomDialog2();
-                      },
-                                        );                               
-                                  },
-                                                        controller: controller.medicationstartingDateCont,
-                                                        // controller: ctrl.Dosage,
-                          validator: (val){
-                            if(val!.isEmpty){
-                              return "Requried Field*";
-                      
-                            }
-                            return null;
-                          },
-                                                        
-                                                      labelText:  "Start Date",
-                                                      suffixIcon: Padding(
-                                                        padding: const EdgeInsets.all(12.0),
-                                                        child: SvgPicture.asset(AppAssets.calendarIcon),
-                                                      ),
-                                                      
-                                                    ),),
-                        Spacer(),
-                           Expanded(
-                            flex: 5,
-                            child: CustomTextField(
-                              controller:  ctrl.medicationEndingDateCont,
-                                                        // controller: ctrl.Dosage,
-                          validator: (val){
-                            if(val!.isEmpty){
-                              return "Requried Field*";
-                      
-                            }
-                            return null;
-                          },
-                              onTap: (){
-                                    //  _Calendarpop(BuildContext context){
-                            showDialog(
-                      context: context,
-                      // barrierColor: Colors.transparent,
-                      builder: (BuildContext context) {
-                        return CustomDialog2(endDataBool: true,);
-                      },
-                                        );
-                                    //  CustomDialog2(endDate: false,);
-                                    //  log("inside");
-                                  },
-                          labelText:  "End Date",
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: SvgPicture.asset(AppAssets.calendarIcon),
-                          ),
-                          
-                        ),)
-                              ],
-                            ),
-                            addHeight(20),
-                        CustomTextField(
-                          labelText:  "Custom",
-                          
-                        ),
-                           addHeight(20),
-                        CustomTextField(
-                          onTap: (){
-                             showDialog(
-                      context: context,
-                      // barrierColor: Colors.transparent,
-                      builder: (BuildContext context) {
-                        return CustomDialog2(dataTime: true,);
-                      },
-                                        );        
-                          },
-                          labelText:  "Date and Time",
-                          controller: controller.dateTimeCont,
-                          suffixIcon: Padding(
-                            
-                            padding: const EdgeInsets.all(12.0),
-                            child: SvgPicture.asset(AppAssets.calendarIcon),
-                          ),
-                          
-                        ),
-                        addHeight(20),
-                      
-                        Row(children: [
-                           InkWell(
-                                  onTap: (){
-                                   controller.medicationNotify = !controller.medicationNotify;
-                                      controller.update();
-                                      //  log(controller.medicationType);
-                                  },
-                                  child: controller.medicationNotify ? SvgPicture.asset( AppAssets.checkboxFilledIcon):  SvgPicture.asset( AppAssets.checkboxIcon) ),
-                                  addWidth(10),
-                          addHeadingTxtMedium("Notify for this Medication", fontFamily: "Montserrat", color: AppColors.blackColor, fontSize: 13, fontWeight: FontWeight.bold)
-                        ],),
-                        addHeight(20),
-                        Container(                 
-                                        // height: 170.h,
-                                        child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Container(
-                             decoration: BoxDecoration(
-                              // color: AppColors.whiteColor,
-                                          borderRadius: BorderRadius.circular(20),
-                                          border: Border.all(
-                                            
-                                            color: AppColors.blackColor2
-                                          )
-                                          ),
-                            child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                          vertical: 8.h,
-                          horizontal: 8.h
+                            ],
+                                              ),
                                             ),
-                              child:  Column(
+                                              addHeight(20),
+                               Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                 TextFormField(    
-                                    maxLines: 5,
-                                    decoration: const InputDecoration(
-                                      hintText: "Add New Comments",
-                                      border: InputBorder.none
-                                    ),
-                                     controller: ctrl.medicationComment,
-                                                        // controller: ctrl.Dosage,
-                          validator: (val){
-                            if(val!.isEmpty){
-                              return "Requried Field*";
-                      
-                            }
-                            return null;
-                          },
-                                  ),                                                                           
+                                   addHeadingTxtMedium("Prescription",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                                   CupertinoSwitch(value: controller.prescriptionType, 
+                                   activeColor: AppColors.appColor,
+                                   onChanged: (val){
+                                    
+                                   controller.prescriptionType = val;
+                                   controller.update();
+                                   })
                                 ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        //  Positioned(
-                        //     top: -4,
-                        //     left: 14,
-                        //     child: Container(
-                        //       decoration: BoxDecoration(
-                        //         color: AppColors.whiteColor.withOpacity(0.8)
-                        //       ),
-                        //       child: Padding(
-                        //         padding: const EdgeInsets.symmetric(horizontal: 6),
-                        //         child: addRegularTxt("Add New Comments", color: AppColors.blackColor2, fontSize: 13.sp),
-                        //       ),
-                        //     ),
-                        //   )
-                        
-                      ],
-                                        ),
-                                      ),
-                                      addHeight(20),
-                                       Padding(
-                                      padding:  EdgeInsets.symmetric(
-                                        horizontal: 14.h,
-                                        vertical: 8
-                      
-                                      ),
-                                      child: Row(
-                                        children: [
-                      addBoldTxt("Add Photo:", fontSize: 16.sp),
-                                        ],
-                                      ),
-                                    ),
-                                      Padding(
-                         padding: const EdgeInsets.all(8.0),
-                         child: InkWell(
-                          onTap: (){
-                              _addPictureSheet(context);
-                          },
-                           child: DottedBorder(
-                              color: AppColors.dotBorderColor,
-                              strokeWidth: 1,
-                              dashPattern: const [3,5],
-                              borderType: BorderType.RRect,
-                              radius: const Radius.circular(20),
-                        // width: 120.h,
-                        // height: 90.h,
-                        child: Container(
-                          decoration: BoxDecoration(
-                        //  color: AppColors.whiteColor,
-                         borderRadius: BorderRadius.circular(20)
-                          ),
-                          
-                          height: 100.h,
-                          // width: 120.h,
-                          child: Center(
-                            child: ctrl.symptomDocPath == "" ?  Column(
-                              // crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                 SvgPicture.asset(AppAssets.uploadIcon),
+                               ),
                                  addHeight(10),
-                                 addHeadingTxtMedium("Upload Photo/Documents", fontSize: 12.sp,  color: AppColors.greyColor2, fontFamily: "Montserrat-medium" ),
-                          
-                              ],
-                            ): Container(
-                              decoration: BoxDecoration(
-                                   borderRadius: BorderRadius.circular(20),
-                                image: DecorationImage(image: FileImage(File(ctrl.medicationDocPath)), fit: BoxFit.fill)
+                                Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                   addHeadingTxtMedium("Over the Counter",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                                   CupertinoSwitch(value: controller.overTheCounterType, 
+                                   activeColor: AppColors.appColor,
+                                   onChanged: (val){
+                                    
+                                   controller.overTheCounterType = val;
+                                   controller.update();
+                                   })
+                                ],
+                               ),
+                             
+                                 addHeight(20),
+                                  Row(
+                                    children: [
+                                      addRegularTxt("Administration Options:", fontSize: 12, color: AppColors.greyColor4)
+                                    ],
+                                  ),
+                                  addHeight(20),
+                                   Row(
+                                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  InkWell(
+                                    child: Container(
+                                      child: Row(children: [
+                                        InkWell(
+                                          onTap: (){
+                                            log("Log");
+                                            
+                                             controller.medicationTime = "AM";
+                                            controller.update();
+                                          
+                                          },
+                                          child:controller.medicationTime == 'AM' ?  SvgPicture.asset( AppAssets.checkboxFilledIcon):  SvgPicture.asset( AppAssets.checkboxIcon)),
+                                        addWidth(10),
+                                        addHeadingTxtMedium("AM",fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                                      ]),
+                                    ),
+                                  ),
+                                  addWidth(20),
+                                   Container(
+                                    child: Row(children: [
+                                      InkWell(
+                                        onTap: (){
+                                         controller.medicationTime = "PM";
+                                            controller.update();
+                                            //  log(controller.medicationType);
+                                        },
+                                        child: controller.medicationTime == "PM" ? SvgPicture.asset( AppAssets.checkboxFilledIcon):  SvgPicture.asset( AppAssets.checkboxIcon) ),
+                                      addWidth(10),
+                                      addHeadingTxtMedium("PM", fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                                    ]),
+                                  ),
+                                  addWidth(20),
+                                   Container(
+                                    child: Row(children: [
+                                      InkWell(
+                                        onTap: (){
+                                         controller.medicationTime = "As Needed";
+                                            controller.update();
+                                            //  log(controller.medicationType);
+                                        },
+                                        child: controller.medicationTime == "As Needed" ? SvgPicture.asset( AppAssets.checkboxFilledIcon):  SvgPicture.asset( AppAssets.checkboxIcon) ),
+                                      addWidth(10),
+                                      addHeadingTxtMedium("As Needed", fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
+                                    ]),
+                                  ),
+                                  
+                                
+                              
+                                ],
+                               ),
+                                            
+                                            addHeight(20),
+                                             Padding(
+                                            padding:  EdgeInsets.symmetric(
+                                              horizontal: 14.h,
+                                              vertical: 8
+                            
+                                            ),
+                                            child: Row(
+                                              children: [
+                            addBoldTxt("Add Photo:", fontSize: 16.sp),
+                                              ],
+                                            ),
+                                          ),
+                                            Padding(
+                               padding: const EdgeInsets.all(8.0),
+                               child: InkWell(
+                                onTap: (){
+                                    _addPictureSheet(context);
+                                },
+                                 child: DottedBorder(
+                                    color: AppColors.dotBorderColor,
+                                    strokeWidth: 1,
+                                    dashPattern: const [3,5],
+                                    borderType: BorderType.RRect,
+                                    radius: const Radius.circular(20),
+                              // width: 120.h,
+                              // height: 90.h,
+                              child: Container(
+                                decoration: BoxDecoration(
+                              //  color: AppColors.whiteColor,
+                               borderRadius: BorderRadius.circular(20)
+                                ),
+                                
+                                height: 100.h,
+                                // width: 120.h,
+                                child: Center(
+                                  child: ctrl.medicationDocPath == "" ?  Column(
+                                    // crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                       SvgPicture.asset(AppAssets.uploadIcon),
+                                       addHeight(10),
+                                       addHeadingTxtMedium("Upload Photo/Documents", fontSize: 12.sp,  color: AppColors.greyColor2, fontFamily: "Montserrat-medium" ),
+                                
+                                    ],
+                                  ): Container(
+                                    decoration: BoxDecoration(
+                                         borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(image: FileImage(File(ctrl.medicationDocPath)), fit: BoxFit.fill)
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
-                         ),
-                       ),
-                       addHeight(20),
-                       CustomButton(
-                          height: 50,
-                          width: Get.width / 2,
-                          text: "Save", onPressed: (){
+                               ),
+                             ),
+                             addHeight(20),
+                               Padding(
+                           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          child:   CustomButton(
+                            height: 50,
+                            width: Get.width / 1,
+                            text: "Save", onPressed: (){
                             if(ctrl.medicationForm.currentState!.validate()){
-
-                            }
+                          
+                                  ctrl.AddMedicationApi();
+           
+                                }
+                            }),
+                        ),
+                        //  addHeight(10),
+                         Padding(
+                           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          child:   CustomButton(
+                            btnColor: AppColors.orangeColor,
+                            height: 50,
+                            width: Get.width / 1,
+                            text: "Save and Share", onPressed: (){}),
+                        ),
+                            //  CustomButton(
+                            //     height: 50,
+                            //     width: Get.width / 1.2,
+                            //     text: "Save", onPressed: (){
+                            //       if(ctrl.medicationForm.currentState!.validate()){
+                          
+                            //       ctrl.AddMedicationApi();
+                            //       }
+                            //     }),
+                                addHeight(40),
+                            
+                              ]),
+                          ),
+                        )));
                           }),
-                          addHeight(40),
-                      
-                        ]),
-                    )));
-                      })
-      
-    );
+                          bottomNavigationBar: const NavBar2(),
+          
+             ),
+       ],
+     );
   }
 
   _addPictureSheet(BuildContext context ) {
@@ -729,14 +828,22 @@ class CustomDialog2 extends StatelessWidget{
             var day = DateFormat("dd/MM/yyyy").format(date);
             log(endDataBool.toString())            ;
             if(endDataBool == true){
-              controller.endingDateCont.text = day.toString(); 
+              controller.medicationEndingDateCont.text = day.toString(); 
               controller.update();
-              }else if(dataTime == true){
- controller.dateTimeCont.text = day.toString(); 
-              controller.update();
+              }else if(dataTime == true){             
+              showTimePicker(
+  initialTime: TimeOfDay.now(),
+  context: context,
+).then((value) {
+controller.medicationDateTimeCont.text = day.toString() + " ${value!.hour} : ${value!.minute}  ${value.period.toString().split('.')[1]}"   ; 
+ controller.update();
+});
+ 
+
+             
               }
               else{
-                controller.startingDateCont.text = day.toString();
+                controller.medicationstartingDateCont.text = day.toString();
                 controller.update();
               }
           }, 
@@ -836,3 +943,77 @@ class CustomDialog2 extends StatelessWidget{
     );
   }
 }
+
+
+
+
+ //  Padding(
+                        //       padding:  EdgeInsets.only(
+                        //         top: 10.h
+                        //       ),
+                        //       child: Container(
+                        //         width: Get.width,
+                        //         height: 50.h,
+                        //         decoration: BoxDecoration(
+                        //           border: Border.all(
+                        //             color: AppColors.blackColor2
+                        //       ),
+                        //     borderRadius: BorderRadius.circular(10),
+                        //     // color: AppColors.whiteColor
+                        //   ),
+                          
+                        //       child: DropdownButtonFormField2<String>(
+                        //         isExpanded: true,
+                        //         hint: const Text(
+                        //           'Dosage Form',
+                        //           style: TextStyle(
+                        //             fontSize: 16,
+                        //             color: AppColors.blackColor,
+                        //           ),
+                        //         ),
+                        //         iconStyleData: IconStyleData(
+                        //           icon: SvgPicture.asset(AppAssets.dropDownIcon)
+                        //         ),
+                        //         items: items
+                        //             .map((String item) => DropdownMenuItem<String>(
+                        //     value: item,
+                        //     child: Text(
+                        //       item,
+                        //       style: const TextStyle(
+                        //         fontSize: 14,
+                        //       ),
+                        //     ),
+                        //   ))
+                        //             .toList(),
+                        //         value: ctrl.selectedValue, 
+                        //         onChanged: (String? value) {
+                        //           // setState(() {
+                        //              ctrl.selectedValue = value;
+                        //              ctrl.update();
+                        //           // });
+                        //         },
+                        //         buttonStyleData: const ButtonStyleData(
+                        //           padding: EdgeInsets.symmetric(horizontal: 16),
+                                 
+                        //           height: 40,
+                        //           width: 140,          
+                        //         ),
+                        //         menuItemStyleData: const MenuItemStyleData(
+                                  
+                        //           // overlayColor:,
+                        //           height: 40,
+                        //         ),
+                        //          validator: (val){
+                        //     if(val!.isEmpty){
+                        //       return "Dosage is requried*";                      
+                        //     }
+                        //     return null;
+                        //   },
+                        //         decoration: InputDecoration(
+                                  
+                        //         ),
+                        //       ),
+                              
+                        //     ),
+                        // ),
+                      // ),

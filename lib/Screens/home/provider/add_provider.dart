@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:my_health_journal/Screens/home/medications/add_medications.dart';
 import 'package:my_health_journal/Screens/widget/appbar.dart';
+import 'package:my_health_journal/common-widgets/custom_bottom_navigation3.dart';
 import 'package:my_health_journal/common-widgets/custom_button.dart';
 import 'package:my_health_journal/common-widgets/custom_textfield.dart';
 import 'package:my_health_journal/controllers/calendar_controller.dart';
@@ -29,251 +30,267 @@ class AddProvider extends StatefulWidget {
 class _AddProviderState extends State<AddProvider> {
   @override
   Widget build(BuildContext context) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,    
-      body:   GetBuilder<HomeController>(
-        // init: MyController(),
-        // initState: (_) {},
-        builder: (ctrl) {
-          return Form(
-            key: ctrl.providerForm,
-            child: Container(                    
-                 width: double.infinity,
-                        height: Get.height,
-                           decoration: const BoxDecoration(  
-                            color: AppColors.bgColor,          
-                      image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
-                      fit: BoxFit.fill
-                      )
-                    ),
-                    child: Padding(
-                      padding:  EdgeInsets.symmetric(
-                        horizontal: 12.h,
-                        vertical: 8.h
-                      ),
-                      child: ListView(
-                        children: [
-                       addHeight(30),
-                        AppBar1(title: "Add Provider"),
-                        addHeight(20),
-                        CustomTextField(
-                          controller: ctrl.providerName,
-                          labelText:  "Doctor Name",
-                          validator: (val){
-                             if(val!.isEmpty){
-                      return "Name is Required*";
-                    }
-                    else if (val.length < 2){
-                      return "Please enter valid name*";
-                    }
-                    return null;
-                          },
-            
+      return Stack(
+       
+        children: [
+            Container(              
+         width: double.infinity,
+                height: Get.height,
+                   decoration: const BoxDecoration(  
+                    color: AppColors.bgColor,          
+              image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
+              fit: BoxFit.fill
+              )
+            ),),
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            resizeToAvoidBottomInset: false,    
+          body:   GetBuilder<HomeController>(
+            // init: MyController(),
+            // initState: (_) {},
+            builder: (ctrl) {
+              return Form(
+                key: ctrl.providerForm,
+                child: Container(                    
+                     width: double.infinity,
+                            height: Get.height,
+                               decoration: const BoxDecoration(  
+                                color: AppColors.bgColor,          
+                          image: DecorationImage(image: AssetImage(AppAssets.bgImg2),
+                          fit: BoxFit.fill
+                          )
                         ),
-                        addHeight(20),
-                        CustomTextField(
-                          controller: ctrl.providerSpecicalization,
-                          labelText:  "Specialization",
-                          validator: (val){
-                             if(val!.isEmpty){
-                      return "Specialization is Required*";
-                    }
-                  
-                    return null;
-                          }
-                          
-                        ),
-                         addHeight(20),
-                          CustomTextField(
-                            controller: ctrl.providerWebUrl,
-                          labelText:  "Provider Website URL",
-                          // validator: (val){}
-                          
-                        ),
-                         addHeight(20),
-                        CustomTextField(
-                          controller: ctrl.providerAccount,
-                          labelText:  "Account Number",
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [
-                             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                                // LengthLimitingTextInputFormatter(15),
-                          ],
-                        ),
-                         addHeight(20),
-                        IntlPhoneField(
-                              // controller: profileController.phoneNoCtrl,                 
-                              // autovalidateMode: AutovalidateMode.always,
-                              disableLengthCheck: true,
-                              keyboardType: TextInputType.numberWithOptions(signed: false, decimal: false),
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                                LengthLimitingTextInputFormatter(15),
-                              ],
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(
+                            horizontal: 12.h,
+                            vertical: 8.h
+                          ),
+                          child: ListView(
+                            children: [
+                           addHeight(30),
+                            AppBar1(title: "Add Provider"),
+                            addHeight(20),
+                            CustomTextField(
+                              controller: ctrl.providerName,
+                              labelText:  "Doctor Name",
                               validator: (val){
-                                  if(val!.number.length > 7 &&  val.number.length < 15){
-                                      return null;
-                                    }
-                                    else{
-                                        return 'Enter Valid Number*'.tr;
-                                    }
+                                 if(val!.isEmpty){
+                          return "Name is Required*";
+                        }
+                        else if (val.length < 2){
+                          return "Please enter valid name*";
+                        }
+                        return null;
                               },
-                              flagsButtonPadding: const EdgeInsets.only(
-                                left: 10,
-                                right: 10,
-                              ),
+                
+                            ),
+                            addHeight(20),
+                            CustomTextField(
+                              controller: ctrl.providerSpecicalization,
+                              labelText:  "Specialization",
+                              validator: (val){
+                                 if(val!.isEmpty){
+                          return "Specialization is Required*";
+                        }
+                      
+                        return null;
+                              }
                               
-                              decoration: InputDecoration(    
-                                floatingLabelAlignment: FloatingLabelAlignment.start,                        
-                                label: addRegularTxt('Contact Information', color: AppColors.greyColor1),
-                                floatingLabelStyle: const TextStyle(                           
-                                ),
-                                isDense: false,
-                                // filled: true,  
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: const BorderSide(
-                                    color: AppColors.orangeColor
+                            ),
+                             addHeight(20),
+                              CustomTextField(
+                                controller: ctrl.providerWebUrl,
+                              labelText:  "Provider Website URL",
+                              // validator: (val){}
+                              
+                            ),
+                             addHeight(20),
+                            CustomTextField(
+                              controller: ctrl.providerAccount,
+                              labelText:  "Account Number",
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                 FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                    // LengthLimitingTextInputFormatter(15),
+                              ],
+                            ),
+                             addHeight(20),
+                            IntlPhoneField(
+                                  // controller: profileController.phoneNoCtrl,                 
+                                  // autovalidateMode: AutovalidateMode.always,
+                                  disableLengthCheck: true,
+                                  keyboardType: TextInputType.numberWithOptions(signed: false, decimal: false),
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                                    LengthLimitingTextInputFormatter(15),
+                                  ],
+                                  validator: (val){
+                                      if(val!.number.length > 7 &&  val.number.length < 15){
+                                          return null;
+                                        }
+                                        else{
+                                            return 'Enter Valid Number*'.tr;
+                                        }
+                                  },
+                                  flagsButtonPadding: const EdgeInsets.only(
+                                    left: 10,
+                                    right: 10,
                                   ),
-                    
-                                    // gapPadding: 20
-                                  // borderSide: BorderSide.none,
+                                  
+                                  decoration: InputDecoration(    
+                                    floatingLabelAlignment: FloatingLabelAlignment.start,                        
+                                    label: addRegularTxt('Contact Information', color: AppColors.greyColor1),
+                                    floatingLabelStyle: const TextStyle(                           
+                                    ),
+                                    isDense: false,
+                                    // filled: true,  
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                        color: AppColors.orangeColor
+                                      ),
+                        
+                                        // gapPadding: 20
+                                      // borderSide: BorderSide.none,
+                                    ), 
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                        color: AppColors.orangeColor
+                                      ),)
+                        ,
+                        
+                                                                                       
+                                    focusColor: AppColors.orangeColor,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                        color: AppColors.orangeColor
+                                      ),
+                                        // gapPadding: 20
+                                      // borderSide: BorderSide.none,
+                                    ),   
+                                    enabledBorder:OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                        color: AppColors.orangeColor
+                                      ),                          
+                                    ) ,                         
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                        color: AppColors.orangeColor
+                                      ),                               
+                                    ),
+                                  ),
+                                  showDropdownIcon: true,
+                                  dropdownIcon: const Icon(Icons.keyboard_arrow_down_outlined, color: AppColors.blackColor2,), 
+                                  dropdownIconPosition: IconPosition.trailing,                          
+                                  showCountryFlag: true,                          
+                                  initialCountryCode:'US',
+                                  onCountryChanged: (country) {
+                                    // log(country.dialCode);
+                                    // log(country.code);  
+                                   
+                                  },
+                                  onChanged: (phone)
+                                                 {
+                                                ctrl.providerPhone.text = "${phone.countryCode} ${phone.number}";
+                                  },
+                                   enabled: true,
                                 ), 
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: const BorderSide(
-                                    color: AppColors.orangeColor
-                                  ),)
-                    ,
-                    
-                                                                                   
-                                focusColor: AppColors.orangeColor,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: const BorderSide(
-                                    color: AppColors.orangeColor
-                                  ),
-                                    // gapPadding: 20
-                                  // borderSide: BorderSide.none,
-                                ),   
-                                enabledBorder:OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: const BorderSide(
-                                    color: AppColors.orangeColor
-                                  ),                          
-                                ) ,                         
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: const BorderSide(
-                                    color: AppColors.orangeColor
-                                  ),                               
-                                ),
-                              ),
-                              showDropdownIcon: true,
-                              dropdownIcon: const Icon(Icons.keyboard_arrow_down_outlined, color: AppColors.blackColor2,), 
-                              dropdownIconPosition: IconPosition.trailing,                          
-                              showCountryFlag: true,                          
-                              initialCountryCode:'US',
-                              onCountryChanged: (country) {
-                                // log(country.dialCode);
-                                // log(country.code);  
-                               
+                             addHeight(20),
+                            CustomTextField(
+                              controller: ctrl.providerDateOfVisit,
+                              readOnly: true,
+                              validator: (val){
+                                  if(val!.isEmpty){
+                          return "Date Of First Visit is Required*";
+                        }
+                      
+                        return null;
                               },
-                              onChanged: (phone)
-                                             {
-                                            ctrl.providerPhone.text = "${phone.countryCode} ${phone.number}";
+                              onTap: (){
+                _Calendarpop(context);
                               },
-                               enabled: true,
-                            ), 
-                         addHeight(20),
-                        CustomTextField(
-                          controller: ctrl.providerDateOfVisit,
-                          readOnly: true,
-                          validator: (val){
-                              if(val!.isEmpty){
-                      return "Date Of First Visit is Required*";
-                    }
-                  
-                    return null;
-                          },
-                          onTap: (){
-            _Calendarpop(context);
-                          },
-                          labelText: "Date Of First Visit",
-                          
-                            suffixIcon: Padding(
-                        padding:  EdgeInsets.all(12.0.sp),
-                        child: SvgPicture.asset(AppAssets.bottomNav3, color: AppColors.orangeColor,height: 20,),
+                              labelText: "Date Of First Visit",
+                              
+                                suffixIcon: Padding(
+                            padding:  EdgeInsets.all(12.0.sp),
+                            child: SvgPicture.asset(AppAssets.bottomNav3, color: AppColors.orangeColor,height: 20,),
+                          ),
+                            ), addHeight(20),
+                             
+                   Padding(
+                    padding: EdgeInsets.symmetric(vertical: 6,),
+                    child: InkWell(
+                      onTap: (){
+                          _addPictureSheet(context, 2);
+                      },
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: DottedBorder(
+                              color: AppColors.dotBorderColor,
+                              strokeWidth: 1,
+                              borderType: BorderType.RRect,
+                              dashPattern: [3,5],
+                              radius: Radius.circular(10),                    
+                                child: SizedBox(
+                                  height: 50.h,
+                                  width: Get.width,
+                                  child: Center(
+                                    child: Padding(
+                                      padding:  EdgeInsets.symmetric(horizontal: 10.sp),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 5,
+                                            child: addRegularTxt(ctrl.patientReportInfoPath == "" ? "Patient Report Info": ctrl.patientReportInfoPath.split("/").last, maxLines: 1, overflow: TextOverflow.ellipsis)),
+                                          Spacer(),
+                                          Expanded(
+                                            flex: 1,
+                                            child: SvgPicture.asset(AppAssets.uploadIcon)),
+                                          
+                                        ],
+                                      ),
+                                    ),
+                                  ))),
+                          ),
+                                // Positioned(
+                                //   top: 0,
+                                //   left: 8,
+                                //   child: Container(
+                                //     decoration: BoxDecoration(
+                                //       color: AppColors.whiteColor.withOpacity(0.8)
+                                //     ),
+                                //     child: addRegularTxt("Patient Report Info", color: AppColors.blackColor3, fontSize: 13.sp),
+                                //   ),
+                                // )
+                        ],
                       ),
-                        ), addHeight(20),
-                         
-               Padding(
-                padding: EdgeInsets.symmetric(vertical: 6,),
-                child: InkWell(
-                  onTap: (){
-                      _addPictureSheet(context, 2);
-                  },
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8),
-                        child: DottedBorder(
-                          color: AppColors.dotBorderColor,
-                          strokeWidth: 1,
-                          borderType: BorderType.RRect,
-                          dashPattern: [3,5],
-                          radius: Radius.circular(10),                    
-                            child: SizedBox(
-                              height: 50.h,
-                              width: Get.width,
-                              child: Center(
-                                child: Padding(
-                                  padding:  EdgeInsets.symmetric(horizontal: 10.sp),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 5,
-                                        child: addRegularTxt(ctrl.patientReportInfoPath == "" ? "Patient Report Info": ctrl.patientReportInfoPath.split("/").last, maxLines: 1, overflow: TextOverflow.ellipsis)),
-                                      Spacer(),
-                                      Expanded(
-                                        flex: 1,
-                                        child: SvgPicture.asset(AppAssets.uploadIcon)),
-                                      
-                                    ],
-                                  ),
-                                ),
-                              ))),
-                      ),
-                            // Positioned(
-                            //   top: 0,
-                            //   left: 8,
-                            //   child: Container(
-                            //     decoration: BoxDecoration(
-                            //       color: AppColors.whiteColor.withOpacity(0.8)
-                            //     ),
-                            //     child: addRegularTxt("Patient Report Info", color: AppColors.blackColor3, fontSize: 13.sp),
-                            //   ),
-                            // )
-                    ],
+                    )
                   ),
-                )
-              ),
-                         addHeight(20),
-                         Padding(
-               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child:   CustomButton(
-                height: 50,
-                width: Get.width / 2,
-                text: "Save", onPressed: (){
-                  if(ctrl.providerForm.currentState!.validate()){
-                    ctrl.AddProviderApi();
-                  }
-                }),
-            ),
-            addHeight(10)
-                        ]))),
-          );})
-                       );
+                             addHeight(20),
+                             Padding(
+                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  child:   CustomButton(
+                    height: 50,
+                    width: Get.width / 2,
+                    text: "Save", onPressed: (){
+                      if(ctrl.providerForm.currentState!.validate()){
+                        ctrl.AddProviderApi();
+                      }
+                    }),
+                ),
+                addHeight(10)
+                            ]))),
+              );})
+                           ,bottomNavigationBar: const NavBar2(),
+                           ),
+        ],
+      );
   }
   String _addPictureSheet(BuildContext context, int number ) {
   String? imgPath;
